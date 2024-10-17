@@ -16,6 +16,7 @@ module.exports = {
     },
     sourceType: 'module',
   },
+  ignorePatterns: ['build/**/*', 'jest.config.ts', 'components/**'],
   plugins: [
     'react',
     'react-native',
