@@ -6,8 +6,6 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-native/all',
   ],
   parserOptions: {
     project: './tsconfig.json',
