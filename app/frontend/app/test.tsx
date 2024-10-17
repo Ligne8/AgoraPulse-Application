@@ -1,14 +1,18 @@
-import {View} from "react-native";
+import {View, Text} from 'react-native';
+import React  from 'react';
 
-
+function test() {
+    let i = 0;
+    console.log(i);
+    return i;
+}
 const Test = () => {
     return (
         <div>
            <View className="max-h-none">
-
+               <Text>Test</Text>
            </View>
-            <h1>Test</h1>
         </div>
-    )
-}
+    );
+};
 export default Test;
