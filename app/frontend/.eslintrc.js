@@ -6,10 +6,14 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'plugin:react/recommended',
   ],
   parserOptions: {
     project: './tsconfig.json',
-    tsconfigRootDir: __dirname, // Ensures it resolves from the root
+    tsconfigRootDir: __dirname,
+    ecmaFeatures: {
+      jsx: true,
+    },
     sourceType: 'module',
   },
   plugins: [
