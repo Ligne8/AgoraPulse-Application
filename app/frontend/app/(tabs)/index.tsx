@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Platform, View} from 'react-native';
+import {Image, StyleSheet, Platform} from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -46,7 +46,7 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
-   </ParallaxScrollView>
+    </ParallaxScrollView>
   );
 }
 
