@@ -1,6 +1,7 @@
 import { Text, type TextProps, StyleSheet } from 'react-native';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { useFonts } from 'expo-font';
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
@@ -16,7 +17,14 @@ export function ThemedText({
   ...rest
 }: ThemedTextProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  const [fontsLoaded] = useFonts({
+    Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
+    MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
+  });
 
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <Text
       style={[

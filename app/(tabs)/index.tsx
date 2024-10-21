@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useLayoutEffect, useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useLayoutEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
-
+import CustomButton from '@/components/CustomButton';  // Importe ton composant bouton
 
 SplashScreen.preventAutoHideAsync();
 
@@ -12,13 +12,14 @@ export default function WelcomeScreen() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
+    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
-  if (!fontsLoaded) {
-    return null;
-  }
-
-  SplashScreen.hideAsync();
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
   const navigation = useNavigation();
 
@@ -28,26 +29,37 @@ export default function WelcomeScreen() {
     });
   }, [navigation]);
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <Image
         source={require('@/assets/images/logo.png')}
         style={styles.logo}
+        testID="logo"
       />
-
       <Text style={styles.title}>Bonjour !</Text>
-
       <Text style={styles.description}>
         Nous sommes ravis de vous accueillir. Connectez-vous pour découvrir les dernières promotions près de chez vous, ou inscrivez-vous pour commencer.
       </Text>
 
-      <TouchableOpacity style={styles.connectButton}>
-        <Text style={styles.connectButtonText}>Se connecter</Text>
-      </TouchableOpacity>
+      {/* Utilisation du composant bouton pour Se connecter */}
+      <CustomButton
+        title="Se connecter"
+        onPress={() => console.log('Se connecter')}
+        backgroundColor="white"
+        textColor="#0E3D60"
+      />
 
-      <TouchableOpacity>
-        <Text style={styles.signUpText}>S'inscrire</Text>
-      </TouchableOpacity>
+      {/* Utilisation du composant bouton pour S'inscrire */}
+      <CustomButton
+        title="S'inscrire"
+        onPress={() => console.log("S'inscrire")}
+        backgroundColor="transparent"
+        textColor="white"
+      />
     </View>
   );
 }
@@ -67,8 +79,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 28,
-    fontFamily: 'MontserratBold',
+    fontSize: 40,
+    fontFamily: 'MontserratExtraBolt',
     marginBottom: 15,
   },
   description: {
@@ -77,22 +89,5 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
     textAlign: 'center',
     marginBottom: 40,
-  },
-  connectButton: {
-    backgroundColor: 'white',
-    paddingVertical: 15,
-    paddingHorizontal: 90,
-    borderRadius: 20,
-    marginBottom: 20,
-  },
-  connectButtonText: {
-    color: '#0E3D60',
-    fontSize: 18,
-    fontFamily: 'MontserratBold',
-  },
-  signUpText: {
-    color: 'white',
-    fontSize: 18,
-    fontFamily: 'Montserrat',
   },
 });

@@ -1,10 +1,11 @@
-import * as React from 'react';
-import renderer from 'react-test-renderer';
-
+import { render, waitFor } from '@testing-library/react-native';
+import React from 'react';
 import { ThemedText } from '../ThemedText';
 
-it(`renders correctly`, () => {
-  const tree = renderer.create(<ThemedText>Snapshot test!</ThemedText>).toJSON();
+test('renders correctly', async () => {
+  const { getByText } = render(<ThemedText>Bonjour !</ThemedText>);
 
-  expect(tree).toMatchSnapshot();
+  await waitFor(() => {
+    expect(getByText('Bonjour !')).toBeTruthy();
+  });
 });
