@@ -14,6 +14,8 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
+jest.useFakeTimers({ legacyFakeTimers: true });
+
 describe('WelcomeScreen', () => {
     beforeEach(() => {
       // Mock du console.log pour chaque test
