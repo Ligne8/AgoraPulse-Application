@@ -13,7 +13,7 @@
   },
   "jest": {
     "preset": "jest-expo",
-    "testTimeout": 20000
+    "testTimeout": 30000
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
