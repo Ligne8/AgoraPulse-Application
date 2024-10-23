@@ -14,6 +14,7 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
+
 describe('WelcomeScreen', () => {
     beforeEach(() => {
       // Mock du console.log pour chaque test
