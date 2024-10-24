@@ -42,72 +42,15 @@ export default function ClientRegisterScreen() {
       name: "Sorties",
       selected: false,
     },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
-    {
-      id: 6,
-      name: "Shopping",
-      selected: false,
-    },
   ]);
+
+  const fetchTags = async () => {
+    return;
+  };
+
+  useEffect(() => {
+    // fetchTags();
+  });
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -127,7 +70,11 @@ export default function ClientRegisterScreen() {
     return null;
   }
 
-  const onPress = () => {};
+  const onPress = () => {
+    const selectedTags = tags.filter((tag) => tag.selected);
+    const payload = selectedTags.map((tag) => tag.id);
+    console.log(payload);
+  };
 
   return (
     <View style={styles.container}>
@@ -137,7 +84,7 @@ export default function ClientRegisterScreen() {
       </View>
       <View style={styles.tagsContainer}>
         <Text style={styles.tagsTitle}>Sélectionnez au moins 3 centres d’intérêt</Text>
-        <TagsSelector tags={tags} />
+        <TagsSelector tags={tags} setTags={setTags} />
       </View>
       <View>
         <Text style={styles.addtagsTitle}>Vous n’avez pas trouvé ce qui vous intéresse ?</Text>

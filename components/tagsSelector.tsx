@@ -5,13 +5,27 @@ import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-nati
 interface Tag {
   id: number;
   name: string;
+  selected: boolean;
+}
+
+interface TagButtonProps extends Tag {
+  onClick: (tag: Tag) => void;
 }
 
 interface TagsSelectorProps {
   tags: Tag[];
+  setTags: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        name: string;
+        selected: boolean;
+      }[]
+    >
+  >;
 }
 
-function TagButton({ id, name }: Tag) {
+function TagButton({ id, name, selected, onClick }: TagButtonProps) {
   const [fontsLoaded] = useFonts({
     Montserrat: require("@/assets/fonts/Montserrat-Regular.ttf"),
     MontserratBold: require("@/assets/fonts/Montserrat-Bold.ttf"),
@@ -20,20 +34,44 @@ function TagButton({ id, name }: Tag) {
   const onPress = () => {
     return;
   };
-
+  const [currentStyleButton, setCurrentStyleButton] = React.useState([styles.tagsButton, styles.tagsButtonUnselected]);
+  const [currentStyleText, setCurrentStyleText] = React.useState(styles.tagButtonText);
   return (
-    <TouchableOpacity style={styles.tagsButton} onPress={onPress}>
-      <Text style={styles.tagButtonText}>{name}</Text>
+    <TouchableOpacity
+      onPressIn={() => {
+        if (selected == false) {
+          setCurrentStyleButton([styles.tagsButton, styles.tagsButtonSelected]);
+          setCurrentStyleText(styles.tagButtonTextSelected);
+        } else {
+          setCurrentStyleButton([styles.tagsButton, styles.tagsButtonUnselected]);
+          setCurrentStyleText(styles.tagButtonText);
+        }
+        onClick({ id, name, selected });
+      }}
+      style={currentStyleButton}
+      onPress={onPress}
+    >
+      <Text style={currentStyleText}>{name}</Text>
     </TouchableOpacity>
   );
 }
 
-export default function TagsSelector({ tags }: TagsSelectorProps) {
+export default function TagsSelector({ tags, setTags }: TagsSelectorProps) {
+  const onClick = (tag: Tag) => {
+    setTags(
+      tags.map((t) => {
+        if (t.id === tag.id) {
+          return { ...t, selected: !t.selected };
+        }
+        return t;
+      })
+    );
+  };
   return (
     <View style={styles.wrapper}>
       <ScrollView contentContainerStyle={{ flex: 1, flexDirection: "row", flexWrap: "wrap" }} showsVerticalScrollIndicator={false} horizontal={false} showsHorizontalScrollIndicator={false} style={styles.container}>
         {tags.map((tag) => (
-          <TagButton name={tag.name} id={tag.id} />
+          <TagButton name={tag.name} id={tag.id} selected={tag.selected} onClick={onClick} />
         ))}
       </ScrollView>
     </View>
@@ -65,8 +103,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#EEEEEE",
   },
   tagsButtonSelected: {
-    borderColor: "#CCCCCC",
-    backgroundColor: "#EEEEEE",
+    borderColor: "#0E3D60",
+    backgroundColor: "#0E3D60",
   },
 
   tagButtonText: {
@@ -74,5 +112,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     flexShrink: 1, // Allow text to take only the space it needs
     fontFamily: "Montserrat",
+  },
+
+  tagButtonTextSelected: {
+    color: "white",
+    fontSize: 14,
+    flexShrink: 1, // Allow text to take only the space it needs
+    fontFamily: "Montserrat-Bold",
   },
 });
