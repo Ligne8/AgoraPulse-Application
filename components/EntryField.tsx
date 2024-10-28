@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import {View, Text, StyleSheet, TextInput} from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 
 interface EntryFieldProps {
     icon: IconDefinition;
@@ -11,6 +11,8 @@ interface EntryFieldProps {
     backgroundColor?: string;
     descriptionColor?: string;
     secureText?: boolean;
+    multiline?: boolean;
+    marginBottom?: number; // New optional prop for custom margin
 }
 
 export default function EntryField({
@@ -21,19 +23,23 @@ export default function EntryField({
                                        backgroundColor = '#f2f2f2',
                                        descriptionColor = '#6c7a93',
                                        secureText = false,
+                                       multiline = false,
+                                       marginBottom = 15, // Default value if not provided
                                    }: EntryFieldProps) {
     return (
-        <View style={[styles.container, { backgroundColor }]}>
+        <View style={[styles.container, {backgroundColor, marginBottom}]}>
             <View style={styles.iconContainer}>
-                <FontAwesomeIcon icon={icon} size={20} color={iconColor} />
+                <FontAwesomeIcon icon={icon} size={20} color={iconColor}/>
             </View>
-            <View style={styles.textContainer}>
+            <View style={[styles.textContainer, multiline && styles.textContainerMultiline]}>
                 <Text style={styles.title}>{title}</Text>
                 <TextInput
                     placeholder={placeholder}
                     placeholderTextColor={descriptionColor}
-                    style={styles.input}
+                    style={[styles.input, multiline && styles.inputMultiline]}
                     secureTextEntry={secureText}
+                    multiline={multiline}
+                    textAlignVertical={multiline ? 'top' : 'center'} // align text to top if multiline
                 />
             </View>
         </View>
@@ -43,19 +49,24 @@ export default function EntryField({
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         padding: 10,
         borderRadius: 10,
         borderColor: '#e3e3e3',
         borderWidth: 1,
         width: '100%',
-        marginBottom: 15,
     },
     iconContainer: {
-        marginRight: 10,
+        alignSelf: 'flex-start',
+        paddingTop: 5,
+        paddingRight: 10,
     },
     textContainer: {
         flex: 1,
+        justifyContent: 'center',
+    },
+    textContainerMultiline: {
+        justifyContent: 'flex-start',
     },
     title: {
         fontSize: 16,
@@ -64,7 +75,10 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     input: {
-        fontSize: 14,
+        fontSize: 16,
         color: '#6c7a93',
+    },
+    inputMultiline: {
+        height: 40,
     },
 });
