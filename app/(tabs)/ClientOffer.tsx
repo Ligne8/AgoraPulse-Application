@@ -11,6 +11,7 @@ interface ClientOfferProps {
 function ReturnButton() {
   const onPress = () => {
     // return to previous screen
+      console.log("Return to previous screen")
   };
   return (
     <TouchableOpacity className="flex-row justify-left items-center" onPress={onPress}>
@@ -29,7 +30,8 @@ export default function ClientOffer({ code }: ClientOfferProps) {
 
   const [qrcode, setQrcode] = React.useState("default");
 
-  const DEFAULT_QRCODE = "AX58C8ST";
+  // A recupérer par la suite depuis ClientOfferModal
+  const DEFAULT_QRCODE = "N/A";
 
   useEffect(() => {
     setQrcode(code || DEFAULT_QRCODE);
