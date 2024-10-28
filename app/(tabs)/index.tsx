@@ -51,7 +51,7 @@ export default function WelcomeScreen() {
       {/* Utilisation du composant bouton pour S'inscrire */}
       <CustomButton
         title="S'inscrire"
-        onPress={() => console.log("S'inscrire")}
+        onPress={() => console.log('S\'inscrire')}
         backgroundColor="transparent"
         textColor="white"
       />
