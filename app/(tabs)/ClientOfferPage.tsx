@@ -1,6 +1,6 @@
 import { Text, Touchable, TouchableOpacity, View, Image, ScrollView } from "react-native";
 import React from "react";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 interface Offer {
   title: string;
@@ -57,8 +57,8 @@ export default function ClientOfferPage() {
       </View>
       <View className=" h-[450px]">
         <ScrollView className=" " showsVerticalScrollIndicator={false}>
-          {offers.map((offer) => (
-            <Offer title={offer.title} picture_url={offer.picture_url} code={offer.code} />
+          {offers.map((offer, index) => (
+            <Offer key={index} title={offer.title} picture_url={offer.picture_url} code={offer.code} />
           ))}
         </ScrollView>
       </View>
