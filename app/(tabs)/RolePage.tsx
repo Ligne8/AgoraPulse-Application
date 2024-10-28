@@ -4,7 +4,7 @@ import React, {useLayoutEffect, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {StyleSheet, Text, View} from 'react-native';
 import CustomButton from '@/components/CustomButton';
-import { faShoppingCart, faStore } from '@fortawesome/free-solid-svg-icons';
+import {faShoppingCart, faStore} from '@fortawesome/free-solid-svg-icons';
 import RoleOption from '@/components/RoleOption';
 
 SplashScreen.preventAutoHideAsync();
@@ -24,13 +24,13 @@ export default function RolePage() {
 
     const navigation = useNavigation();
     useLayoutEffect(() => {
-     navigation.setOptions({
-       tabBarStyle: { display: 'none' },
-     });
+        navigation.setOptions({
+            tabBarStyle: {display: 'none'},
+        });
     }, [navigation]);
     return (
         <View style={styles.container}>
-            <Text style={[styles.title, { textAlign: 'center' }]}>Choisissez votre rôle</Text>
+            <Text style={[styles.title, {textAlign: 'center'}]}>Choisissez votre rôle</Text>
             <Text style={styles.description}>
                 Sélectionnez votre profil pour une expérience adaptée à vos besoins.
             </Text>
@@ -62,6 +62,7 @@ export default function RolePage() {
                 onPress={() => console.log('Suivant')}
                 backgroundColor="#0E3D60"
                 textColor="#FFFFFF"
+                width="100%"
             />
         </View>
     );
