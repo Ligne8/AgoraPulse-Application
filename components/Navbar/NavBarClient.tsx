@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import WelcomeScreen from '@/app/(tabs)';
 
 /**
  * The functions HomeScreen, HomeStack... are to be modified for the actual app
@@ -17,9 +18,9 @@ const Stack = createStackNavigator();
 
 function HomeScreen() {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home!</Text>
-        </View>
+        <>
+            <WelcomeScreen />
+        </>
     );
 }
 

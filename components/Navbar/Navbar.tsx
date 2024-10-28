@@ -12,9 +12,8 @@ const Tab = createBottomTabNavigator();
 function HomeScreen() {
     return (
         <>
-            <Text>Home!</Text>
+            <WelcomeScreen />
         </>
-       // <WelcomeScreen />
     );
 }
 

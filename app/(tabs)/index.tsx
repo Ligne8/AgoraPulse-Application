@@ -24,7 +24,7 @@ export default function WelcomeScreen() {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
-    navigation.setOptions({
+    navigation.getParent()?.setOptions({
       tabBarStyle: { display: 'none' },
     });
   }, [navigation]);
