@@ -10,5 +10,9 @@ jobs:
           node-version: '21.x'
       - name: Install dependencies
         run: npm install
+      - name: Check version
+        run: |
+             node --version
+             npm --version
       - name: Run ESLint
         uses: stefanoeb/eslint-action@1.0.2
