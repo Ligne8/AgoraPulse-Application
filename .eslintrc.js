@@ -19,19 +19,14 @@ module.exports = {
     sourceType: 'module',
   },
   ignorePatterns: ['build/**/*', 'jest.config.ts', 'scripts/reset-project.js'],
-  plugins: [
-    'react',
-    'react-native',
-    'import',
-    '@typescript-eslint',
-  ],
+  plugins: ['react', 'react-native', 'import', '@typescript-eslint'],
   rules: {
     'react-native/no-unused-styles': 'warn',
     'react-native/split-platform-components': 'warn',
     'react-native/no-inline-styles': 'off',
 
-    'quotes': ['error', 'single'],
-    'semi': ['error', 'always'],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
     'react/prop-types': 'off',
     'no-unused-vars': 'warn',
   },

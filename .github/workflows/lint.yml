@@ -13,4 +13,8 @@ jobs:
       - name: Install ESLint
         run: npm install eslint@8.57.1
       - name: Run ESLint
-        run: npx eslint '**/*.{js,ts,tsx}'
+        run: npx eslint '**/*.{js,ts,tsx}'`
+      - name: Install Prettier
+        run: npm install prettier
+      - name: Check Prettier formatting
+        run: npx prettier --check '**/*.{js,ts,tsx}'

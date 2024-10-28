@@ -35,13 +35,26 @@ export default function WelcomeScreen() {
     <View style={styles.container}>
       <Image source={require('@/assets/images/logo.png')} style={styles.logo} testID="logo" />
       <Text style={styles.title}>Bonjour !</Text>
-      <Text style={styles.description}>Nous sommes ravis de vous accueillir. Connectez-vous pour découvrir les dernières promotions près de chez vous, ou inscrivez-vous pour commencer.</Text>
+      <Text style={styles.description}>
+        Nous sommes ravis de vous accueillir. Connectez-vous pour découvrir les dernières promotions près de chez vous,
+        ou inscrivez-vous pour commencer.
+      </Text>
 
       {/* Utilisation du composant bouton pour Se connecter */}
-      <CustomButton title="Se connecter" onPress={() => console.log('Se connecter')} backgroundColor="white" textColor="#0E3D60" />
+      <CustomButton
+        title="Se connecter"
+        onPress={() => console.log('Se connecter')}
+        backgroundColor="white"
+        textColor="#0E3D60"
+      />
 
       {/* Utilisation du composant bouton pour S'inscrire */}
-      <CustomButton title="S'inscrire" onPress={() => console.log('S\'inscrire')} backgroundColor="transparent" textColor="white" />
+      <CustomButton
+        title="S'inscrire"
+        onPress={() => console.log("S'inscrire")}
+        backgroundColor="transparent"
+        textColor="white"
+      />
     </View>
   );
 }
