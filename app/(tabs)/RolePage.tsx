@@ -24,9 +24,9 @@ export default function RolePage() {
 
     const navigation = useNavigation();
     useLayoutEffect(() => {
-     navigation.setOptions({
-       tabBarStyle: { display: 'none' },
-     });
+        navigation.getParent()?.setOptions({
+            tabBarStyle: {display: 'none'},
+        });
     }, [navigation]);
     return (
         <View style={styles.container}>
