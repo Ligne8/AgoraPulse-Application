@@ -5,7 +5,7 @@ import { useLayoutEffect, useEffect } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import CustomButton from "@/components/CustomButton"; // Importe ton composant bouton
-import WelcomeScreen from "./welcompage";
+import WelcomeScreen from "@/app/(tabs)/welcompage";
 
 SplashScreen.preventAutoHideAsync();
 
