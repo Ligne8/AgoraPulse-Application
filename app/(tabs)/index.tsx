@@ -29,6 +29,7 @@ export default function WelcomeScreen() {
   //   });
   // }, [navigation]);
 
+
   if (!fontsLoaded) {
     return null;
   }
