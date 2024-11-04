@@ -1,6 +1,5 @@
-import { useFonts } from "expo-font";
-import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 interface Tag {
   id: number;
@@ -9,6 +8,7 @@ interface Tag {
 }
 
 interface TagButtonProps extends Tag {
+  // eslint-disable-next-line
   onClick: (tag: Tag) => void;
 }
 
@@ -26,11 +26,6 @@ interface TagsSelectorProps {
 }
 
 function TagButton({ id, name, selected, onClick }: TagButtonProps) {
-  const [fontsLoaded] = useFonts({
-    Montserrat: require("@/assets/fonts/Montserrat-Regular.ttf"),
-    MontserratBold: require("@/assets/fonts/Montserrat-Bold.ttf"),
-    MontserratExtraBolt: require("@/assets/fonts/Montserrat-ExtraBold.ttf"),
-  });
   const onPress = () => {
     return;
   };
@@ -56,7 +51,7 @@ function TagButton({ id, name, selected, onClick }: TagButtonProps) {
   );
 }
 
-export default function TagsSelector({ tags, setTags }: TagsSelectorProps) {
+export function TagsSelector({ tags, setTags }: TagsSelectorProps) {
   const onClick = (tag: Tag) => {
     setTags(
       tags.map((t) => {
@@ -69,9 +64,15 @@ export default function TagsSelector({ tags, setTags }: TagsSelectorProps) {
   };
   return (
     <View style={styles.wrapper}>
-      <ScrollView contentContainerStyle={{ flex: 1, flexDirection: "row", flexWrap: "wrap" }} showsVerticalScrollIndicator={false} horizontal={false} showsHorizontalScrollIndicator={false} style={styles.container}>
+      <ScrollView
+        contentContainerStyle={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}
+        showsVerticalScrollIndicator={false}
+        horizontal={false}
+        showsHorizontalScrollIndicator={false}
+        style={styles.container}
+      >
         {tags.map((tag) => (
-          <TagButton name={tag.name} id={tag.id} selected={tag.selected} onClick={onClick} />
+          <TagButton key={tag.id} name={tag.name} id={tag.id} selected={tag.selected} onClick={onClick} />
         ))}
       </ScrollView>
     </View>
@@ -83,41 +84,41 @@ const styles = StyleSheet.create({
     margin: -5,
     height: 180,
     borderWidth: 0,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   tagsButton: {
     borderRadius: 50,
     height: 30,
     margin: 5,
     borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 10,
   },
   tagsButtonUnselected: {
-    borderColor: "#CCCCCC",
-    backgroundColor: "#EEEEEE",
+    borderColor: '#CCCCCC',
+    backgroundColor: '#EEEEEE',
   },
   tagsButtonSelected: {
-    borderColor: "#0E3D60",
-    backgroundColor: "#0E3D60",
+    borderColor: '#0E3D60',
+    backgroundColor: '#0E3D60',
   },
 
   tagButtonText: {
-    color: "#0E3D60",
+    color: '#0E3D60',
     fontSize: 14,
     flexShrink: 1, // Allow text to take only the space it needs
-    fontFamily: "Montserrat",
+    fontFamily: 'Montserrat',
   },
 
   tagButtonTextSelected: {
-    color: "white",
+    color: 'white',
     fontSize: 14,
     flexShrink: 1, // Allow text to take only the space it needs
-    fontFamily: "Montserrat-Bold",
+    fontFamily: 'Montserrat-Bold',
   },
 });

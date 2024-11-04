@@ -1,52 +1,47 @@
-import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useLayoutEffect, useEffect } from "react";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import CustomButton from "@/components/CustomButton"; // Importe ton composant bouton
-import TagsSelector from "@/components/tagsSelector";
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useLayoutEffect, useEffect } from 'react';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { TagsSelector } from '@/components/tagsSelector';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function ClientRegisterScreen() {
   const [fontsLoaded] = useFonts({
-    Montserrat: require("@/assets/fonts/Montserrat-Regular.ttf"),
-    MontserratBold: require("@/assets/fonts/Montserrat-Bold.ttf"),
-    MontserratExtraBolt: require("@/assets/fonts/Montserrat-ExtraBold.ttf"),
+    Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
+    MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
+    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
   const [tags, setTags] = React.useState([
     {
       id: 1,
-      name: "Gastronomie",
+      name: 'Gastronomie',
       selected: false,
     },
     {
       id: 2,
-      name: "Bien-être",
+      name: 'Bien-être',
       selected: false,
     },
     {
       id: 3,
-      name: "Sport",
+      name: 'Sport',
       selected: false,
     },
     {
       id: 4,
-      name: "Culture",
+      name: 'Culture',
       selected: false,
     },
     {
       id: 5,
-      name: "Sorties",
+      name: 'Sorties',
       selected: false,
     },
   ]);
-
-  const fetchTags = async () => {
-    return;
-  };
 
   useEffect(() => {
     // fetchTags();
@@ -62,7 +57,7 @@ export default function ClientRegisterScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      tabBarStyle: { display: "none" },
+      tabBarStyle: { display: 'none' },
     });
   }, [navigation]);
 
@@ -80,7 +75,9 @@ export default function ClientRegisterScreen() {
     <View style={styles.container}>
       <View>
         <Text style={styles.title}>Personnalisez votre expérience</Text>
-        <Text style={styles.subtitle}>Sélectionnez vos centres d’intérêt pour recevoir des offres et promotions adaptées à vos préférences.</Text>
+        <Text style={styles.subtitle}>
+          Sélectionnez vos centres d’intérêt pour recevoir des offres et promotions adaptées à vos préférences.
+        </Text>
       </View>
       <View style={styles.tagsContainer}>
         <Text style={styles.tagsTitle}>Sélectionnez au moins 3 centres d’intérêt</Text>
@@ -88,7 +85,9 @@ export default function ClientRegisterScreen() {
       </View>
       <View>
         <Text style={styles.addtagsTitle}>Vous n’avez pas trouvé ce qui vous intéresse ?</Text>
-        <Text style={styles.addTagsSubtitle}>Ajoutez vos propres préférences ci-dessous pour une expérience encore plus personnalisée.</Text>
+        <Text style={styles.addTagsSubtitle}>
+          Ajoutez vos propres préférences ci-dessous pour une expérience encore plus personnalisée.
+        </Text>
         <View>
           <View style={styles.addTagsInputBox}>
             <TextInput placeholder="Ajouter un centre d’intérêt" />
@@ -106,68 +105,56 @@ export default function ClientRegisterScreen() {
 }
 
 const styles = StyleSheet.create({
-  flex: {
-    display: "flex",
-    width: "auto",
-  },
-
   tagsContainer: {
-    width: "100%",
+    width: '100%',
     paddingHorizontal: 22,
   },
 
   container: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "column",
-    height: "100%",
-    width: "100%",
-    alignSelf: "center",
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'column',
+    height: '100%',
+    width: '100%',
+    alignSelf: 'center',
     paddingTop: 70,
     paddingHorizontal: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   tagsTitle: {
-    color: "#0E3D60",
+    color: '#0E3D60',
     fontSize: 18,
     marginBottom: 10,
-    textAlign: "left",
-    fontFamily: "MontserratBold",
+    textAlign: 'left',
+    fontFamily: 'MontserratBold',
   },
   subtitle: {
-    color: "#0E3D60",
-    fontFamily: "Montserrat",
-    textAlign: "center",
+    color: '#0E3D60',
+    fontFamily: 'Montserrat',
+    textAlign: 'center',
     fontSize: 16,
   },
   title: {
-    color: "#0E3D60",
+    color: '#0E3D60',
     fontSize: 36,
     fontWeight: 800,
-    textAlign: "center",
-    fontFamily: "MontserratExtraBolt",
+    textAlign: 'center',
+    fontFamily: 'MontserratExtraBolt',
     marginBottom: 30,
   },
-  description: {
-    color: "white",
-    fontSize: 16,
-    fontFamily: "Montserrat",
-    textAlign: "center",
-    marginBottom: 40,
-  },
   addtagsTitle: {
-    color: "#0E3D60",
+    color: '#0E3D60',
     fontSize: 18,
-    textAlign: "left",
-    fontFamily: "MontserratBold",
+    textAlign: 'left',
+    fontFamily: 'MontserratBold',
     paddingHorizontal: 18,
     marginBottom: 5,
   },
   addTagsSubtitle: {
-    color: "#0E3D60",
-    fontFamily: "Montserrat",
-    textAlign: "left",
+    color: '#0E3D60',
+    fontFamily: 'Montserrat',
+    textAlign: 'left',
     paddingHorizontal: 18,
     fontSize: 14,
   },
@@ -175,38 +162,38 @@ const styles = StyleSheet.create({
     width: 320,
     height: 30,
     borderRadius: 5,
-    backgroundColor: "#0E3D60",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginHorizontal: "auto",
+    backgroundColor: '#0E3D60',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 'auto',
   },
   addTagsInputBox: {
     width: 320,
     height: 40,
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
     paddingHorizontal: 10,
-    backgroundColor: "#EEEEEE",
+    backgroundColor: '#EEEEEE',
     borderRadius: 10,
-    marginHorizontal: "auto",
+    marginHorizontal: 'auto',
     marginTop: 20,
     marginBottom: 10,
   },
   addTagsButtonText: {
-    color: "white",
+    color: 'white',
     fontSize: 18,
-    fontFamily: "MontserratBold",
+    fontFamily: 'MontserratBold',
   },
 
   nextButton: {
     width: 339,
     height: 65,
     borderRadius: 20,
-    backgroundColor: "#0E3D60",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#0E3D60',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 50,
   },
 });
