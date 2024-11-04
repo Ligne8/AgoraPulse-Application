@@ -4,8 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import WelcomeScreen from '../../app/(tabs)/index';
-import NavBarClient from "@/components/Navbar/NavBarClient";
-import NavBarMerchant from "@/components/Navbar/NavBarMerchant";
+import NavBarClient from '@/components/Navbar/NavBarClient';
+import NavBarMerchant from '@/components/Navbar/NavBarMerchant';
 
 const Tab = createBottomTabNavigator();
 

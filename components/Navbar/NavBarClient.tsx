@@ -1,11 +1,10 @@
 import React from 'react';
-import {FontAwesome, MaterialIcons} from '@expo/vector-icons';
+import {FontAwesome } from '@expo/vector-icons';
 import {Text, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
 import WelcomeScreen from '@/app/(tabs)';
-import RolePage from "@/app/(tabs)/RolePage";
+import RolePage from '@/app/(tabs)/RolePage';
 
 /**
  * The functions HomeScreen, HomeStack... are to be modified for the actual app

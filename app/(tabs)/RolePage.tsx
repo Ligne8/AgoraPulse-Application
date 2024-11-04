@@ -28,6 +28,7 @@ export default function RolePage() {
       tabBarStyle: { display: 'none' },
     });
   }, [navigation]);
+  
   return (
     <View style={styles.container}>
       <Text style={[styles.title, { textAlign: 'center' }]}>Choisissez votre rôle</Text>
