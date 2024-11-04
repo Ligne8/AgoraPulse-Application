@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import React from 'react';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 interface ButtonProps {
   title: string;
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    fontFamily: "MontserratBold",
-    textAlign: "center",
+    fontFamily: 'MontserratBold',
+    textAlign: 'center',
   },
 });
