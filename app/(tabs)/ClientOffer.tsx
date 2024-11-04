@@ -1,8 +1,7 @@
-import { FontAwesome } from "@expo/vector-icons";
-import { useFonts } from "expo-font";
-import React, { useEffect } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import QRCode from "react-native-qrcode-svg";
+import { FontAwesome } from '@expo/vector-icons';
+import React, { useEffect } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import QRCode from 'react-native-qrcode-svg';
 
 interface ClientOfferProps {
   code: string;
@@ -11,7 +10,7 @@ interface ClientOfferProps {
 function ReturnButton() {
   const onPress = () => {
     // return to previous screen
-      console.log("Return to previous screen")
+    console.log('Return to previous screen');
   };
   return (
     <TouchableOpacity className="flex-row justify-left items-center" onPress={onPress}>
@@ -22,16 +21,10 @@ function ReturnButton() {
 }
 
 export default function ClientOffer({ code }: ClientOfferProps) {
-  const [fontsLoaded] = useFonts({
-    Montserrat: require("@/assets/fonts/Montserrat-Regular.ttf"),
-    MontserratBold: require("@/assets/fonts/Montserrat-Bold.ttf"),
-    MontserratExtraBolt: require("@/assets/fonts/Montserrat-ExtraBold.ttf"),
-  });
-
-  const [qrcode, setQrcode] = React.useState("default");
+  const [qrcode, setQrcode] = React.useState('default');
 
   // A recupérer par la suite depuis ClientOfferModal
-  const DEFAULT_QRCODE = "N/A";
+  const DEFAULT_QRCODE = 'N/A';
 
   useEffect(() => {
     setQrcode(code || DEFAULT_QRCODE);
@@ -44,7 +37,9 @@ export default function ClientOffer({ code }: ClientOfferProps) {
       </View>
       <View className="justify-center items-center px-[36px]">
         <Text className="text-[40px] mb-[22px] font-bold color-[#0E3D60]">Votre Code</Text>
-        <Text className="text-[16px] text-center font-bold color-[#0E3D60]">Montrez ce code en caisse pour profiter de votre offre exclusive !</Text>
+        <Text className="text-[16px] text-center font-bold color-[#0E3D60]">
+          Montrez ce code en caisse pour profiter de votre offre exclusive !
+        </Text>
       </View>
       <View className="justify-center items-center border-[#CCCCCC] bg-[#EEEEEE] border-[1px] rounded-t-[10px] mt-[32px] w-[319px] h-[320px]  p-[42px]">
         <QRCode size={270} value={qrcode} logoSize={20} backgroundColor="#EEEEEE" />

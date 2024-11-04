@@ -1,0 +1,29 @@
+name: Format and Lint
+on: [push]
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '21.x'
+      - name: Install dependencies
+        run: npm install
+      - name: Install ESLint
+        run: npm install eslint@8.57.1
+      - name: Run ESLint
+        run: npx eslint '**/*.{js,ts,tsx}'
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '21.x'
+      - name: Install dependencies
+        run: npm install
+      - name: Install Prettier
+        run: npm install prettier
+      - name: Run Prettier
+        run: npx prettier --write '**/*.{js,ts,tsx}'
