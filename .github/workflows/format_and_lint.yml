@@ -1,5 +1,5 @@
 name: Format and Lint
-on: [push]
+on: [push, pull_request]
 jobs:
   eslint:
     runs-on: ubuntu-latest
