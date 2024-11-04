@@ -1,7 +1,6 @@
-import { FontAwesome } from "@expo/vector-icons";
-import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { LinearTransition } from "react-native-reanimated";
+import { FontAwesome } from '@expo/vector-icons';
+import React from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 interface Steps {
   title: string;
@@ -12,39 +11,39 @@ interface Steps {
 }
 
 const images = {
-  bluetooth: require("@/assets/images/bluetooth.png"),
-  power: require("@/assets/images/power.png"),
-  magnifyingGlass: require("@/assets/images/magnifying-glass.png"),
-  link: require("@/assets/images/link.png"),
+  bluetooth: require('@/assets/images/bluetooth.png'),
+  power: require('@/assets/images/power.png'),
+  magnifyingGlass: require('@/assets/images/magnifying-glass.png'),
+  link: require('@/assets/images/link.png'),
 };
 
 const steps: Steps[] = [
   {
-    title: "Activez le Bluetooth",
-    text1: "Assurez-vous que le Bluetooth est activé sur votre appareil pour permettre la connexion avec le boîtier.",
-    text2: "Rendez-vous dans les paramètres de votre téléphone si nécessaire.",
-    logo: "bluetooth",
+    title: 'Activez le Bluetooth',
+    text1: 'Assurez-vous que le Bluetooth est activé sur votre appareil pour permettre la connexion avec le boîtier.',
+    text2: 'Rendez-vous dans les paramètres de votre téléphone si nécessaire.',
+    logo: 'bluetooth',
     step: 1,
   },
   {
-    title: "Allumez votre boîtier",
-    text1: "Branchez votre boîtier et appuyez sur le bouton situé sur la face avant de l’appareil pour l’allumer.",
-    text2: "Une lumière bleue apparaîtra, elle indique que le boîtier est prêt pour l'appairage.",
-    logo: "power",
+    title: 'Allumez votre boîtier',
+    text1: 'Branchez votre boîtier et appuyez sur le bouton situé sur la face avant de l’appareil pour l’allumer.',
+    text2: 'Une lumière bleue apparaîtra, elle indique que le boîtier est prêt pour l\'appairage.',
+    logo: 'power',
     step: 2,
   },
   {
-    title: "Détection automatique",
-    text1: "Retournez dans l'application.",
-    text2: "Celle-ci va automatiquement détecter votre boîtier allumé à proximité et vous inviter à l'appairer.",
-    logo: "magnifyingGlass",
+    title: 'Détection automatique',
+    text1: 'Retournez dans l\'application.',
+    text2: 'Celle-ci va automatiquement détecter votre boîtier allumé à proximité et vous inviter à l\'appairer.',
+    logo: 'magnifyingGlass',
     step: 3,
   },
   {
-    title: "Appairez votre boîtier",
-    text1: "Suivez les instructions pour confirmer l'appairage avec le boîtier.",
-    text2: "Une notification s’affichera dans l’application une fois la connexion réussie.",
-    logo: "link",
+    title: 'Appairez votre boîtier',
+    text1: 'Suivez les instructions pour confirmer l\'appairage avec le boîtier.',
+    text2: 'Une notification s’affichera dans l’application une fois la connexion réussie.',
+    logo: 'link',
     step: 4,
   },
 ];
@@ -82,12 +81,12 @@ function Step({ step, nextStep, finalStep }: StepProps) {
       <View className="mt-8">
         <View className="flex-row justify-center gap-x-[15px] ">
           {steps.map((_, index) => (
-            <View key={index} className={`h-[15px] w-[15px] mx-[7px] rounded-full ${index === step.step - 1 ? "bg-[#0E3D60]" : "bg-[#D9D9D9]"}`} />
+            <View key={index} className={`h-[15px] w-[15px] mx-[7px] rounded-full ${index === step.step - 1 ? 'bg-[#0E3D60]' : 'bg-[#D9D9D9]'}`} />
           ))}
         </View>
         <TouchableOpacity onPress={nextStep}>
-          <View className={`items-center justify-center mt-7 w-[339px] h-[65px] border-[3px] border-[#0E3D60] rounded-[20px] ${finalStep ? "bg-[#0E3D60]" : ""}`}>
-            <Text className={`font-bold text-[20px] ${finalStep ? "text-white" : "text-[#0E3D60]"} `}>{!finalStep ? "Passer" : "Commencer"}</Text>
+          <View className={`items-center justify-center mt-7 w-[339px] h-[65px] border-[3px] border-[#0E3D60] rounded-[20px] ${finalStep ? 'bg-[#0E3D60]' : ''}`}>
+            <Text className={`font-bold text-[20px] ${finalStep ? 'text-white' : 'text-[#0E3D60]'} `}>{!finalStep ? 'Passer' : 'Commencer'}</Text>
           </View>
         </TouchableOpacity>
       </View>
