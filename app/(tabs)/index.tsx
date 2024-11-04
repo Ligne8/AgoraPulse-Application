@@ -21,6 +21,7 @@ export default function WelcomeScreen() {
   //
   // const navigation = useNavigation();
 
+
   //useLayoutEffect(() => {
   //  navigation.setOptions({
   //    tabBarStyle: { display: "none" },
