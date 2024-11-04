@@ -8,7 +8,13 @@ interface ButtonProps {
   textColor?: string;
 }
 
-export default function CustomButton({ title, onPress, backgroundColor = "white", textColor = "#0E3D60" }: ButtonProps) {
+
+export default function CustomButton({
+  title,
+  onPress,
+  backgroundColor = 'white',
+  textColor = '#0E3D60',
+}: ButtonProps) {
   return (
     <TouchableOpacity style={[styles.button, { backgroundColor }]} onPress={onPress}>
       <Text style={[styles.buttonText, { color: textColor }]}>{title}</Text>
