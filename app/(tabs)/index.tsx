@@ -22,11 +22,12 @@ export default function WelcomeScreen() {
   // const navigation = useNavigation();
 
 
-  //useLayoutEffect(() => {
-  //  navigation.setOptions({
-  //    tabBarStyle: { display: "none" },
-  //  });
-  //}, [navigation]);
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     tabBarStyle: { display: "none" },
+  //   });
+  // }, [navigation]);
+
 
   if (!fontsLoaded) {
     return null;
