@@ -8,6 +8,7 @@ interface ButtonProps {
   textColor?: string;
 }
 
+
 export default function CustomButton({
   title,
   onPress,
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   button: {
     paddingVertical: 15,
     paddingHorizontal: 80,
-    borderRadius: 10,
+    borderRadius: 20,
     marginBottom: 20,
   },
   buttonText: {
