@@ -13,7 +13,7 @@ jobs:
       - name: Install ESLint
         run: npm install eslint@8.57.1
       - name: Run ESLint
-        run: npx eslint '**/*.{js,ts,tsx}'`
+        run: npx eslint '**/*.{js,ts,tsx}'
   prettier:
     runs-on: ubuntu-latest
     steps:
