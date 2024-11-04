@@ -1,38 +1,32 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
+// app/_layout.tsx
 import React from 'react';
+import { Stack } from 'expo-router';
+import { UserProvider } from '@/context/UserContext';
+import { useUser } from '@/context/UserContext'; // Importer le contexte utilisateur
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('@/assets/fonts/Montserrat-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+export default function Layout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <UserProvider>
+      <RootNavigation />
+    </UserProvider>
+  );
+}
+
+function RootNavigation() {
+  const { userRole } = useUser();
+  return (
+    <Stack>
+      <Stack.Screen name="WelcomePage" options={{ headerShown: false }} />
+      <Stack.Screen name="RolePage" options={{ headerShown: false }} />
+      
+      {/* Navigation conditionnelle en fonction du rôle */}
+      {userRole === 'client' && (
+        <Stack.Screen name="client" options={{ headerShown: false }} />
+      )}
+      {userRole === 'merchant' && (
+        <Stack.Screen name="merchant" options={{ headerShown: false }} />
+      )}
+    </Stack>
   );
 }

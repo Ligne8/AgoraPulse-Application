@@ -94,7 +94,7 @@ function Step({ step, nextStep, finalStep }: StepProps) {
   );
 }
 
-export default function Merchanttutopage() {
+export default function MerchantTutoPage() {
   const [currentStep, setCurrentStep] = React.useState(0);
 
   const nextStep = () => {

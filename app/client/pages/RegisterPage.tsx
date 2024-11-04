@@ -5,6 +5,7 @@ import { useLayoutEffect, useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { TagsSelector } from '@/components/tagsSelector';
+import { useRouter } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,31 +17,11 @@ export default function ClientRegisterScreen() {
   });
 
   const [tags, setTags] = React.useState([
-    {
-      id: 1,
-      name: 'Gastronomie',
-      selected: false,
-    },
-    {
-      id: 2,
-      name: 'Bien-être',
-      selected: false,
-    },
-    {
-      id: 3,
-      name: 'Sport',
-      selected: false,
-    },
-    {
-      id: 4,
-      name: 'Culture',
-      selected: false,
-    },
-    {
-      id: 5,
-      name: 'Sorties',
-      selected: false,
-    },
+    { id: 1, name: 'Gastronomie', selected: false },
+    { id: 2, name: 'Bien-être', selected: false },
+    { id: 3, name: 'Sport', selected: false },
+    { id: 4, name: 'Culture', selected: false },
+    { id: 5, name: 'Sorties', selected: false },
   ]);
 
   useEffect(() => {
@@ -71,6 +52,8 @@ export default function ClientRegisterScreen() {
     console.log(payload);
   };
 
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <View>
@@ -97,7 +80,11 @@ export default function ClientRegisterScreen() {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity style={styles.nextButton} onPress={onPress}>
+      <TouchableOpacity style={styles.nextButton} onPress={ () => {
+        onPress;
+        router.push('/client/(tabs)');
+      }
+        }>
         <Text style={styles.addTagsButtonText}>Suivant</Text>
       </TouchableOpacity>
     </View>

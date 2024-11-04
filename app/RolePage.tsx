@@ -6,6 +6,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import CustomButton from '@/components/CustomButton';
 import { faShoppingCart, faStore } from '@fortawesome/free-solid-svg-icons';
 import RoleOption from '@/components/RoleOption';
+import { useUser } from '@/context/UserContext'; // Importer le contexte utilisateur
+import { useRouter } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -15,6 +17,9 @@ export default function RolePage() {
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
     MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
+
+  const { setUserRole } = useUser(); // Accéder à setUserRole depuis le contexte
+  const router = useRouter();
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -40,7 +45,10 @@ export default function RolePage() {
         title="Je suis un "
         highlightTitle="client"
         description="Recevez des offres personnalisées et découvrez les promotions exclusives des commerces près de chez vous."
-        onPress={() => console.log('Client sélectionné')}
+        onPress={() => {
+          setUserRole('client'); // Définir le rôle en tant que "client"
+          router.push('/client/pages/RegisterPage'); // Rediriger vers la section client
+        }}
         backgroundColor="#67aba8"
         textColor="#67aba8"
       />
@@ -51,7 +59,10 @@ export default function RolePage() {
         title="Je suis un "
         highlightTitle="commerçant"
         description="Publiez vos promotions en temps réel, fidélisez vos clients et développez votre activité grâce à nos outils."
-        onPress={() => console.log('Commerçant sélectionné')}
+        onPress={() => {
+          setUserRole('merchant'); // Définir le rôle en tant que "commerçant"
+          //router.push('/Merchant'); // Rediriger vers la section commerçant
+        }}
         backgroundColor="#4e7ac7"
         textColor="#4e7ac7"
       />
