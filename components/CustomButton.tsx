@@ -8,15 +8,16 @@ interface ButtonProps {
   textColor?: string;
 }
 
-export default function CustomButton({ title, onPress, backgroundColor = 'white', textColor = '#0E3D60' }: ButtonProps) {
+
+export default function CustomButton({
+  title,
+  onPress,
+  backgroundColor = 'white',
+  textColor = '#0E3D60',
+}: ButtonProps) {
   return (
-    <TouchableOpacity 
-      style={[styles.button, { backgroundColor }]}
-      onPress={onPress}
-    >
-      <Text style={[styles.buttonText, { color: textColor }]}>
-        {title}
-      </Text>
+    <TouchableOpacity style={[styles.button, { backgroundColor }]} onPress={onPress}>
+      <Text style={[styles.buttonText, { color: textColor }]}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   button: {
     paddingVertical: 15,
     paddingHorizontal: 80,
-    borderRadius: 10,
+    borderRadius: 20,
     marginBottom: 20,
   },
   buttonText: {
