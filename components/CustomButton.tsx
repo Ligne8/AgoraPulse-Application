@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, View, ViewStyle, TextStyle } from 'react-native';
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 interface ButtonProps {
@@ -25,16 +25,9 @@ export default function CustomButton({
   textStyle,
 }: ButtonProps) {
   return (
-    <TouchableOpacity 
-      style={[styles.button, { backgroundColor }, style]}
-      onPress={onPress}
-    >
-      {icon && 
-        <FontAwesomeIcon icon={icon} size={22} color={iconColor} style={styles.icon} />
-      }
-      <Text style={[styles.buttonText, { color: textColor }, textStyle]}>
-        {title}
-      </Text>
+    <TouchableOpacity style={[styles.button, { backgroundColor }, style]} onPress={onPress}>
+      {icon && <FontAwesomeIcon icon={icon} size={22} color={iconColor} style={styles.icon} />}
+      <Text style={[styles.buttonText, { color: textColor }, textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -45,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 15,
     paddingHorizontal: 80,
-    borderRadius: 10,
+    borderRadius: 20,
     marginBottom: 20,
   },
   buttonText: {

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { View, Animated, Easing, StyleSheet } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useRef } from 'react';
+import { View, Animated, Easing, StyleSheet } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface PulsatingIconProps {
   icon?: IconDefinition;
@@ -17,11 +17,11 @@ interface PulsatingIconProps {
 export default function PulsatingIcon({
   icon = faSearch,
   iconSize = 80,
-  iconColor = "#FFFFFF",
+  iconColor = '#FFFFFF',
   circleSize = 100,
-  circleColor = "#2A9BE2",
+  circleColor = '#2A9BE2',
   animationDuration = 1200,
-  pulseDelay = 300, 
+  pulseDelay = 300,
 }: PulsatingIconProps) {
   const scaleAnim1 = useRef(new Animated.Value(0)).current;
   const opacityAnim1 = useRef(new Animated.Value(1)).current;
@@ -133,7 +133,12 @@ export default function PulsatingIcon({
         ]}
       />
       {/* Icon in the center */}
-      <View style={[styles.iconContainer, { width: iconSize + 80, height: iconSize + 80, borderRadius: (iconSize + 80) / 2 }]}>
+      <View
+        style={[
+          styles.iconContainer,
+          { width: iconSize + 80, height: iconSize + 80, borderRadius: (iconSize + 80) / 2 },
+        ]}
+      >
         <FontAwesomeIcon icon={icon} size={iconSize} color={iconColor} />
       </View>
     </View>
@@ -142,16 +147,16 @@ export default function PulsatingIcon({
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   circle: {
-    position: "absolute",
+    position: 'absolute',
     borderWidth: 10,
   },
   iconContainer: {
-    backgroundColor: "#0E3D60",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#0E3D60',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
