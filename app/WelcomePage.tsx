@@ -6,7 +6,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { useRouter } from 'expo-router';
 
-
 export default function WelcomePage() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
@@ -49,8 +48,6 @@ export default function WelcomePage() {
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
