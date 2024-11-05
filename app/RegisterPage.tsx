@@ -1,11 +1,12 @@
 import * as SplashScreen from 'expo-splash-screen';
 import {useFonts} from 'expo-font';
-import React, {useEffect, useLayoutEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {faUser, faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
+import { useRouter } from 'expo-router';
+import { useUser } from '@/context/UserContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,12 +23,21 @@ export default function RegisterPage() {
         }
     }, [fontsLoaded]);
 
-    const navigation = useNavigation();
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            tabBarStyle: {display: 'none'},
-        });
-    }, [navigation]);
+    const router = useRouter();
+    const { userRole } = useUser();
+
+    const handleRegister = () => {
+        if (userRole === 'client') {
+          console.log('Je m\'inscris en tant que client');
+          router.push('/client/pages/RegisterPage');
+        } else if (userRole === 'merchant') {
+          console.log('Je m\'inscris en tant que commerçant');
+          router.push('/Merchant/pages/RegisterPage1');
+        } else {
+          // Handle case where userRole is null or undefined
+          console.error('User role is not defined');
+        }
+      };
 
     return (<View style={styles.container}>
             <Image
@@ -78,17 +88,17 @@ export default function RegisterPage() {
             />
             <CustomButton
                 title="S'inscrire"
-                onPress={() => console.log('S\'inscrire')}
+                onPress={() => handleRegister()}
                 backgroundColor="#0E3D60"
                 textColor="#FFFFFF"
-                width="100%"
             />
             <Text style={styles.hint}>
-                Vous avez déjà un compte ? <Text style={{fontWeight: 'bold'}}>Connectez-vous ici</Text>
+                Vous avez déjà un compte ?{' '}
+                <TouchableOpacity onPress={() => router.push('/LoginPage')}>
+                <Text style={{ fontWeight: 'bold' }}>Connectez-vous ici</Text>
+                </TouchableOpacity>
             </Text>
         </View>
-
-
     );
 }
 

@@ -1,11 +1,11 @@
 import * as SplashScreen from 'expo-splash-screen';
 import {useFonts} from 'expo-font';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faChevronLeft, faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import { router } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,13 +24,6 @@ export default function RegisterPage() {
         }
     }, [fontsLoaded]);
 
-    const navigation = useNavigation();
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            tabBarStyle: {display: 'none'},
-        });
-    }, [navigation]);
-
     const pickImage = async (index: number) => {
         // Request camera roll permissions
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -40,7 +33,7 @@ export default function RegisterPage() {
         }
 
         // Launch image picker
-        let result: ImagePicker.ImagePickerResult = await ImagePicker.launchImageLibraryAsync({
+        const result: ImagePicker.ImagePickerResult = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [1, 1],
@@ -57,7 +50,7 @@ export default function RegisterPage() {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
                 <FontAwesomeIcon icon={faChevronLeft} size={18} color="#CCCCCC"/>
                 <Text style={styles.backText}>Retour</Text>
             </TouchableOpacity>
@@ -77,7 +70,7 @@ export default function RegisterPage() {
                 ))}
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={() => console.log('Suivant')}>
+            <TouchableOpacity style={styles.button} onPress={() => router.push('/Merchant/pages/TutoPage')}>
                 <Text style={styles.buttonText}>Suivant</Text>
             </TouchableOpacity>
         </View>

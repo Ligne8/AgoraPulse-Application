@@ -1,14 +1,13 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useLayoutEffect, useEffect } from 'react';
-import { useFonts } from 'expo-font';
+// WelcomePage.tsx
+import React, { useEffect } from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import CustomButton from '@/components/CustomButton';
 import * as SplashScreen from 'expo-splash-screen';
-import CustomButton from '@/components/CustomButton';  // Importe ton composant bouton
+import { useFonts } from 'expo-font';
+import { useRouter } from 'expo-router';
 
-SplashScreen.preventAutoHideAsync();
 
-export default function WelcomeScreen() {
+export default function WelcomePage() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
@@ -21,34 +20,21 @@ export default function WelcomeScreen() {
     }
   }, [fontsLoaded]);
 
-  const navigation = useNavigation();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      tabBarStyle: { display: 'none' },
-    });
-  }, [navigation]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('@/assets/images/logo.png')}
-        style={styles.logo}
-        testID="logo"
-      />
+      <Image source={require('@/assets/images/logo.png')} style={styles.logo} testID="logo" />
       <Text style={styles.title}>Bonjour !</Text>
       <Text style={styles.description}>
-        Nous sommes ravis de vous accueillir. Connectez-vous pour découvrir les dernières promotions près de chez vous, ou inscrivez-vous pour commencer.
+        Nous sommes ravis de vous accueillir. Connectez-vous pour découvrir les dernières promotions près de chez vous,
+        ou inscrivez-vous pour commencer.
       </Text>
 
       {/* Utilisation du composant bouton pour Se connecter */}
       <CustomButton
         title="Se connecter"
-        onPress={() => console.log('Se connecter')}
+        onPress={() => router.push('/LoginPage')}
         backgroundColor="white"
         textColor="#0E3D60"
       />
@@ -56,13 +42,15 @@ export default function WelcomeScreen() {
       {/* Utilisation du composant bouton pour S'inscrire */}
       <CustomButton
         title="S'inscrire"
-        onPress={() => console.log("S'inscrire")}
+        onPress={() => router.push('/RolePage')}
         backgroundColor="transparent"
         textColor="white"
       />
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -78,16 +66,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
+    fontSize: 24,
     color: 'white',
-    fontSize: 40,
-    fontFamily: 'MontserratExtraBolt',
-    marginBottom: 15,
   },
   description: {
-    color: 'white',
     fontSize: 16,
-    fontFamily: 'Montserrat',
+    color: 'white',
     textAlign: 'center',
-    marginBottom: 40,
+    marginVertical: 20,
   },
 });

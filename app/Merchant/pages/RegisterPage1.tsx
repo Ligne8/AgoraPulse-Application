@@ -1,13 +1,13 @@
 import * as SplashScreen from 'expo-splash-screen';
 import {useFonts} from 'expo-font';
-import React, {useEffect, useLayoutEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {faShop, faNavicon, faGlobe} from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
 import CustomPicker from '@/components/CustomPicker';
 import AddressField from '@/components/AddressFields';
+import { router } from 'expo-router';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -25,13 +25,6 @@ export default function RegisterPage() {
             SplashScreen.hideAsync();
         }
     }, [fontsLoaded]);
-
-    const navigation = useNavigation();
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            tabBarStyle: {display: 'none'},
-        });
-    }, [navigation]);
 
     return (<View style={styles.container}>
             <Text style={[styles.title, {textAlign: 'center'}]}>Complétez votre profil</Text>
@@ -75,7 +68,7 @@ export default function RegisterPage() {
             <EntryField
                 icon={faGlobe}
                 title="Site internet"
-                placeholder="Entrez l’adresse de votre site internet"
+                placeholder="Entrez l&apos;adresse de votre site internet"
                 backgroundColor="#f2f2f2"
                 descriptionColor="#6c7a93"
                 marginBottom={10}
@@ -83,7 +76,7 @@ export default function RegisterPage() {
             <AddressField/>
             <CustomButton
                 title="Suivant"
-                onPress={() => console.log('Suivant')}
+                onPress={() => router.push('/Merchant/pages/RegisterPage2')}
                 backgroundColor="#0E3D60"
                 textColor="#FFFFFF"
                 width="100%"
@@ -108,12 +101,7 @@ const styles = StyleSheet.create({
         fontSize: 37,
         fontFamily: 'MontserratExtraBolt',
         marginBottom: 5,
-        marginTop: 0,
-    },
-    logo: {
-        width: 120,
-        height: 120,
-        marginBottom: 0,
+        marginTop: 40,
     },
     description: {
         color: '#0E3D60',

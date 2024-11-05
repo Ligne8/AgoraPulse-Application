@@ -1,11 +1,11 @@
 import * as SplashScreen from 'expo-splash-screen';
 import {useFonts} from 'expo-font';
-import React, {useEffect, useLayoutEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
+import { useRouter } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,12 +21,7 @@ export default function LoginPage() {
         }
     }, [fontsLoaded]);
 
-    const navigation = useNavigation();
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            tabBarStyle: {display: 'none'},
-        });
-    }, [navigation]);
+    const router = useRouter();
 
     return (<View style={styles.container}>
             <Image
@@ -60,8 +55,11 @@ export default function LoginPage() {
                 textColor="#FFFFFF"
                 width="100%"
             />
-            <Text style={styles.hint}>
-                Pas encore de compte ? <Text style={{fontWeight: 'bold'}}>Inscrivez-vous ici</Text>
+             <Text style={styles.hint}>
+                Pas encore de compte ?{' '}
+                <TouchableOpacity onPress={() => router.push('/RegisterPage')}>
+                <Text style={{ fontWeight: 'bold' }}>Inscrivez-vous ici</Text>
+                </TouchableOpacity>
             </Text>
         </View>
 
