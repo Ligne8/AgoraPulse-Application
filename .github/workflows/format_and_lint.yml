@@ -29,8 +29,8 @@ jobs:
         run: npx prettier --write '**/*.{js,ts,tsx}'
       - name: Commit changes
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --global user.name 'ronan.pedron.epita'
+          git config --global user.email 'ronan.pedron@epita.fr'
           git add .
           git commit -m 'Format code with Prettier'
           git push
