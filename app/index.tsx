@@ -6,6 +6,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function index() {
   return (
-    <WelcomePage />
+        <WelcomePage />
   );
 }

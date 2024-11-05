@@ -9,7 +9,7 @@ import { useRouter } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function ClientRegisterScreen() {
+export default function RegisterPage() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
@@ -90,6 +90,10 @@ export default function ClientRegisterScreen() {
     </View>
   );
 }
+
+RegisterPage.options = {
+  headerShown: false,
+};
 
 const styles = StyleSheet.create({
   tagsContainer: {

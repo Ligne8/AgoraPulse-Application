@@ -1,39 +1,17 @@
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import React, { useLayoutEffect, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, View } from 'react-native';
-import CustomButton from '@/components/CustomButton';
-import { faShoppingCart, faStore } from '@fortawesome/free-solid-svg-icons';
-import RoleOption from '@/components/RoleOption';
-import { useUser } from '@/context/UserContext'; // Importer le contexte utilisateur
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-
-SplashScreen.preventAutoHideAsync();
+import RoleOption from '@/components/RoleOption'; // Assurez-vous que le chemin est correct
+import { faShoppingCart, faStore } from '@fortawesome/free-solid-svg-icons';
 
 export default function RolePage() {
-  const [fontsLoaded] = useFonts({
-    Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
-    MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
-  });
-
-  const { setUserRole } = useUser(); // Accéder à setUserRole depuis le contexte
   const router = useRouter();
 
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  const setUserRole = (role: string) => {
+    console.log(`${role} sélectionné`);
+    // Ajoutez ici la logique pour gérer la sélection du rôle utilisateur
+  };
 
-  const navigation = useNavigation();
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      tabBarStyle: { display: 'none' },
-    });
-  }, [navigation]);
-  
   return (
     <View style={styles.container}>
       <Text style={[styles.title, { textAlign: 'center' }]}>Choisissez votre rôle</Text>
@@ -47,7 +25,10 @@ export default function RolePage() {
         description="Recevez des offres personnalisées et découvrez les promotions exclusives des commerces près de chez vous."
         onPress={() => {
           setUserRole('client'); // Définir le rôle en tant que "client"
-          router.push('/client/pages/RegisterPage'); // Rediriger vers la section client
+          router.push({
+            pathname: '/client/pages/RegisterPage',
+            params: { someParam: 'someValue' }
+          }); // Rediriger vers la section client
         }}
         backgroundColor="#67aba8"
         textColor="#67aba8"
@@ -61,17 +42,13 @@ export default function RolePage() {
         description="Publiez vos promotions en temps réel, fidélisez vos clients et développez votre activité grâce à nos outils."
         onPress={() => {
           setUserRole('merchant'); // Définir le rôle en tant que "commerçant"
-          //router.push('/Merchant'); // Rediriger vers la section commerçant
+          router.push({
+            pathname: '/Merchant/MerchantTutoPage',
+            params: { someParam: 'someValue' }
+          }); // Rediriger vers la section commerçant
         }}
         backgroundColor="#4e7ac7"
         textColor="#4e7ac7"
-      />
-
-      <CustomButton
-        title="Suivant"
-        onPress={() => console.log('Suivant')}
-        backgroundColor="#0E3D60"
-        textColor="#FFFFFF"
       />
     </View>
   );
@@ -80,23 +57,17 @@ export default function RolePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 30,
+    padding: 16,
   },
   title: {
-    color: '#0E3D60',
-    fontSize: 38,
-    fontFamily: 'MontserratExtraBolt',
-    marginBottom: 15,
-    marginTop: 70,
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
   },
   description: {
-    color: '#0E3D60',
     fontSize: 16,
-    fontFamily: 'Montserrat',
-    textAlign: 'center',
-    marginBottom: 40,
+    marginBottom: 32,
   },
 });

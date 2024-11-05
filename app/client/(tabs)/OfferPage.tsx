@@ -25,7 +25,7 @@ function Offer({ title, picture_url }: Offer) {
   );
 }
 
-export default function ClientOfferPage() {
+export default function OfferPage() {
   const [offers] = React.useState<Offer[]>([
     {
       title: 'Profitez de -10% sur votre prochain pack de 24 canettes.',

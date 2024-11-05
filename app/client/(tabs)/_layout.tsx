@@ -6,7 +6,7 @@ export default function ClientTabsLayout() {
     <Tabs>
       <Tabs.Screen
         name="OfferPage"
-        options={{ title: 'Offres' }}
+        options={{ title: 'Offres', headerShown: false }}
       />
     </Tabs>
   );
