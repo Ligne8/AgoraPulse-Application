@@ -1,12 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useLayoutEffect, useEffect } from 'react';
-import { useFonts } from 'expo-font';
+// WelcomePage.tsx
+import React, { useEffect, useLayoutEffect } from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import CustomButton from '@/components/CustomButton';
 import * as SplashScreen from 'expo-splash-screen';
-import CustomButton from '@/components/CustomButton'; // Importe ton composant bouton
-
-SplashScreen.preventAutoHideAsync();
+import { RootStackParamList } from '@/components/types';
+import { useFonts } from 'expo-font';
 
 export default function WelcomePage() {
   const [fontsLoaded] = useFonts({
@@ -21,17 +20,14 @@ export default function WelcomePage() {
     }
   }, [fontsLoaded]);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  // Utiliser useLayoutEffect pour masquer la navbar
   useLayoutEffect(() => {
     navigation.setOptions({
-      tabBarStyle: { display: 'none' },
+      headerShown: false,
     });
   }, [navigation]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   return (
     <View style={styles.container}>
@@ -43,7 +39,7 @@ export default function WelcomePage() {
       <CustomButton title="Se connecter" onPress={() => console.log('Se connecter')} backgroundColor="white" textColor="#0E3D60" />
 
       {/* Utilisation du composant bouton pour S'inscrire */}
-      <CustomButton title="S'inscrire" onPress={() => console.log('S\'inscrire')} backgroundColor="transparent" textColor="white" />
+      <CustomButton title="S'inscrire" onPress={() => navigation.navigate('RolePage')} backgroundColor="transparent" textColor="white" />
     </View>
   );
 }
@@ -62,16 +58,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
+    fontSize: 24,
     color: 'white',
-    fontSize: 40,
-    fontFamily: 'MontserratExtraBolt',
-    marginBottom: 15,
   },
   description: {
-    color: 'white',
     fontSize: 16,
-    fontFamily: 'Montserrat',
+    color: 'white',
     textAlign: 'center',
-    marginBottom: 40,
+    marginVertical: 20,
   },
 });
