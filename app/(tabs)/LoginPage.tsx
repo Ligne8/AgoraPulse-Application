@@ -3,16 +3,15 @@ import {useFonts} from 'expo-font';
 import React, {useEffect, useLayoutEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {faUser, faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';
+import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RegisterPage() {
+export default function LoginPage() {
     const [fontsLoaded] = useFonts({
         Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
-        MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
         MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
     });
 
@@ -86,9 +85,9 @@ const styles = StyleSheet.create({
         marginTop: 0,
     },
     logo: {
-        width: 120,
-        height: 120,
-        marginBottom: 0,
+        width: 175,
+        height: 175,
+        marginBottom: 40,
     },
     description: {
         color: '#0E3D60',
