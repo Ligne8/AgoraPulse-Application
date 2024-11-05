@@ -15,11 +15,12 @@ interface CustomPickerProps {
     textColor?: string;
     iconColor?: string;
     selectedItemColor?: string;
+    // eslint-disable-next-line no-unused-vars
     onValueChange?: (value: string) => void;
 }
 
 const CustomPicker: React.FC<CustomPickerProps> = ({
-                                                       title = "Sélectionnez une option",
+                                                       title = 'Sélectionnez une option',
                                                        items = [],
                                                        backgroundColor = '#fff',
                                                        textColor = '#000',
