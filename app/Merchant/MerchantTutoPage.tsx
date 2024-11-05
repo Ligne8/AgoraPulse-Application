@@ -81,12 +81,19 @@ function Step({ step, nextStep, finalStep }: StepProps) {
       <View className="mt-8">
         <View className="flex-row justify-center gap-x-[15px] ">
           {steps.map((_, index) => (
-            <View key={index} className={`h-[15px] w-[15px] mx-[7px] rounded-full ${index === step.step - 1 ? 'bg-[#0E3D60]' : 'bg-[#D9D9D9]'}`} />
+            <View
+              key={index}
+              className={`h-[15px] w-[15px] mx-[7px] rounded-full ${index === step.step - 1 ? 'bg-[#0E3D60]' : 'bg-[#D9D9D9]'}`}
+            />
           ))}
         </View>
         <TouchableOpacity onPress={nextStep}>
-          <View className={`items-center justify-center mt-7 w-[339px] h-[65px] border-[3px] border-[#0E3D60] rounded-[20px] ${finalStep ? 'bg-[#0E3D60]' : ''}`}>
-            <Text className={`font-bold text-[20px] ${finalStep ? 'text-white' : 'text-[#0E3D60]'} `}>{!finalStep ? 'Passer' : 'Commencer'}</Text>
+          <View
+            className={`items-center justify-center mt-7 w-[339px] h-[65px] border-[3px] border-[#0E3D60] rounded-[20px] ${finalStep ? 'bg-[#0E3D60]' : ''}`}
+          >
+            <Text className={`font-bold text-[20px] ${finalStep ? 'text-white' : 'text-[#0E3D60]'} `}>
+              {!finalStep ? 'Passer' : 'Commencer'}
+            </Text>
           </View>
         </TouchableOpacity>
       </View>

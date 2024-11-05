@@ -80,11 +80,13 @@ export default function RegisterPage() {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity style={styles.nextButton} onPress={ () => {
-        onPress;
-        router.push('/client/(tabs)');
-      }
-        }>
+      <TouchableOpacity
+        style={styles.nextButton}
+        onPress={() => {
+          onPress;
+          router.push('/client/(tabs)');
+        }}
+      >
         <Text style={styles.addTagsButtonText}>Suivant</Text>
       </TouchableOpacity>
     </View>

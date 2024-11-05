@@ -27,7 +27,7 @@ export default function RolePage() {
           setUserRole('client'); // Définir le rôle en tant que "client"
           router.push({
             pathname: '/client/pages/RegisterPage',
-            params: { someParam: 'someValue' }
+            params: { someParam: 'someValue' },
           }); // Rediriger vers la section client
         }}
         backgroundColor="#67aba8"
@@ -44,7 +44,7 @@ export default function RolePage() {
           setUserRole('merchant'); // Définir le rôle en tant que "commerçant"
           router.push({
             pathname: '/Merchant/MerchantTutoPage',
-            params: { someParam: 'someValue' }
+            params: { someParam: 'someValue' },
           }); // Rediriger vers la section commerçant
         }}
         backgroundColor="#4e7ac7"

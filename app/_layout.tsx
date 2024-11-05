@@ -12,7 +12,6 @@ export default function Layout() {
 }
 
 function ConditionalNavigation() {
-
   return (
     <Stack>
       <Stack.Screen name="WelcomePage" options={{ headerShown: false }} />

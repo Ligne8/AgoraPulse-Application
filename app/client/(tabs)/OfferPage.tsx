@@ -29,7 +29,8 @@ export default function OfferPage() {
   const [offers] = React.useState<Offer[]>([
     {
       title: 'Profitez de -10% sur votre prochain pack de 24 canettes.',
-      picture_url: 'https://images.affiches-et-posters.com//albums/3/55722/medium/affiche-vintage-perrier-villemot-7411.jpg',
+      picture_url:
+        'https://images.affiches-et-posters.com//albums/3/55722/medium/affiche-vintage-perrier-villemot-7411.jpg',
       code: 'CODE1',
     },
     {
@@ -53,7 +54,10 @@ export default function OfferPage() {
     <View className="h-full flex-col w-full justify-center items-center">
       <View className="justify-center items-center px-[30px] mb-[20px] mt-10">
         <Text className="text-[36px] font-bold text-[#0E3D60] mb-6">Vos offres exclusives</Text>
-        <Text className="text-center text-[#0E3D60] text-[16px]">Découvrez les promotions des commerces que vous avez rencontrés aujourd&apos;hui. Profitez-en avant qu&apos;elles ne disparaissent !</Text>
+        <Text className="text-center text-[#0E3D60] text-[16px]">
+          Découvrez les promotions des commerces que vous avez rencontrés aujourd&apos;hui. Profitez-en avant
+          qu&apos;elles ne disparaissent !
+        </Text>
       </View>
       <View className=" h-[450px]">
         <ScrollView className=" " showsVerticalScrollIndicator={false}>

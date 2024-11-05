@@ -1,5 +1,5 @@
 export type RootStackParamList = {
-    Welcome: undefined;
-    RolePage: undefined;
-    ClientOffer: undefined;
-  };
+  Welcome: undefined;
+  RolePage: undefined;
+  ClientOffer: undefined;
+};
