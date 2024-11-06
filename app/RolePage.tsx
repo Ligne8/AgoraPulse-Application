@@ -1,16 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
 import RoleOption from '@/components/RoleOption'; // Assurez-vous que le chemin est correct
 import { faShoppingCart, faStore } from '@fortawesome/free-solid-svg-icons';
+import { useUser } from '@/context/UserContext';
+import { router } from 'expo-router';
 
 export default function RolePage() {
-  const router = useRouter();
-
-  const setUserRole = (role: string) => {
-    console.log(`${role} sélectionné`);
-    // Ajoutez ici la logique pour gérer la sélection du rôle utilisateur
-  };
+  const { setUserRole } = useUser();
 
   return (
     <View style={styles.container}>
@@ -24,11 +20,8 @@ export default function RolePage() {
         highlightTitle="client"
         description="Recevez des offres personnalisées et découvrez les promotions exclusives des commerces près de chez vous."
         onPress={() => {
-          setUserRole('client'); // Définir le rôle en tant que "client"
-          router.push({
-            pathname: '/client/pages/RegisterPage',
-            params: { someParam: 'someValue' },
-          }); // Rediriger vers la section client
+          setUserRole('client');
+          router.push('/RegisterPage');
         }}
         backgroundColor="#67aba8"
         textColor="#67aba8"
@@ -41,11 +34,8 @@ export default function RolePage() {
         highlightTitle="commerçant"
         description="Publiez vos promotions en temps réel, fidélisez vos clients et développez votre activité grâce à nos outils."
         onPress={() => {
-          setUserRole('merchant'); // Définir le rôle en tant que "commerçant"
-          router.push({
-            pathname: '/Merchant/MerchantTutoPage',
-            params: { someParam: 'someValue' },
-          }); // Rediriger vers la section commerçant
+          setUserRole('merchant');
+          router.push('/RegisterPage');
         }}
         backgroundColor="#4e7ac7"
         textColor="#4e7ac7"

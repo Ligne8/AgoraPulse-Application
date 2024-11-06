@@ -1,11 +1,10 @@
 // WelcomePage.tsx
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
 import CustomButton from '@/components/CustomButton';
 import * as SplashScreen from 'expo-splash-screen';
-import { RootStackParamList } from '@/components/types';
 import { useFonts } from 'expo-font';
+import { useRouter } from 'expo-router';
 
 export default function WelcomePage() {
   const [fontsLoaded] = useFonts({
@@ -20,14 +19,7 @@ export default function WelcomePage() {
     }
   }, [fontsLoaded]);
 
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
-  // Utiliser useLayoutEffect pour masquer la navbar
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, [navigation]);
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -41,7 +33,7 @@ export default function WelcomePage() {
       {/* Utilisation du composant bouton pour Se connecter */}
       <CustomButton
         title="Se connecter"
-        onPress={() => console.log('Se connecter')}
+        onPress={() => router.push('/LoginPage')}
         backgroundColor="white"
         textColor="#0E3D60"
       />
@@ -49,7 +41,7 @@ export default function WelcomePage() {
       {/* Utilisation du composant bouton pour S'inscrire */}
       <CustomButton
         title="S'inscrire"
-        onPress={() => navigation.navigate('RolePage')}
+        onPress={() => router.push('/RolePage')}
         backgroundColor="transparent"
         textColor="white"
       />

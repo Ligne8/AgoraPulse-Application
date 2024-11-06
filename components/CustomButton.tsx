@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle, DimensionValue } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
@@ -10,6 +10,8 @@ interface ButtonProps {
   textColor?: string;
   icon?: IconDefinition;
   iconColor?: string;
+  width?: DimensionValue;
+  marginBottom?: number; // New optional prop for margin
   style?: ViewStyle; // Accepts additional styles for the button
   textStyle?: TextStyle; // Accepts additional styles for the text
 }
