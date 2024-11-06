@@ -39,6 +39,6 @@ function DisplayCodePage(validCode: boolean) {
  * true if the code is valid, false otherwise
  * @constructor
  */
-export default function ValidCodePage() {
-  return DisplayCodePage(true);
+export default function ValidCodePage(props: { validCode: boolean }) {
+  return DisplayCodePage(props.validCode);
 }
