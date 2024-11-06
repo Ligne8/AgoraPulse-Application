@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Vérifier les erreurs TypeScript
+echo "Checking for React Native Tests"
+npm run test
+if [ $? -ne 0 ]; then
+    echo "❌ Tests failed"
+    echo "Please resolve them before commit"
+    exit 1
+fi
+
+echo "🧑🏼‍💻 Running Prettier"
+npx prettier --write '**/*.{js,ts,tsx}' --log-level silent
+if [ $? -ne 0 ]; then
+    echo "❌ TypeScript type errors found"
+    echo "Please resolve them before commit"
+    exit 1
+fi
+
+echo "🧑🏼‍💻 Running Eslint"
+npx eslint '**/*.{js,ts,tsx}' --fix
+if [ $? -ne 0 ]; then
+    echo "❌ TypeScript lint errors found"
+    echo "Please resolve them before commit"
+    exit 1
+fi
+
+echo "✅ All checks passed. Proceeding with commit."
+exit 0
