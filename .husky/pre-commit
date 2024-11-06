@@ -10,7 +10,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-npx prettier --write '**/*.{js,ts,tsx}'
+npx prettier --write '**/*.{js,ts,tsx}' --log-level silent
 if [ $? -ne 0 ]; then
     echo "❌ TypeScript type errors found"
     echo "Please resolve them before commit"
