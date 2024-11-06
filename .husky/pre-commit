@@ -10,7 +10,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Running Prettier"
+echo "🧑🏼‍💻 Running Prettier"
 npx prettier --write '**/*.{js,ts,tsx}' --log-level silent
 if [ $? -ne 0 ]; then
     echo "❌ TypeScript type errors found"
@@ -18,7 +18,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Running Eslint"
+echo "🧑🏼‍💻 Running Eslint"
 npx eslint '**/*.{js,ts,tsx}' --fix
 if [ $? -ne 0 ]; then
     echo "❌ TypeScript lint errors found"
