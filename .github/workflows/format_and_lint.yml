@@ -26,4 +26,4 @@ jobs:
       - name: Install Prettier
         run: npm install prettier
       - name: Run Prettier
-        run: npx prettier '**/*.{js,ts,tsx}'
+        run: npx prettier --check '**/*.{js,ts,tsx}'
