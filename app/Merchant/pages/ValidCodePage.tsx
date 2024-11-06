@@ -20,7 +20,7 @@ function DisplayCodePage(validCode: boolean) {
         </Text>
         <Text className=" text-[#0E3D60] text-xl p-5 text-center">
           {validCode
-            ? 'Le code est valide. L\'offre peut être appliquée pour le client.'
+            ? 'Le code est valide. L’offre peut être appliquée pour le client.'
             : 'Le code saisi est incorrect ou a déjà été utilisé.'}
         </Text>
       </View>
