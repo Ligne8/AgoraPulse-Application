@@ -1,6 +1,6 @@
 import React from 'react';
 import * as SplashScreen from 'expo-splash-screen';
-import WelcomePage from './WelcomePage';
+import WelcomePage from "./WelcomePage";
 
 SplashScreen.preventAutoHideAsync();
 
