@@ -2,7 +2,6 @@ import { useFonts } from 'expo-font';
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import CustomButton from '@/components/CustomButton';
 import PulsatingIcon from '@/components/PulsatingIcon';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -80,7 +79,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 30,
     marginBottom: 10,
-    //marginBottom: 100,
   },
   noteDescription: {
     color: '#0E3D60',

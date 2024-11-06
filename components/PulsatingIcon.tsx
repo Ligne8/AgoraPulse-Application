@@ -3,6 +3,7 @@ import { View, Animated, Easing, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 interface PulsatingIconProps {
+  //eslint-disable-next-line
   IconComponent?: React.ComponentType<any>; // Accepts any Expo Icon component
   iconName?: string; // Icon name as a string
   iconSize?: number;
