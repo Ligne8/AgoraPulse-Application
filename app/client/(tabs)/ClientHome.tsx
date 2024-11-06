@@ -4,7 +4,8 @@ import { Text, View, StyleSheet } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import CustomButton from '@/components/CustomButton';
 import PulsatingIcon from '@/components/PulsatingIcon';
-import { faSearch, faBellSlash } from '@fortawesome/free-solid-svg-icons';
+import { faBellSlash } from '@fortawesome/free-solid-svg-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,7 +28,8 @@ export default function ClientHome() {
   return (
     <View style={styles.container}>
       <PulsatingIcon
-        icon={faSearch}
+        IconComponent={Ionicons}
+        iconName="search"
         iconSize={150}
         iconColor="#FFFFFF"
         circleSize={200}
