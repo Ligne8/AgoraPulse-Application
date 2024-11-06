@@ -10,17 +10,17 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Eslint"
-npx eslint '**/*.{js,ts,tsx}' --fix
+npx prettier --write '**/*.{js,ts,tsx}'
 if [ $? -ne 0 ]; then
-    echo "❌ TypeScript lint errors found"
+    echo "❌ TypeScript type errors found"
     echo "Please resolve them before commit"
     exit 1
 fi
 
-npx prettier --write '**/*.{js,ts,tsx}'
+echo "Eslint"
+npx eslint '**/*.{js,ts,tsx}' --fix
 if [ $? -ne 0 ]; then
-    echo "❌ TypeScript type errors found"
+    echo "❌ TypeScript lint errors found"
     echo "Please resolve them before commit"
     exit 1
 fi
