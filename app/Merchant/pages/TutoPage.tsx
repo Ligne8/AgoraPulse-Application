@@ -107,7 +107,6 @@ export default function MerchantTutoPage() {
 
   const nextStep = () => {
     if (currentStep === steps.length - 1) {
-      setCurrentStep(0);
       router.push('/Merchant/pages/Bluetooth');
       return;
     }
