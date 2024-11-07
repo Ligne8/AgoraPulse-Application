@@ -4,7 +4,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import CustomButton from '@/components/CustomButton';
 import PulsatingIcon from '@/components/PulsatingIcon';
-import { faSearch, faBellSlash } from '@fortawesome/free-solid-svg-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,14 +20,15 @@ export default function ClientHome() {
   }
 
   const handleDisableNotifications = () => {
-    // Disable notifications
+    // TODO: Disable notifications
     console.log('Notifications désactivées');
   };
 
   return (
     <View style={styles.container}>
       <PulsatingIcon
-        icon={faSearch}
+        IconComponent={Ionicons}
+        iconName="search"
         iconSize={150}
         iconColor="#FFFFFF"
         circleSize={200}
@@ -45,7 +46,9 @@ export default function ClientHome() {
         onPress={handleDisableNotifications}
         backgroundColor="#0E3D60"
         textColor="#FFFFFF"
-        icon={faBellSlash}
+        IconComponent={Ionicons}
+        iconName="notifications-off"
+        iconSize={20}
         iconColor="#FFFFFF"
         style={{ paddingVertical: 15, paddingHorizontal: 30, bottom: 20, position: 'absolute' }}
         textStyle={{ fontSize: 16 }}
