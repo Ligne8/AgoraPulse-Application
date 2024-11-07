@@ -5,13 +5,13 @@ import { Ionicons } from '@expo/vector-icons';
 interface PulsatingIconProps {
   //eslint-disable-next-line
   IconComponent?: React.ComponentType<any>; // Accepts any Expo Icon component
-  iconName?: string; // Icon name as a string
+  iconName?: string; 
   iconSize?: number;
   iconColor?: string;
   circleSize?: number;
   circleColor?: string;
   animationDuration?: number;
-  pulseDelay?: number; // Delay between each pulse in ms
+  pulseDelay?: number; 
 }
 
 export default function PulsatingIcon({

@@ -21,7 +21,7 @@ export default function ClientHome() {
   }
 
   const handleDisableNotifications = () => {
-    // Disable notifications
+    // TODO: Disable notifications
     console.log('Notifications désactivées');
   };
 
@@ -47,7 +47,9 @@ export default function ClientHome() {
         onPress={handleDisableNotifications}
         backgroundColor="#0E3D60"
         textColor="#FFFFFF"
-        icon={faBellSlash}
+        IconComponent={Ionicons}
+        iconName="notifications-off"
+        iconSize={20}
         iconColor="#FFFFFF"
         style={{ paddingVertical: 15, paddingHorizontal: 30, bottom: 20, position: 'absolute' }}
         textStyle={{ fontSize: 16 }}
