@@ -7,13 +7,14 @@ interface ButtonProps {
   onPress: () => void;
   backgroundColor?: string;
   textColor?: string;
+  //eslint-disable-next-line
   IconComponent?: React.ComponentType<any>; // Accepts any Expo Icon component
   iconName?: string;
   iconColor?: string;
   iconSize?: number;
   width?: DimensionValue;
-  marginBottom?: number; 
-  style?: ViewStyle; 
+  marginBottom?: number;
+  style?: ViewStyle;
   textStyle?: TextStyle;
 }
 
