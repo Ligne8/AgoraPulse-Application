@@ -59,7 +59,7 @@ interface ReturnButtonProps {
   onPress: () => void;
 }
 
-function ReturnButton({ onPress }: ReturnButtonProps) {
+export function ReturnButton({ onPress }: ReturnButtonProps) {
   return (
     <TouchableOpacity className="flex-row justify-left items-center invisible " onPress={onPress}>
       <FontAwesome name="chevron-left" size={20} color="#CCCCCC" />
