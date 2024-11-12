@@ -3,8 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import ReturnButton from '@/components/ReturnButton';
 
-function DisplayCodePage(props: {validCode: boolean}) {
-
+function DisplayCodePage(props: { validCode: boolean }) {
   return (
     <View className="flex-col justify-around items-center h-full mt-5 p-4">
       <View className="rounded w-3/4 p-1" style={{ backgroundColor: props.validCode ? '#2ECC71' : '#E74C3C' }}>
