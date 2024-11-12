@@ -107,8 +107,6 @@ export default function MerchantTutoPage() {
 
   const nextStep = () => {
     if (currentStep === steps.length - 1) {
-      // FIXME : Just to demonstrate -> change the logic later
-      router.push('/Merchant/pages/ValidCodePage');
       // TODO : Navigate to next screen
       setCurrentStep(0);
       return;
