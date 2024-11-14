@@ -1,21 +1,22 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Animated, Easing, StyleSheet } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 interface PulsatingIconProps {
-  icon?: IconDefinition;
+  //eslint-disable-next-line
+  IconComponent?: React.ComponentType<any>; // Accepts any Expo Icon component
+  iconName?: string;
   iconSize?: number;
   iconColor?: string;
   circleSize?: number;
   circleColor?: string;
   animationDuration?: number;
-  pulseDelay?: number; // Delay between each pulse in ms
+  pulseDelay?: number;
 }
 
 export default function PulsatingIcon({
-  icon = faSearch,
+  IconComponent = Ionicons,
+  iconName = 'search',
   iconSize = 80,
   iconColor = '#FFFFFF',
   circleSize = 100,
@@ -67,7 +68,6 @@ export default function PulsatingIcon({
               useNativeDriver: true,
             }),
           ]),
-          // Reset the values for the next loop
           Animated.timing(scaleAnim, {
             toValue: 0,
             duration: 0,
@@ -136,10 +136,10 @@ export default function PulsatingIcon({
       <View
         style={[
           styles.iconContainer,
-          { width: iconSize + 80, height: iconSize + 80, borderRadius: (iconSize + 80) / 2 },
+          { width: iconSize + 40, height: iconSize + 40, borderRadius: (iconSize + 40) / 2 },
         ]}
       >
-        <FontAwesomeIcon icon={icon} size={iconSize} color={iconColor} />
+        <IconComponent name={iconName} size={iconSize} color={iconColor} />
       </View>
     </View>
   );

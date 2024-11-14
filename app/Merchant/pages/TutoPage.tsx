@@ -1,6 +1,7 @@
 import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { router } from 'expo-router';
 
 interface Steps {
   title: string;
@@ -58,7 +59,7 @@ interface ReturnButtonProps {
   onPress: () => void;
 }
 
-function ReturnButton({ onPress }: ReturnButtonProps) {
+export function ReturnButton({ onPress }: ReturnButtonProps) {
   return (
     <TouchableOpacity className="flex-row justify-left items-center invisible " onPress={onPress}>
       <FontAwesome name="chevron-left" size={20} color="#CCCCCC" />
@@ -106,8 +107,7 @@ export default function MerchantTutoPage() {
 
   const nextStep = () => {
     if (currentStep === steps.length - 1) {
-      // TODO : Navigate to next screen
-      setCurrentStep(0);
+      router.push('/Merchant/pages/Bluetooth');
       return;
     }
     setCurrentStep(currentStep + 1);
