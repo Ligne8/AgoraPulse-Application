@@ -23,11 +23,7 @@ export default function WelcomePage() {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('@/assets/images/logo.png')}
-        style={styles.logo}
-        testID="logo"
-      />
+      <Image source={require('@/assets/images/logo.png')} style={styles.logo} testID="logo" />
       <Text style={styles.title}>Bonjour !</Text>
       <Text style={styles.description}>
         Nous sommes ravis de vous accueillir. Connectez-vous pour découvrir les dernières promotions près de chez vous,
