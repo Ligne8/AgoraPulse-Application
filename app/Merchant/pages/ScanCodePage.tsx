@@ -1,12 +1,15 @@
-import React from 'react';
-import { Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useCameraPermissions } from 'expo-camera';
 import CameraScanner from './CameraScanner';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useFonts } from 'expo-font';
-import { text } from '@fortawesome/fontawesome-svg-core';
+import { SplashScreen } from 'expo-router';
+
+const REGEX_CODE = /^[A-Z0-9]{8}$/;
 
 export default function ScanCodePage() {
+  // eslint-disable-next-line
   const [permission, requestPermission] = useCameraPermissions();
   const isPermissionGranted = Boolean(permission?.granted);
   const [code, setCode] = React.useState<string>('');
@@ -17,19 +20,30 @@ export default function ScanCodePage() {
     MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
-  const onPress = () => {
-    console.log(code);
-  };
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
-  const setCodeParsed = (data: string) => {
-    // TODO check code here
-    setCode(data);
+  const onPress = () => {
+    if (code == '') {
+      return;
+    }
+    if (!REGEX_CODE.test(code)) {
+      alert('Code invalide');
+      return;
+    }
+
+    // TODO: call API to check code
+
+    //const props: ValidCodePageProps = { validCode: true, code: code };
   };
 
   return (
     <View className="">
       <View className="h-[600px] w-full">
-        {isPermissionGranted ? <CameraScanner setCode={setCodeParsed} code={code} /> : <></>}
+        {isPermissionGranted ? <CameraScanner setCode={setCode} code={code} /> : <></>}
       </View>
       <View className="px-5 mt-6 ">
         <Text style={styles.text} className="text-[#0E3D60] text-[20px] font-bold">
