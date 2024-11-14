@@ -1,0 +1,5 @@
+appId: com.agorapulse.application
+---
+- openLink: exp://10.41.177.21:8081
+- assertVisible: "Bonjour !"
+- tapOn: "Se connecter"

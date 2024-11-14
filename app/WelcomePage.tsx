@@ -10,7 +10,7 @@ export default function WelcomePage() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
+    MontserratExtraBold: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
   useEffect(() => {
@@ -23,27 +23,33 @@ export default function WelcomePage() {
 
   return (
     <View style={styles.container}>
-      <Image source={require('@/assets/images/logo.png')} style={styles.logo} testID="logo" />
+      <Image
+        source={require('@/assets/images/logo.png')}
+        style={styles.logo}
+        testID="logo"
+      />
       <Text style={styles.title}>Bonjour !</Text>
       <Text style={styles.description}>
         Nous sommes ravis de vous accueillir. Connectez-vous pour découvrir les dernières promotions près de chez vous,
         ou inscrivez-vous pour commencer.
       </Text>
 
-      {/* Utilisation du composant bouton pour Se connecter */}
+      {/* Bouton Se connecter */}
       <CustomButton
         title="Se connecter"
         onPress={() => router.push('/LoginPage')}
         backgroundColor="white"
         textColor="#0E3D60"
+        testID="button-login"
       />
 
-      {/* Utilisation du composant bouton pour S'inscrire */}
+      {/* Bouton S'inscrire */}
       <CustomButton
         title="S'inscrire"
         onPress={() => router.push('/RolePage')}
         backgroundColor="transparent"
         textColor="white"
+        testID="button-signup"
       />
     </View>
   );

@@ -16,6 +16,7 @@ interface ButtonProps {
   marginBottom?: number;
   style?: ViewStyle;
   textStyle?: TextStyle;
+  testID?: string;
 }
 
 export default function CustomButton({
