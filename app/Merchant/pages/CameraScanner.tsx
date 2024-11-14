@@ -1,11 +1,12 @@
 import { CameraView } from 'expo-camera';
 import { Stack } from 'expo-router';
-import { Platform, SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import React from 'react';
 import { Overlay } from '../../../components/Overlay';
 
 interface CameraScannerProps {
-  setCode: (code: string) => void;
+  // eslint-disable-next-line
+  setCode: (data: string) => void;
   code: string;
 }
 
