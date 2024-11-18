@@ -25,44 +25,43 @@ interface AnnouncementTypeProps {
     onPress: () => void;
 }
 
-const AnnouncementType: React.FC<AnnouncementTypeProps> = ({icon, label, bgColor, borderColor, onPress}) =>
-    (<TouchableOpacity
+const AnnouncementType: React.FC<AnnouncementTypeProps> = ({icon, label, bgColor, borderColor, onPress}) => (
+    <TouchableOpacity
+        style={{
+            backgroundColor: bgColor,
+            borderColor: borderColor,
+            borderWidth: 1,
+            borderRadius: 10,
+            paddingVertical: 10,
+            paddingHorizontal: 10,
+            margin: 5,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 160,
+            height: 130,
+        }}
+        onPress={onPress}
+    >
+        <FontAwesomeIcon icon={icon} size={50} color={borderColor}/>
+        <Text
             style={{
-                backgroundColor: bgColor,
-                borderColor: borderColor,
-                borderWidth: 1,
-                borderRadius: 10,
-                paddingVertical: 10,
-                paddingHorizontal: 10,
-                margin: 5,
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: 160,
-                height: 130,
-            }}
-            onPress={onPress}
-        >
-            <FontAwesomeIcon icon={icon} size={50} color={borderColor}/>
-            <Text style={{
                 fontFamily: 'Montserrat',
                 fontWeight: 'bold',
                 fontSize: 16,
                 color: borderColor,
                 marginTop: 10,
-                textAlign: 'center'
-            }}>
-                {label}
-            </Text>
-        </TouchableOpacity>
-    );
+                textAlign: 'center',
+            }}
+        >
+            {label}
+        </Text>
+    </TouchableOpacity>
+);
 
 const SelectOfferTypePage = () => {
     const [fontsLoaded] = useFonts({
         Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
         MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-        MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
-        MontserratBlack: require('@/assets/fonts/Montserrat-Black.ttf'),
-        MontserratSemibold: require('@/assets/fonts/Montserrat-SemiBold.ttf'),
     });
     useEffect(() => {
         if (fontsLoaded) {
@@ -72,20 +71,24 @@ const SelectOfferTypePage = () => {
     return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <ReturnButton/>
-            <View style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                paddingHorizontal: 30,
-                marginBottom: 20,
-                marginTop: 40
-            }}>
-                <Text style={{
-                    fontFamily: 'MontserratExtraBolt',
-                    fontSize: 40,
-                    color: '#0E3D60',
-                    textAlign: 'center',
-                    marginBottom: 6
-                }}>
+            <View
+                style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingHorizontal: 30,
+                    marginBottom: 20,
+                    marginTop: 40,
+                }}
+            >
+                <Text
+                    style={{
+                        fontFamily: 'MontserratExtraBolt',
+                        fontSize: 40,
+                        color: '#0E3D60',
+                        textAlign: 'center',
+                        marginBottom: 6,
+                    }}
+                >
                     Créer une annonce
                 </Text>
                 <Text style={{fontFamily: 'Montserrat', fontSize: 16, color: '#0E3D60', textAlign: 'center'}}>
@@ -93,18 +96,20 @@ const SelectOfferTypePage = () => {
                 </Text>
             </View>
 
-            <View style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                paddingHorizontal: 25,
-                width: '100%',
-            }}>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: 25,
+                    width: '100%',
+                }}
+            >
                 <AnnouncementType
                     icon={faTag}
                     label="Offre promotionnelle"
                     bgColor="#ffeeed"
-                    borderColor="#ff5848" // Couleur de bordure personnalisée
+                    borderColor="#ff5848"
                     onPress={() => {
                     }}
                 />
@@ -112,7 +117,7 @@ const SelectOfferTypePage = () => {
                     icon={faPercent}
                     label="Code de réduction"
                     bgColor="#fcebed"
-                    borderColor="#e5354b" // Couleur de bordure personnalisée
+                    borderColor="#e5354b"
                     onPress={() => {
                     }}
                 />
@@ -120,7 +125,7 @@ const SelectOfferTypePage = () => {
                     icon={faGift}
                     label="Informations sur les nouveautés"
                     bgColor="#fef6ea"
-                    borderColor="#f9a232" // Couleur de bordure personnalisée
+                    borderColor="#f9a232"
                     onPress={() => {
                     }}
                 />
@@ -128,7 +133,7 @@ const SelectOfferTypePage = () => {
                     icon={faBolt}
                     label="Ventes flash"
                     bgColor="#fdedef"
-                    borderColor="#f04760" // Couleur de bordure personnalisée
+                    borderColor="#f04760"
                     onPress={() => {
                     }}
                 />
@@ -136,7 +141,7 @@ const SelectOfferTypePage = () => {
                     icon={faBriefcase}
                     label="Offre d'embauche"
                     bgColor="#eef4fe"
-                    borderColor="#5490f9" // Couleur de bordure personnalisée
+                    borderColor="#5490f9"
                     onPress={() => {
                     }}
                 />
@@ -144,7 +149,7 @@ const SelectOfferTypePage = () => {
                     icon={faStore}
                     label="Ouverture de magasin"
                     bgColor="#fbf1fc"
-                    borderColor="#d476e2" // Couleur de bordure personnalisée
+                    borderColor="#d476e2"
                     onPress={() => {
                     }}
                 />
@@ -152,7 +157,7 @@ const SelectOfferTypePage = () => {
                     icon={faCalendarAlt}
                     label="Évènement spécial"
                     bgColor="#e7faf4"
-                    borderColor="#0ed290" // Couleur de bordure personnalisée
+                    borderColor="#0ed290"
                     onPress={() => {
                     }}
                 />
@@ -160,7 +165,7 @@ const SelectOfferTypePage = () => {
                     icon={faEllipsisH}
                     label="Autre"
                     bgColor="#f3f3f3"
-                    borderColor="#888888" // Couleur de bordure personnalisée
+                    borderColor="#888888"
                     onPress={() => {
                     }}
                 />
