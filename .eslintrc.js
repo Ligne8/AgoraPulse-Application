@@ -24,6 +24,8 @@ module.exports = {
     'react-native/no-unused-styles': 'warn',
     'react-native/split-platform-components': 'warn',
     'react-native/no-inline-styles': 'off',
+    '@typescript-eslint/no-require-imports': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off',
 
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
