@@ -1,7 +1,7 @@
 import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
 
 interface Steps {
   title: string;
@@ -105,6 +105,7 @@ function Step({ step, nextStep, finalStep }: StepProps) {
 export default function MerchantTutoPage() {
   const [currentStep, setCurrentStep] = React.useState(0);
 
+  const router = useRouter();
   const nextStep = () => {
     if (currentStep === steps.length - 1) {
       router.push('/Merchant/pages/Bluetooth');
