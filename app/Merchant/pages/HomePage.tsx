@@ -1,3 +1,4 @@
+import { Offer } from '@/app/client/(tabs)/OfferPage';
 import { useFonts } from 'expo-font';
 import { SplashScreen } from 'expo-router';
 import React, { useEffect } from 'react';
@@ -27,6 +28,13 @@ export default function HomePage() {
         <Text style={styles.text} className="text-center text-[16px] text-[#0E3D60] px-6">
           Gérez vos annonces et vos offres de fidélité pour engager votre clientèle de proximité.
         </Text>
+      </View>
+      <View className="justify-center items-center">
+        <Offer
+          code="aaaaa"
+          title="Prof"
+          picture_url="https://images.affiches-et-posters.com//albums/3/55722/medium/affiche-vintage-perrier-villemot-7411.jpg"
+        />
       </View>
     </View>
   );

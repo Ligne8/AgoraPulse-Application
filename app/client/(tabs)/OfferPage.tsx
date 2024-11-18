@@ -8,9 +8,9 @@ interface Offer {
   code: string;
 }
 
-function Offer({ title, picture_url }: Offer) {
+export function Offer({ title, picture_url }: Offer) {
   return (
-    <View className="mb-[10px]">
+    <View className="mb-[10px] w-[332px]">
       <View className="justify-around items-center flex-row w-[332px] h-[120px] border-[1px] border-[#CCCCCC] bg-[#EEEEEE] rounded-t-[10px]">
         <Image className="w-[100px] h-[100px] rounded-[5px]" source={{ uri: picture_url }} />
         <Text className="text-[18px] text-[#0E3D60] font-semibold w-[202px]">{title}</Text>
