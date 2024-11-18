@@ -21,6 +21,14 @@ export default function ClientTabsLayout() {
           tabBarIcon: ({ color, size }) => <MaterialIcons name="discount" size={size} color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="ClientLoyaltyPage"
+        options={{
+          title: 'Fidélité',
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => <MaterialIcons name="star" size={size} color={color} />,
+        }}
+      />
     </Tabs>
   );
 }
