@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';

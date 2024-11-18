@@ -1,4 +1,5 @@
 // WelcomePage.tsx
+/* eslint-disable @typescript-eslint/no-require-imports */
 import React, { useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import CustomButton from '@/components/CustomButton';

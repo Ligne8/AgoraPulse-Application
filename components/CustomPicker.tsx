@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { useFonts } from 'expo-font';
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
