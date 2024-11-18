@@ -6,6 +6,7 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
 import { useRouter } from 'expo-router';
+import supabase from '@/backend/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -15,6 +16,9 @@ export default function LoginPage() {
     MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
@@ -22,6 +26,10 @@ export default function LoginPage() {
   }, [fontsLoaded]);
 
   const router = useRouter();
+
+  const handleLogin = () => {
+    console.log('Se connecter');
+  };
 
   return (
     <View style={styles.container}>
@@ -53,7 +61,7 @@ export default function LoginPage() {
 
       <View style={styles.inlineTextContainer}>
         <Text style={styles.hint}>Pas encore de compte ? </Text>
-        <TouchableOpacity onPress={() => router.push('/RolePage')}>
+        <TouchableOpacity onPress={handleLogin}>
           <Text style={[styles.hint, { fontWeight: 'bold' }]}>Inscrivez-vous ici</Text>
         </TouchableOpacity>
       </View>
