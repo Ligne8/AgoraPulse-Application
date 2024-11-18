@@ -106,7 +106,7 @@ export default function OfferPage() {
       picture_url:
         'https://images.affiches-et-posters.com//albums/3/55722/medium/affiche-vintage-perrier-villemot-7411.jpg',
       description:
-        'Découvrez les promotions des commerces que vous avez rencontrés aujourd\'hui. Profitez-en avant qu\'elles ne disparaissent !',
+        "Découvrez les promotions des commerces que vous avez rencontrés aujourd'hui. Profitez-en avant qu'elles ne disparaissent !",
       code: 'CODE1',
     },
     {
