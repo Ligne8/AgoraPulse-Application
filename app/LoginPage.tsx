@@ -5,8 +5,6 @@ import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
-import { useRouter } from 'expo-router';
-import supabase from '@/backend/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,16 +14,11 @@ export default function LoginPage() {
     MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
-
-  const router = useRouter();
 
   const handleLogin = () => {
     console.log('Se connecter');
