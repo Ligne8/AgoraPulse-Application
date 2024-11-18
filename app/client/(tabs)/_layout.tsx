@@ -21,6 +21,14 @@ export default function ClientTabsLayout() {
           tabBarIcon: ({ color, size }) => <MaterialIcons name="discount" size={size} color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="ProfilePage"
+        options={{
+          title: 'Profil',
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => <AntDesign name="user" size={size} color={color} />,
+        }}
+      />
     </Tabs>
   );
 }

@@ -12,7 +12,9 @@ interface EntryFieldProps {
   descriptionColor?: string;
   secureText?: boolean;
   multiline?: boolean;
-  marginBottom?: number; // New optional prop for custom margin
+  marginBottom?: number;
+  // eslint-disable-next-line no-unused-vars
+  onChangeText?: (text: string) => void;
 }
 
 export default function EntryField({
@@ -24,7 +26,8 @@ export default function EntryField({
   descriptionColor = '#6c7a93',
   secureText = false,
   multiline = false,
-  marginBottom = 15, // Default value if not provided
+  marginBottom = 15,
+  onChangeText,
 }: EntryFieldProps) {
   return (
     <View style={[styles.container, { backgroundColor, marginBottom }]}>
@@ -39,6 +42,7 @@ export default function EntryField({
           style={[styles.input, multiline && styles.inputMultiline]}
           secureTextEntry={secureText}
           multiline={multiline}
+          onChangeText={onChangeText}
           textAlignVertical={multiline ? 'top' : 'center'} // align text to top if multiline
         />
       </View>
