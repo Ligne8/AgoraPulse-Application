@@ -6,6 +6,8 @@ import CustomButton from '@/components/CustomButton';
 import { TagsSelector } from '@/components/tagsSelector';
 import EntryField from '@/components/EntryField';
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
+import { getUserData } from '@/backend/client';
+import { useIsFocused } from '@react-navigation/native';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,11 +22,25 @@ export default function ProfilePage() {
   const [oldPassword, setOldPassword] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [newPassword, setNewPassword] = React.useState('');
+  const isFocused = useIsFocused();
+
+  const [firstname, setFirstname] = React.useState('');
+  const [lastname, setLastname] = React.useState('');
+
+  const fetchUserData = async () => {
+    const user = await getUserData();
+    setFirstname(user.firstname);
+    setLastname(user.lastname);
+    console.log(firstname);
+    console.log(lastname);
+  };
 
   useEffect(() => {
-    // FIXME : fetch user information and set Password to the user password
     setOldPassword('');
-  }, []);
+    if (isFocused) {
+      fetchUserData();
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     console.log(password);

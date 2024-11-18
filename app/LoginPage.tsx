@@ -5,8 +5,15 @@ import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
+import { useRouter } from 'expo-router';
+import supabase, { getUserData } from '@/backend/client';
 
 SplashScreen.preventAutoHideAsync();
+
+interface LoginSupabaseResponse {
+  data: any;
+  error: any;
+}
 
 export default function LoginPage() {
   const [fontsLoaded] = useFonts({
@@ -14,14 +21,44 @@ export default function LoginPage() {
     MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
-  const handleLogin = () => {
-    console.log('Se connecter');
+  const router = useRouter();
+
+  const mailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+  const handleLogin = async () => {
+    if (!mailRegex.test(email)) {
+      alert('Email invalide');
+      return;
+    }
+    if (password == '') {
+      alert('Mot de passe invalide');
+      return;
+    }
+    const res: LoginSupabaseResponse = await supabase.auth.signInWithPassword({ email, password });
+    if (res.data.session == null && res.error != null) {
+      alert('Email ou mot de passe incorrect');
+
+      return;
+    }
+    try {
+      const user: any = await getUserData();
+      if (user.role == 'client') {
+        router.push('/client/(tabs)/ClientHome');
+      }
+      // TODO redirect to the correct page
+    } catch {
+      alert('Erreur lors de la connexion');
+      return;
+    }
   };
 
   return (
@@ -30,6 +67,7 @@ export default function LoginPage() {
       <Text style={[styles.title, { textAlign: 'center' }]}>Connexion</Text>
       <Text style={styles.description}>Veuillez entrer vos identifiants pour accéder à votre compte.</Text>
       <EntryField
+        onChangeText={setEmail}
         icon={faEnvelope}
         title="Email"
         placeholder="Entrez votre adresse email"
@@ -38,6 +76,7 @@ export default function LoginPage() {
       />
       <EntryField
         icon={faLock}
+        onChangeText={setPassword}
         title="Mot de passe"
         placeholder="Entrez votre mot de passe"
         backgroundColor="#f2f2f2"
@@ -46,7 +85,7 @@ export default function LoginPage() {
       />
       <CustomButton
         title="Se connecter"
-        onPress={() => console.log('S’inscrire')}
+        onPress={handleLogin}
         backgroundColor="#0E3D60"
         textColor="#FFFFFF"
         width="100%"
@@ -54,7 +93,11 @@ export default function LoginPage() {
 
       <View style={styles.inlineTextContainer}>
         <Text style={styles.hint}>Pas encore de compte ? </Text>
-        <TouchableOpacity onPress={handleLogin}>
+        <TouchableOpacity
+          onPress={() => {
+            router.push('/RolePage');
+          }}
+        >
           <Text style={[styles.hint, { fontWeight: 'bold' }]}>Inscrivez-vous ici</Text>
         </TouchableOpacity>
       </View>
