@@ -27,6 +27,13 @@ export default function ClientTabsLayout() {
           title: 'Fidélité',
           headerShown: false,
           tabBarIcon: ({ color, size }) => <MaterialIcons name="star" size={size} color={color} />,
+      <Tabs.Screen
+        name="ProfilePage"
+        options={{
+          title: 'Profil',
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => <AntDesign name="user" size={size} color={color} />,
+
         }}
       />
     </Tabs>
