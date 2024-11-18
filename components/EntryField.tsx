@@ -12,6 +12,7 @@ interface EntryFieldProps {
   descriptionColor?: string;
   secureText?: boolean;
   multiline?: boolean;
+  inputHeight?: number;
   marginBottom?: number; // New optional prop for custom margin
 }
 
@@ -22,6 +23,7 @@ export default function EntryField({
   placeholder,
   backgroundColor = '#f2f2f2',
   descriptionColor = '#6c7a93',
+  inputHeight = 20,
   secureText = false,
   multiline = false,
   marginBottom = 15, // Default value if not provided
@@ -36,10 +38,10 @@ export default function EntryField({
         <TextInput
           placeholder={placeholder}
           placeholderTextColor={descriptionColor}
-          style={[styles.input, multiline && styles.inputMultiline]}
+          style={[styles.input, multiline && styles.inputMultiline, { height: inputHeight }]}
           secureTextEntry={secureText}
           multiline={multiline}
-          textAlignVertical={multiline ? 'top' : 'center'} // align text to top if multiline
+          textAlignVertical={multiline || inputHeight > 20 ? 'top' : 'center'} // Align text at the top if height > 20        />
         />
       </View>
     </View>
@@ -77,6 +79,7 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 16,
     color: '#6c7a93',
+    width: '100%',
   },
   inputMultiline: {
     height: 40,
