@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
-interface Tag {
-  id: number;
+export interface TagsProps {
+  id: string;
   name: string;
   selected: boolean;
 }
 
-interface TagButtonProps extends Tag {
+interface TagButtonProps extends TagsProps {
   // eslint-disable-next-line
-  onClick: (tag: Tag) => void;
+  onClick: (tag: TagsProps) => void;
 }
 
 interface TagsSelectorProps {
-  tags: Tag[];
+  tags: TagsProps[];
   setTags: React.Dispatch<
     React.SetStateAction<
       {
-        id: number;
+        id: string;
         name: string;
         selected: boolean;
       }[]
@@ -26,11 +26,17 @@ interface TagsSelectorProps {
 }
 
 function TagButton({ id, name, selected, onClick }: TagButtonProps) {
-  const onPress = () => {
-    return;
-  };
   const [currentStyleButton, setCurrentStyleButton] = React.useState([styles.tagsButton, styles.tagsButtonUnselected]);
   const [currentStyleText, setCurrentStyleText] = React.useState(styles.tagButtonText);
+  useEffect(() => {
+    if (selected == true) {
+      setCurrentStyleButton([styles.tagsButton, styles.tagsButtonSelected]);
+      setCurrentStyleText(styles.tagButtonTextSelected);
+    } else {
+      setCurrentStyleButton([styles.tagsButton, styles.tagsButtonUnselected]);
+      setCurrentStyleText(styles.tagButtonText);
+    }
+  }, [selected]);
   return (
     <TouchableOpacity
       onPressIn={() => {
@@ -44,7 +50,6 @@ function TagButton({ id, name, selected, onClick }: TagButtonProps) {
         onClick({ id, name, selected });
       }}
       style={currentStyleButton}
-      onPress={onPress}
     >
       <Text style={currentStyleText}>{name}</Text>
     </TouchableOpacity>
@@ -52,7 +57,7 @@ function TagButton({ id, name, selected, onClick }: TagButtonProps) {
 }
 
 export function TagsSelector({ tags, setTags }: TagsSelectorProps) {
-  const onClick = (tag: Tag) => {
+  const onClick = (tag: TagsProps) => {
     setTags(
       tags.map((t) => {
         if (t.id === tag.id) {

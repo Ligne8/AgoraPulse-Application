@@ -3,44 +3,46 @@ import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import CustomButton from '@/components/CustomButton';
-import { TagsSelector } from '@/components/tagsSelector';
+import { TagsProps, TagsSelector } from '@/components/tagsSelector';
 import EntryField from '@/components/EntryField';
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
-import { getUserData } from '@/backend/client';
-import { useIsFocused } from '@react-navigation/native';
+import { getAllTags, getUserData, saveUserTags, Tag } from '@/backend/client';
+import EntryFieldDefaultValue from '@/components/EntryFieldDefaultValue';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function ProfilePage() {
-  const [tags, setTags] = React.useState([
-    { id: 1, name: 'Gastronomie', selected: false },
-    { id: 2, name: 'Bien-être', selected: false },
-    { id: 3, name: 'Sport', selected: false },
-    { id: 4, name: 'Culture', selected: false },
-    { id: 5, name: 'Sorties', selected: false },
-  ]);
-  const [oldPassword, setOldPassword] = React.useState('');
+  const [tags, setTags] = React.useState([] as TagsProps[]);
   const [password, setPassword] = React.useState('');
+  // eslint-disable-next-line
   const [newPassword, setNewPassword] = React.useState('');
-  const isFocused = useIsFocused();
 
   const [firstname, setFirstname] = React.useState('');
   const [lastname, setLastname] = React.useState('');
 
   const fetchUserData = async () => {
-    const user = await getUserData();
-    setFirstname(user.firstname);
-    setLastname(user.lastname);
-    console.log(firstname);
-    console.log(lastname);
+    try {
+      const user: any = await getUserData();
+      setFirstname(user.firstname);
+      setLastname(user.lastname);
+    } catch {
+      console.error('Error fetching user data');
+    }
+  };
+
+  const fetchTags = async () => {
+    try {
+      const t = await getAllTags();
+      setTags(t);
+    } catch {
+      console.error('Error fetching tags');
+    }
   };
 
   useEffect(() => {
-    setOldPassword('');
-    if (isFocused) {
-      fetchUserData();
-    }
-  }, [isFocused]);
+    fetchUserData();
+    fetchTags();
+  }, []);
 
   useEffect(() => {
     console.log(password);
@@ -55,20 +57,22 @@ export default function ProfilePage() {
   if (!fontsLoaded) {
     return null;
   }
-  const handleSave = () => {
-    if (password !== newPassword) {
-      console.error('Passwords do not match');
-    } else if (password === oldPassword) {
-      console.error('cannot use the same password');
-    } else if (password.length < 6) {
-      console.error('password too short, should be at least 6 characters');
-    }
-    const selectedTags = tags.filter((tag) => tag.selected);
+  const handleSave = async () => {
+    const selectedTags: Tag[] = tags
+      .filter((tag) => tag.selected)
+      .map((tag) => {
+        const t: Tag = { id: tag.id, name: tag.name };
+        return t;
+      });
     if (selectedTags.length < 3) {
-      console.error('Select at least 3 tags');
+      alert('Veuillez sélectionner au moins 3 centres d’intérêt');
     }
-    console.log('Success ! ');
-    // FIXME: Save the user information
+    try {
+      await saveUserTags(selectedTags);
+      alert('Vos informations ont été mises à jour');
+    } catch (e) {
+      console.error('Error saving user tags');
+    }
   };
 
   return (
@@ -80,21 +84,23 @@ export default function ProfilePage() {
         </Text>
       </View>
       <View className="flex-col justify-center items-center m-5">
-        <EntryField
+        <EntryFieldDefaultValue
           icon={faUser}
           title="Prénom"
           placeholder="Prénom"
           backgroundColor="#EEEEEE"
           descriptionColor="#6c7a93"
           marginBottom={10}
+          value={firstname}
         />
-        <EntryField
+        <EntryFieldDefaultValue
           icon={faUser}
           title="Nom"
           placeholder="Nom"
           backgroundColor="#EEEEEE"
           descriptionColor="#6c7a93"
           marginBottom={10}
+          value={lastname}
         />
         <EntryField
           icon={faLock}
@@ -106,12 +112,7 @@ export default function ProfilePage() {
           marginBottom={10}
         />
         {/* Fixed-height container for the conditional field */}
-        <View
-          style={{
-            display: password !== '' && password.length > 0 && oldPassword !== password ? 'flex' : 'none',
-            width: '100%',
-          }}
-        >
+        <View>
           {password !== '' && password.length > 0 && (
             <EntryField
               icon={faLock}

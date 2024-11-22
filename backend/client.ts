@@ -8,10 +8,54 @@ export default supabase;
 export const getUserData = async () => {
   const user: any = await supabase.from('UserApp').select('*');
   if (user.error) {
+    console.error(user.error);
     throw new Error('Error fetching user data');
   } else if (user.data.length > 1) {
-    throw new Error('Error fetching user data');
+    throw new Error('No user found');
   } else {
     return user.data[0];
   }
 };
+
+export interface Tag {
+  id: string;
+  name: string;
+}
+
+export async function getAllTags() {
+  const { data, error } = await supabase.rpc('getalltags');
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching tags');
+  } else {
+    return data;
+  }
+}
+
+async function deleteUserTags() {
+  const { error } = await supabase
+    .from('UsersTags')
+    .delete()
+    .eq('user_id', (await supabase.auth.getUser()).data.user?.id);
+  if (error) {
+    console.error(error);
+    throw new Error('Error deleting tags');
+  }
+}
+
+export async function saveUserTags(tags: Tag[]) {
+  try {
+    await deleteUserTags();
+  } catch {
+    console.error('Error deleting tags');
+  }
+
+  const payload = tags.map((tag) => ({ tags_id: tag.id }));
+  const { data, error } = await supabase.from('UsersTags').upsert(payload);
+  if (error) {
+    console.log(error);
+    throw new Error('Error saving tags');
+  } else {
+    return data;
+  }
+}

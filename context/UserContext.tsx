@@ -2,6 +2,11 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type UserRole = 'client' | 'merchant' | null;
 
+export interface Tag {
+  id: string;
+  name: string;
+}
+
 interface UserContextProps {
   userRole: UserRole;
   // eslint-disable-next-line no-unused-vars
