@@ -71,6 +71,7 @@ export default function ProfilePage() {
       await saveUserTags(selectedTags);
       alert('Vos informations ont été mises à jour');
     } catch (e) {
+      console.log(e);
       console.error('Error saving user tags');
     }
   };
