@@ -51,10 +51,20 @@ export default function LoginPage() {
     }
     try {
       const user: any = await getUserData();
+      const is_profil_complete = user.profil_completed;
       if (user.role == 'client') {
-        router.push('/client/(tabs)/ClientHome');
+        if (is_profil_complete) {
+          router.push('/client/(tabs)/ClientHome');
+        } else {
+          router.push('/client/pages/RegisterPage');
+        }
+      } else if (user.role == 'merchant') {
+        if (is_profil_complete) {
+          router.push('/Merchant/pages/HomePage');
+        } else {
+          router.push('/Merchant/pages/RegisterPage1');
+        }
       }
-      // TODO redirect to the correct page
     } catch {
       alert('Erreur lors de la connexion');
       return;
