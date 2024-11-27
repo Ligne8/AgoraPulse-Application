@@ -59,3 +59,53 @@ export async function saveUserTags(tags: Tag[]) {
     return data;
   }
 }
+
+export const getLoyaltyOffersByClientId = async () => {
+  try {
+    const { data: userAchievements, error: userAchievementsError } = await supabase
+      .from('UsersAchievement')
+      .select('*')
+      .eq('client_id', (await supabase.auth.getUser()).data.user?.id);
+
+    if (userAchievementsError) {
+      console.error(userAchievementsError);
+      throw new Error('Error fetching user achievements');
+    }
+
+    const achievementsWithFidelityPoints = [];
+
+    for (const userAchievement of userAchievements) {
+      const { data: achievements, error: achievementsError } = await supabase
+        .from('Achievement')
+        .select('*')
+        .eq('id', userAchievement.achievement_id);
+
+      if (achievementsError) {
+        console.error(achievementsError);
+        throw new Error('Error fetching achievements');
+      }
+
+      for (const achievement of achievements) {
+        const { data: userStore, error: userStoreError } = await supabase
+          .from('UsersStores')
+          .select('fidelity_points')
+          .eq('store_id', achievement.store_id);
+
+        if (userStoreError) {
+          console.error(userStoreError);
+          throw new Error('Error fetching fidelity points');
+        }
+
+        achievementsWithFidelityPoints.push({
+          ...achievement,
+          fidelity_points: userStore?.[0]?.fidelity_points || 0,
+        });
+      }
+    }
+
+    return achievementsWithFidelityPoints;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error fetching loyalty offers');
+  }
+};

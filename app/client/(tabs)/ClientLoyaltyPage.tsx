@@ -1,7 +1,8 @@
 import { Text, TouchableOpacity, View, Image, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { getLoyaltyOffersByClientId } from '@/backend/client';
 
 type Status = 'completed' | 'recovered' | 'in_progress';
 
@@ -84,50 +85,20 @@ const InProgressReward = ({ title, description, fidelity_points, threshold, imag
 );
 
 export default function ClientLoyaltyPage() {
-  const [loyalty, setLoyalty] = useState<Loyalty[]>([
-    {
-      title: 'MON BURGER',
-      description: 'My big burger',
-      fidelity_points: 10,
-      status: 'completed',
-      threshold: 100,
-      image_url: 'https://cdn.stoneline.de/media/b0/c4/37/1721744157/Smash-Burger.png',
-    },
-    {
-      title: 'Giga Tacos',
-      description: 'Un caca mou assuré',
-      fidelity_points: 58,
-      status: 'recovered',
-      threshold: 150,
-      image_url:
-        'https://tb-static.uber.com/prod/image-proc/processed_images/d50875d2d2165417352e129d53bdab3f/30be7d11a3ed6f6183354d1933fbb6c7.jpeg',
-    },
-    {
-      title: 'Dégradé spas 12',
-      description: 'DEGRADE TAH LES MURS',
-      fidelity_points: 150,
-      status: 'in_progress',
-      threshold: 200,
-      image_url: 'https://static1.millenium.org/articles/9/31/86/39/@/789396-pompe-article_m-1.jpg',
-    },
-    {
-      title: 'Bedo gratuit',
-      description: 'De la bonne sa mère',
-      fidelity_points: 10,
-      status: 'completed',
-      threshold: 100,
-      image_url: 'https://www.cbd.fr/2941-large_default/blue-dream-fleurs-de-cbd-easy-weed.jpg',
-    },
-    {
-      title: 'Dildo',
-      description: 'Gourmand',
-      fidelity_points: 289,
-      status: 'in_progress',
-      threshold: 999,
-      image_url:
-        'https://cdn.laredoute.com/cdn-cgi/image/width=500,height=500,fit=pad,dpr=1/products/a/3/4/a346a2d3c8b40c51d46504a78bb9c4d1.jpg',
-    },
-  ]);
+  const [loyalty, setLoyalty] = useState<Loyalty[]>([]);
+
+  const fetchLoyaltyOffers = async () => {
+    try {
+      const data = await getLoyaltyOffersByClientId();
+      setLoyalty(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLoyaltyOffers();
+  }, []);
 
   const handleRecoverReward = (index: number) => {
     setLoyalty((prevLoyalty) =>
