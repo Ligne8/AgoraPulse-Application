@@ -1,7 +1,7 @@
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
@@ -62,7 +62,7 @@ export default function LoginPage() {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="height">
       <Image source={require('@/assets/images/logo.png')} style={styles.logo} testID="logo" />
       <Text style={[styles.title, { textAlign: 'center' }]}>Connexion</Text>
       <Text style={styles.description}>Veuillez entrer vos identifiants pour accéder à votre compte.</Text>
@@ -101,7 +101,7 @@ export default function LoginPage() {
           <Text style={[styles.hint, { fontWeight: 'bold' }]}>Inscrivez-vous ici</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
