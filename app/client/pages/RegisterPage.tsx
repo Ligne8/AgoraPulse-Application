@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { TagsSelector } from '@/components/tagsSelector';
 import { useRouter } from 'expo-router';
+import { getAllTags } from '../../../backend/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,17 +17,23 @@ export default function RegisterPage() {
     MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
-  const [tags, setTags] = React.useState([
-    { id: 1, name: 'Gastronomie', selected: false },
-    { id: 2, name: 'Bien-être', selected: false },
-    { id: 3, name: 'Sport', selected: false },
-    { id: 4, name: 'Culture', selected: false },
-    { id: 5, name: 'Sorties', selected: false },
-  ]);
+  const [tags, setTags] = React.useState([]);
+
+  const fetchTags = async () => {
+    try {
+      let data = await getAllTags();
+      data = data.map((tag) => {
+        return { ...tag, selected: false };
+      });
+      setTags(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    // fetchTags();
-  });
+    fetchTags();
+  }, []);
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -47,9 +54,8 @@ export default function RegisterPage() {
   }
 
   const onPress = () => {
-    const selectedTags = tags.filter((tag) => tag.selected);
-    const payload = selectedTags.map((tag) => tag.id);
-    console.log(payload);
+    const selectedTags = tags.filter((tag: any) => tag.selected);
+    const payload = selectedTags.map((tag: any) => tag.id);
   };
 
   const router = useRouter();
