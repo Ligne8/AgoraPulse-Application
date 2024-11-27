@@ -22,6 +22,7 @@
     "@fortawesome/react-native-fontawesome": "^0.3.2",
     "@react-navigation/native": "^7.0.0",
     "@shopify/react-native-skia": "1.5.0",
+    "@supabase/supabase-js": "^2.46.1",
     "@testing-library/react-native": "^12.7.2",
     "expo": "^52.0.7",
     "expo-camera": "~16.0.5",
