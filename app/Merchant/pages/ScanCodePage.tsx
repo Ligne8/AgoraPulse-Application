@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useCameraPermissions } from 'expo-camera';
 import CameraScanner from './CameraScanner';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -41,7 +41,7 @@ export default function ScanCodePage() {
   };
 
   return (
-    <View className="">
+    <KeyboardAvoidingView behavior="position" className="flex-1 bg-[#F5F5F5]">
       <View className="h-[600px] w-full">
         {isPermissionGranted ? <CameraScanner setCode={setCode} code={code} /> : <></>}
       </View>
@@ -69,7 +69,7 @@ export default function ScanCodePage() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
