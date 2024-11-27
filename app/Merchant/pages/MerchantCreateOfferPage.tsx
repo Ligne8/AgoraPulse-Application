@@ -52,7 +52,7 @@ const MerchantCreateOfferPage = () => {
         keyboardShouldPersistTaps="handled" // Allow taps to dismiss the keyboard
       >
         <ReturnButton />
-        <View className="flex justify-center items-center mt-20 p-4">
+        <View className="flex justify-center items-center mt-20 p-3">
           <Text className="text-center text-5xl text-[#0E3D60] font-extrabold pb-2"> Finaliser votre annonce </Text>
           <Text className="text-center text-[#0E3D60] w-3/4">
             Remplissez les détails de votre annonce avant de la publier
