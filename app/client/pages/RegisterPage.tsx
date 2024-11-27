@@ -6,7 +6,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { TagsSelector } from '@/components/tagsSelector';
 import { useRouter } from 'expo-router';
-import { getAllTags } from '../../../backend/client';
+import { getAllTags, saveUserTags } from '../../../backend/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,6 +42,7 @@ export default function RegisterPage() {
   }, [fontsLoaded]);
 
   const navigation = useNavigation();
+  const router = useRouter();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -53,12 +54,19 @@ export default function RegisterPage() {
     return null;
   }
 
-  const onPress = () => {
+  const onPress = async () => {
     const selectedTags = tags.filter((tag: any) => tag.selected);
-    const payload = selectedTags.map((tag: any) => tag.id);
+    if (selectedTags.length < 3) {
+      alert('Veuillez sélectionner au moins 3 centres d’intérêt');
+    }
+    try {
+      await saveUserTags(selectedTags);
+      console.log('Saved user tags');
+    } catch (e) {
+      console.error('Error saving user tags: ', e);
+    }
+    router.push('/client/(tabs)');
   };
-
-  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -81,17 +89,14 @@ export default function RegisterPage() {
           <View style={styles.addTagsInputBox}>
             <TextInput placeholder="Ajouter un centre d’intérêt" />
           </View>
-          <TouchableOpacity style={styles.addTagsButton} onPress={onPress}>
+          <TouchableOpacity style={styles.addTagsButton} onPress={() => {}}>
             <Text style={styles.addTagsButtonText}>+</Text>
           </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity
         style={styles.nextButton}
-        onPress={() => {
-          onPress;
-          router.push('/client/(tabs)');
-        }}
+        onPress={onPress}
       >
         <Text style={styles.addTagsButtonText}>Suivant</Text>
       </TouchableOpacity>
