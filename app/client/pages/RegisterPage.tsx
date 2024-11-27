@@ -94,10 +94,7 @@ export default function RegisterPage() {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity
-        style={styles.nextButton}
-        onPress={onPress}
-      >
+      <TouchableOpacity style={styles.nextButton} onPress={onPress}>
         <Text style={styles.addTagsButtonText}>Suivant</Text>
       </TouchableOpacity>
     </View>
