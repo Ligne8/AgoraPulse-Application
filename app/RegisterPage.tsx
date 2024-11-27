@@ -7,6 +7,7 @@ import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
 import { useRouter } from 'expo-router';
 import { useUser } from '@/context/UserContext';
+import supabase from '@/backend/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -17,6 +18,12 @@ export default function RegisterPage() {
     MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [confirmedPassword, setConfirmedPassword] = React.useState('');
+  const [firstname, setFirstname] = React.useState('');
+  const [lastname, setLastname] = React.useState('');
+
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
@@ -26,17 +33,56 @@ export default function RegisterPage() {
   const router = useRouter();
   const { userRole } = useUser();
 
-  const handleRegister = () => {
-    if (userRole === 'client') {
-      console.log('Je m’inscris en tant que client');
-      router.push('/client/pages/RegisterPage');
-    } else if (userRole === 'merchant') {
-      console.log('Je m’inscris en tant que commerçant');
-      router.push('/Merchant/pages/RegisterPage1');
-    } else {
-      // Handle case where userRole is null or undefined
-      console.error('User role is not defined');
+  const handleRegister = async () => {
+    if (password !== confirmedPassword) {
+      alert('Les mots de passe ne correspondent pas');
+      return;
     }
+    if (password.length < 6) {
+      alert('Le mot de passe doit contenir au moins 6 caractères');
+      return;
+    }
+    if (firstname.length < 2) {
+      alert('Le prénom doit contenir au moins 2 caractères');
+      return;
+    }
+    if (lastname.length < 2) {
+      alert('Le nom doit contenir au moins 2 caractères');
+      return;
+    }
+    if (email.length < 6) {
+      // eslint-disable-next-line
+      alert("L'email doit contenir au moins 6 caractères");
+      return;
+    }
+    const mailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!mailRegex.test(email)) {
+      alert('Email invalide');
+      return;
+    }
+    if (password == '') {
+      alert('Mot de passe invalide');
+      return;
+    }
+    const res = await supabase.auth.signUp({ email, password });
+    if (res.error) {
+      // eslint-disable-next-line
+      alert("Erreur lors de l'inscription");
+      console.log(res.error);
+      return;
+    }
+    const resUserApp = await supabase
+      .from('UserApp')
+      .insert([{ email: email, firstname: firstname, lastname: lastname, role: userRole }])
+      .select();
+    if (resUserApp.error) {
+      // eslint-disable-next-line
+      alert("Erreur lors de l'inscription");
+      console.log(resUserApp.error);
+      return;
+    }
+    alert('Inscription réussie');
+    router.push('/LoginPage');
   };
 
   return (
@@ -45,6 +91,7 @@ export default function RegisterPage() {
       <Text style={[styles.title, { textAlign: 'center' }]}>Inscription</Text>
       <Text style={styles.description}>Créez votre compte pour profiter de nos services.</Text>
       <EntryField
+        onChangeText={setFirstname}
         icon={faUser}
         title="Prénom"
         placeholder="Entrez votre prénom"
@@ -52,6 +99,7 @@ export default function RegisterPage() {
         descriptionColor="#6c7a93"
       />
       <EntryField
+        onChangeText={setLastname}
         icon={faUser}
         title="Nom"
         placeholder="Entrez votre nom"
@@ -59,6 +107,7 @@ export default function RegisterPage() {
         descriptionColor="#6c7a93"
       />
       <EntryField
+        onChangeText={setEmail}
         icon={faEnvelope}
         title="Email"
         placeholder="Entrez votre adresse email"
@@ -66,6 +115,7 @@ export default function RegisterPage() {
         descriptionColor="#6c7a93"
       />
       <EntryField
+        onChangeText={setPassword}
         icon={faLock}
         title="Mot de passe"
         placeholder="Entrez votre mot de passe"
@@ -74,6 +124,7 @@ export default function RegisterPage() {
         secureText={true}
       />
       <EntryField
+        onChangeText={setConfirmedPassword}
         icon={faLock}
         title="Confirmer votre mot de passe"
         placeholder="Confirmez votre mot de passe"
