@@ -13,7 +13,7 @@ export default function RolePage() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
+    MontserratExtraBold: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#0E3D60',
     fontSize: 38,
-    fontFamily: 'MontserratExtraBolt',
+    fontFamily: 'MontserratExtraBold',
     marginBottom: 15,
     marginTop: 70,
   },

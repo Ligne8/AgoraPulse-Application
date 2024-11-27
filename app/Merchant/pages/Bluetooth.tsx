@@ -12,7 +12,7 @@ export default function Bluetooth() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
+    MontserratExtraBold: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#0E3D60',
     fontSize: 40,
-    fontFamily: 'MontserratExtraBolt',
+    fontFamily: 'MontserratExtraBold',
     marginTop: 100,
     marginBottom: 15,
     textAlign: 'center',

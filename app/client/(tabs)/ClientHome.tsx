@@ -11,8 +11,9 @@ SplashScreen.preventAutoHideAsync();
 export default function ClientHome() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
+    MontserratSemiBold: require('@/assets/fonts/Montserrat-SemiBold.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
+    MontserratExtraBold: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#0E3D60',
     fontSize: 35,
-    fontFamily: 'MontserratExtraBolt',
+    fontFamily: 'MontserratExtraBold',
     marginBottom: 10,
     marginTop: 100,
     textAlign: 'center',
