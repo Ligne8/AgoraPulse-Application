@@ -22,6 +22,16 @@ export interface Tag {
   name: string;
 }
 
+export async function getAllStandalonTags(): Promise<any> {
+  const { data, error } = await supabase.from('Tags').select('*');
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching tags');
+  } else {
+    return data;
+  }
+}
+
 export async function getAllTags() {
   const { data, error } = await supabase.rpc('getalltags');
   if (error) {
@@ -57,5 +67,23 @@ export async function saveUserTags(tags: Tag[]) {
     throw new Error('Error saving tags');
   } else {
     return data;
+  }
+}
+
+export interface Store {
+  description: string;
+  name: string;
+  tag_id: string;
+  web_url: string;
+  address: string;
+  city: string;
+  zip_code: string;
+}
+
+export async function createStore(data: Store) {
+  const { error } = await supabase.from('Store').insert(data);
+  if (error) {
+    console.error(error);
+    throw new Error('Error creating store');
   }
 }
