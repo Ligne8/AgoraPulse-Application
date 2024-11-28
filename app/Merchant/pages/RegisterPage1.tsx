@@ -8,7 +8,7 @@ import CustomButton from '@/components/CustomButton';
 import CustomPicker, { Item } from '@/components/CustomPicker';
 import AddressField from '@/components/AddressFields';
 import { router } from 'expo-router';
-import { createStore, getAllStandalonTags, Store, Tag } from '@/backend/client';
+import { createStore, getAllStandalonTags, getStore, Store, Tag } from '@/backend/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -39,8 +39,21 @@ export default function RegisterPage() {
     }
   };
 
+  const isStoreExist = async () => {
+    try {
+      const store = await getStore();
+      if (store != undefined) {
+        router.push('/Merchant/pages/RegisterPage2');
+      } else {
+        fetchTags();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    fetchTags();
+    isStoreExist();
   }, []);
 
   useEffect(() => {
