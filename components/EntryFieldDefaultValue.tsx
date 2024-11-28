@@ -12,24 +12,24 @@ interface EntryFieldProps {
   descriptionColor?: string;
   secureText?: boolean;
   multiline?: boolean;
-  inputHeight?: number;
   marginBottom?: number;
   // eslint-disable-next-line no-unused-vars
   onChangeText?: (text: string) => void;
+  value: string;
 }
 
-export default function EntryField({
+export default function EntryFieldDefaultValue({
   icon,
   iconColor = '#0E3D60',
   title,
   placeholder,
   backgroundColor = '#f2f2f2',
   descriptionColor = '#6c7a93',
-  inputHeight = 20,
   secureText = false,
   multiline = false,
   marginBottom = 15,
   onChangeText,
+  value,
 }: EntryFieldProps) {
   return (
     <View style={[styles.container, { backgroundColor, marginBottom }]}>
@@ -41,11 +41,12 @@ export default function EntryField({
         <TextInput
           placeholder={placeholder}
           placeholderTextColor={descriptionColor}
-          style={[styles.input, multiline && styles.inputMultiline, { height: inputHeight }]}
+          style={[styles.input, multiline && styles.inputMultiline]}
           secureTextEntry={secureText}
           multiline={multiline}
-          textAlignVertical={multiline || inputHeight > 20 ? 'top' : 'center'} // Align text at the top if height > 20        />
           onChangeText={onChangeText}
+          value={value}
+          textAlignVertical={multiline ? 'top' : 'center'} // align text to top if multiline
         />
       </View>
     </View>
@@ -83,7 +84,6 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 16,
     color: '#6c7a93',
-    width: '100%',
   },
   inputMultiline: {
     height: 40,

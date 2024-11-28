@@ -11,7 +11,7 @@ const ReturnButton = () => {
   };
 
   return (
-    <View className="absolute top-8 left-0 p-4 ml-3 z-10">
+    <View className="absolute top-8 mt-4 left-0 p-4 ml-3 z-10">
       <TouchableOpacity
         className="flex-row justify-left items-center"
         onPress={() => {
