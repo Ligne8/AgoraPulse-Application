@@ -1,115 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, FlatList, PermissionsAndroid, Platform } from 'react-native';
+/* eslint-disable no-bitwise */
+import { useState } from 'react';
+
 import { BleManager, Device } from 'react-native-ble-plx';
 
-const BLEScanner = () => {
-  const [devices, setDevices] = useState<Device[]>([]);
-  const [isScanning, setIsScanning] = useState(false);
-  const manager = new BleManager();
+const DEVICE_UUID = 'CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D';
 
-  useEffect(() => {
-    return () => {
-      manager.stopDeviceScan();
-    };
-  }, [manager]);
+const bleManager = new BleManager();
 
-  const requestPermissions = async () => {
-    if (Platform.OS === 'android') {
-      const apiLevel = Platform.Version ? parseInt(Platform.Version, 10) : 0;
-      if (apiLevel < 31) {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: 'Permission de localisation',
-            message: 'Le Bluetooth Low Energy nécessite la localisation',
-            buttonPositive: 'OK',
-          }
-        );
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } else {
-        const bluetoothScanPermission = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN,
-          {
-            title: 'Permission de scan Bluetooth',
-            message: 'Le Bluetooth Low Energy nécessite la permission de scan Bluetooth',
-            buttonPositive: 'OK',
-          }
-        );
-        const bluetoothConnectPermission = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
-          {
-            title: 'Permission de connexion Bluetooth',
-            message: 'Le Bluetooth Low Energy nécessite la permission de connexion Bluetooth',
-            buttonPositive: 'OK',
-          }
-        );
-        const fineLocationPermission = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: 'Permission de localisation',
-            message: 'Le Bluetooth Low Energy nécessite la localisation',
-            buttonPositive: 'OK',
-          }
-        );
+function useBLE() {
+  const [allDevices] = useState<Device[]>([]);
+  const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
+  const [color] = useState('white');
 
-        return (
-          bluetoothScanPermission === PermissionsAndroid.RESULTS.GRANTED &&
-          bluetoothConnectPermission === PermissionsAndroid.RESULTS.GRANTED &&
-          fineLocationPermission === PermissionsAndroid.RESULTS.GRANTED
-        );
-      }
-    } else {
-      return true;
+  const connectToDevice = async () => {
+    try {
+      const device = await bleManager.connectToDevice(DEVICE_UUID);
+      setConnectedDevice(device);
+      await device.discoverAllServicesAndCharacteristics();
+    } catch (error) {
+      console.log('Échec de la connexion :', error);
+    }
+    if (connectedDevice) {
+      console.log('Connecté à :', connectedDevice.name);
     }
   };
 
-  const startScan = async () => {
-    const permissionGranted = await requestPermissions();
-    if (!permissionGranted) {
-      console.log('Permissions non accordées');
-      return;
-    }
-
-    setIsScanning(true);
-    setDevices([]);
-
-    manager.startDeviceScan(null, null, (error, device) => {
-      if (error) {
-        console.log(error);
-        setIsScanning(false);
-        return;
-      }
-
-      if (device && !devices.find((d) => d.id === device.id)) {
-        setDevices((prevDevices) => [...prevDevices, device]);
-      }
-    });
-
-    setTimeout(() => {
-      manager.stopDeviceScan();
-      setIsScanning(false);
-    }, 20000); // Scanne pendant 5 secondes
+  return {
+    connectToDevice,
+    allDevices,
+    connectedDevice,
+    color
   };
+}
 
-  return (
-    <View style={{ flex: 1, padding: 20 }}>
-      <Button
-        title={isScanning ? 'Scanning...' : 'Scan for BLE Devices'}
-        onPress={startScan}
-        disabled={isScanning}
-      />
-      <FlatList
-        data={devices}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={{ padding: 10, borderBottomWidth: 1 }}>
-            <Text>Nom : {item.name ? item.name : 'Inconnu'}</Text>
-            <Text>ID : {item.id}</Text>
-          </View>
-        )}
-      />
-    </View>
-  );
-};
-
-export default BLEScanner;
+export default useBLE;
