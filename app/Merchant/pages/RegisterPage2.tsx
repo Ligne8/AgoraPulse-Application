@@ -6,8 +6,17 @@ import * as ImagePicker from 'expo-image-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { router } from 'expo-router';
+import { getStoreId, Picture, savePicture, savePictureBucket, setUserCompleted } from '@/backend/client';
+import { decode } from 'base64-arraybuffer';
 
 SplashScreen.preventAutoHideAsync();
+
+interface ImagePicked {
+  uri: string;
+  name: string;
+  type: string;
+  base64: string;
+}
 
 export default function RegisterPage() {
   const [fontsLoaded] = useFonts({
@@ -16,7 +25,7 @@ export default function RegisterPage() {
     MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
-  const [images, setImages] = useState(Array(6).fill(null)); // Initialize 6 empty slots for images
+  const [images, setImages] = useState<ImagePicked[]>(Array(6).fill(null)); // Initialize 6 empty slots for images
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -37,15 +46,50 @@ export default function RegisterPage() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 1,
+      quality: 0,
+      base64: true,
     });
 
     if (!result.canceled) {
       const imageUri = result.assets[0].uri;
-      const newImages = [...images];
-      newImages[index] = imageUri;
-      setImages(newImages);
+      const asset = result.assets[0];
+      const image_name: string = asset.fileName ?? '';
+      const type = asset.mimeType ?? 'image/jpeg';
+      const base64 = asset.base64 ?? '';
+      const i: ImagePicked = { uri: imageUri, name: image_name, type: type, base64: base64 };
+      setImages((prevImages) => {
+        const newImages = [...prevImages];
+        newImages[index] = i;
+        return newImages;
+      });
     }
+  };
+
+  const handlePress = async () => {
+    if (images.every((image) => image === null)) {
+      alert('Veuillez ajouter au moins une image');
+      return;
+    }
+    const storeId = await getStoreId();
+    for (const image of images) {
+      if (!image) continue;
+      const payload: Picture = { store_id: storeId, image_name: image.name, type: image.type };
+      try {
+        await savePicture(payload);
+      } catch (error) {
+        console.log(error);
+        alert(error);
+        return;
+      }
+      try {
+        await savePictureBucket(image.name, storeId, decode(image.base64), image.type);
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+    }
+    await setUserCompleted();
+    router.push('/Merchant/pages/HomePage');
   };
 
   return (
@@ -62,12 +106,16 @@ export default function RegisterPage() {
       <View style={styles.imageGrid}>
         {images.map((image, index) => (
           <TouchableOpacity key={index} style={styles.imageSlot} onPress={() => pickImage(index)}>
-            {image ? <Image source={{ uri: image }} style={styles.image} /> : <Text style={styles.plusIcon}>+</Text>}
+            {image ? (
+              <Image source={{ uri: image.uri }} style={styles.image} />
+            ) : (
+              <Text style={styles.plusIcon}>+</Text>
+            )}
           </TouchableOpacity>
         ))}
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => router.push('/Merchant/pages/TutoPage')}>
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>Suivant</Text>
       </TouchableOpacity>
     </View>
