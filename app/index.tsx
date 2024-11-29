@@ -1,9 +1,14 @@
 import React from 'react';
 import * as SplashScreen from 'expo-splash-screen';
-import WelcomePage from './WelcomePage';
+import { SafeAreaView } from 'react-native';
+import BLEScanner from '@/components/BLEScanner';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function index() {
-  return <WelcomePage />;
+export default function Index() {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <BLEScanner />
+    </SafeAreaView>
+  );
 }
