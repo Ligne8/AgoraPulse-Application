@@ -33,7 +33,7 @@ export default function ProfilePage() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
+    MontserratExtraBold: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
   if (!fontsLoaded) {

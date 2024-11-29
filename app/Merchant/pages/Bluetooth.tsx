@@ -5,6 +5,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import PulsatingIcon from '@/components/PulsatingIcon';
 import { MaterialIcons } from '@expo/vector-icons';
 import { BluetoothModal } from '@/components/BluetoothModal';
+import useBLE from '@/components/BLEScanner';
+import { router } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -12,7 +14,7 @@ export default function Bluetooth() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
+    MontserratExtraBold: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -20,8 +22,9 @@ export default function Bluetooth() {
   }
 
   const [modalOpen, setModalOpen] = useState(false);
+  const { connectToDevice } = useBLE();
 
-  const device = 'AgoraPulse-0213';
+  const device = 'AgoraPulse-0001';
   // Open the modal after 3 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -83,7 +86,13 @@ export default function Bluetooth() {
             />
             <ModalButton
               title="Confirmer"
-              onPress={() => console.log('Boîtier associé')}
+              onPress={async () => {
+                const isConnected = await connectToDevice();
+                if (isConnected) {
+                  setModalOpen(false);
+                  router.push('/Merchant/pages/HomePage');
+                }
+              }}
               backgroundColor="#0E3D60"
               textColor="#FFFFFF"
             />
@@ -104,7 +113,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#0E3D60',
     fontSize: 40,
-    fontFamily: 'MontserratExtraBolt',
+    fontFamily: 'MontserratExtraBold',
     marginTop: 100,
     marginBottom: 15,
     textAlign: 'center',

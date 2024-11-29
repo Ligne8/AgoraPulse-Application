@@ -1,22 +1,9 @@
 import React from 'react';
-import { Button, SafeAreaView, StyleSheet } from 'react-native';
-import useBLE from '@/components/BLEScanner';
+import * as SplashScreen from 'expo-splash-screen';
+import WelcomePage from './WelcomePage';
 
-const App = () => {
-  const { connectToDevice, color } = useBLE();
+SplashScreen.preventAutoHideAsync();
 
-  return (
-    <SafeAreaView style={[styles.container, { backgroundColor: color }]}>
-      <Button title="Connecter au périphérique" onPress={connectToDevice} />
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f2f2f2',
-  },
-});
-
-export default App;
+export default function Index() {
+  return <WelcomePage />;
+}

@@ -19,9 +19,11 @@ function useBLE() {
       await device.discoverAllServicesAndCharacteristics();
     } catch (error) {
       console.log('Échec de la connexion :', error);
+      return false;
     }
     if (connectedDevice) {
       console.log('Connecté à :', connectedDevice.name);
+      return true;
     }
   };
 
@@ -29,7 +31,7 @@ function useBLE() {
     connectToDevice,
     allDevices,
     connectedDevice,
-    color
+    color,
   };
 }
 
