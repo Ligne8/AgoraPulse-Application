@@ -1,0 +1,8 @@
+{
+  "build": {
+    "development-simulator": {
+      "developmentClient": true,
+      "distribution": "internal"
+    }
+  }
+}

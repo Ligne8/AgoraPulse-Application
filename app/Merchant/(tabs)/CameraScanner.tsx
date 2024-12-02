@@ -15,7 +15,7 @@ export default function CameraScanner({ setCode, code }: CameraScannerProps) {
     <SafeAreaView className="w-full h-full">
       <Stack.Screen
         options={{
-          title: 'Overview',
+          title: 'Scan',
           headerShown: false,
         }}
       />

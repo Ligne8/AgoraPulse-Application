@@ -15,7 +15,7 @@ export default function RegisterPage() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
+    MontserratExtraBold: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
   const [email, setEmail] = React.useState('');
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#0E3D60',
     fontSize: 38,
-    fontFamily: 'MontserratExtraBolt',
+    fontFamily: 'MontserratExtraBold',
     marginBottom: 10,
     marginTop: 0,
   },
