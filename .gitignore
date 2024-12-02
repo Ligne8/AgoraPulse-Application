@@ -154,3 +154,8 @@ vendor/
 .circleci/generated_config.yml
 /android
 /ios
+
+# Expo
+.expo
+dist/
+web-build/

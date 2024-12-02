@@ -90,7 +90,7 @@ export default function Bluetooth() {
                 const isConnected = await connectToDevice();
                 if (isConnected) {
                   setModalOpen(false);
-                  router.push('/Merchant/pages/HomePage');
+                  router.push('/Merchant/(tabs)/HomePage');
                 }
               }}
               backgroundColor="#0E3D60"
