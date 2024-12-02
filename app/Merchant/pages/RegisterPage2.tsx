@@ -22,7 +22,7 @@ export default function RegisterPage() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
-    MontserratExtraBolt: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
+    MontserratExtraBold: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
   const [images, setImages] = useState<ImagePicked[]>(Array(6).fill(null)); // Initialize 6 empty slots for images
@@ -136,12 +136,12 @@ const styles = StyleSheet.create({
   backText: {
     fontSize: 16,
     color: '#B0B0B0',
-    fontFamily: 'MontserratExtraBolt',
+    fontFamily: 'MontserratExtraBold',
     marginLeft: 5,
   },
   title: {
     fontSize: 40,
-    fontFamily: 'MontserratExtraBolt',
+    fontFamily: 'MontserratExtraBold',
     color: '#0E3D60',
     textAlign: 'center',
     marginBottom: 10,
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   plusIcon: {
-    fontFamily: 'MontserratBolt',
+    fontFamily: 'MontserratBold',
     fontSize: 48,
     color: '#888888',
   },
