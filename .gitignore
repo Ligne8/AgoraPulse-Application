@@ -152,3 +152,5 @@ vendor/
 .metro-health-check*
 # CircleCI
 .circleci/generated_config.yml
+/android
+/ios

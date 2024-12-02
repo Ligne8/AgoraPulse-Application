@@ -4,6 +4,6 @@ import WelcomePage from './WelcomePage';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function index() {
+export default function Index() {
   return <WelcomePage />;
 }
