@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useCameraPermissions } from 'expo-camera';
-import CameraScanner from '../(tabs)/CameraScanner';
+import CameraScanner from '../../../components/CameraScanner';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useFonts } from 'expo-font';
 import { SplashScreen } from 'expo-router';

@@ -14,7 +14,7 @@ export default function MerchantTabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="CameraScanner"
+        name="ScanCodePage"
         options={{
           title: 'Scan',
           headerShown: false,

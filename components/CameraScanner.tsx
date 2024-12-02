@@ -1,8 +1,7 @@
 import { CameraView } from 'expo-camera';
-import { Stack } from 'expo-router';
 import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import React from 'react';
-import { Overlay } from '../../../components/Overlay';
+import { Overlay } from './Overlay';
 
 interface CameraScannerProps {
   // eslint-disable-next-line
@@ -13,13 +12,6 @@ interface CameraScannerProps {
 export default function CameraScanner({ setCode, code }: CameraScannerProps) {
   return (
     <SafeAreaView className="w-full h-full">
-      <Stack.Screen
-        options={{
-          title: 'Scan',
-          headerShown: false,
-        }}
-      />
-      {Platform.OS === 'android' ? <StatusBar hidden /> : null}
       <CameraView
         style={StyleSheet.absoluteFillObject}
         facing="back"
