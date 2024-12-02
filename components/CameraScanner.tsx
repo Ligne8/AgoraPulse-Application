@@ -1,5 +1,5 @@
 import { CameraView } from 'expo-camera';
-import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import React from 'react';
 import { Overlay } from './Overlay';
 
