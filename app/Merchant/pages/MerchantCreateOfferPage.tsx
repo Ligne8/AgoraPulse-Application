@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReturnButton from '@/components/ReturnButton';
 import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import EntryField from '@/components/EntryField';
 import { faMinus, faPlus, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import CustomButton from '@/components/CustomButton';
-// import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { AIInformation } from '@/backend/openai';
 
 const MerchantCreateOfferPage = () => {
   const [fidelityPoints, setFidelityPoints] = React.useState('0');
+  const [aiInformation, setAIInformation] = React.useState<AIInformation | null>(null);
   // const router = useRouter();
   const numberRegExp = new RegExp('^[0-9]{0,4}$');
+  const data = useLocalSearchParams();
+
+  useEffect(() => {
+    const aiInformation = data as unknown as AIInformation;
+    console.log(aiInformation);
+    setAIInformation(aiInformation);
+  },[]);
 
   const handleIncrement = () => {
     if (fidelityPoints === '') {
