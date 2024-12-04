@@ -10,7 +10,6 @@ import { getAllTags, getUserData, saveUserTags, Tag } from '@/backend/client';
 import EntryFieldDefaultValue from '@/components/EntryFieldDefaultValue';
 import DisconnectButton from '@/components/DisconnectButton';
 
-
 SplashScreen.preventAutoHideAsync();
 
 export default function ProfilePage() {
@@ -81,76 +80,76 @@ export default function ProfilePage() {
   return (
     <KeyboardAvoidingView className="h-full w-full" behavior="height">
       <ScrollView>
-    <View className="h-full w-full mt-10">
-      <View className="flex-col justify-center align-middle mt-10 mb-5 ml-5 mr-5">
-        <Text className="text-center text-4xl text-[#0E3D60] font-extrabold pb-2">Votre profil</Text>
-        <Text className="text-center text-[#0E3D60]">
-          Mettez à jour vos informations pour une expérience encore plus personnalisée.
-        </Text>
-      </View>
-      <View className="flex-col justify-center items-center m-5">
-        <EntryFieldDefaultValue
-          icon={faUser}
-          title="Prénom"
-          placeholder="Prénom"
-          backgroundColor="#EEEEEE"
-          descriptionColor="#6c7a93"
-          marginBottom={10}
-          value={firstname}
-        />
-        <EntryFieldDefaultValue
-          icon={faUser}
-          title="Nom"
-          placeholder="Nom"
-          backgroundColor="#EEEEEE"
-          descriptionColor="#6c7a93"
-          marginBottom={10}
-          value={lastname}
-        />
-        <EntryField
-          icon={faLock}
-          title="Mot de passe"
-          onChangeText={(text) => setPassword(text)}
-          placeholder="**********"
-          backgroundColor="#EEEEEE"
-          descriptionColor="#6c7a93"
-          marginBottom={10}
-        />
-        {/* Fixed-height container for the conditional field */}
-        <View>
-          {password !== '' && password.length > 0 && (
+        <View className="h-full w-full mt-10">
+          <View className="flex-col justify-center align-middle mt-10 mb-5 ml-5 mr-5">
+            <Text className="text-center text-4xl text-[#0E3D60] font-extrabold pb-2">Votre profil</Text>
+            <Text className="text-center text-[#0E3D60]">
+              Mettez à jour vos informations pour une expérience encore plus personnalisée.
+            </Text>
+          </View>
+          <View className="flex-col justify-center items-center m-5">
+            <EntryFieldDefaultValue
+              icon={faUser}
+              title="Prénom"
+              placeholder="Prénom"
+              backgroundColor="#EEEEEE"
+              descriptionColor="#6c7a93"
+              marginBottom={10}
+              value={firstname}
+            />
+            <EntryFieldDefaultValue
+              icon={faUser}
+              title="Nom"
+              placeholder="Nom"
+              backgroundColor="#EEEEEE"
+              descriptionColor="#6c7a93"
+              marginBottom={10}
+              value={lastname}
+            />
             <EntryField
               icon={faLock}
-              title="Confirmer le mot de passe"
-              onChangeText={(text) => setNewPassword(text)}
+              title="Mot de passe"
+              onChangeText={(text) => setPassword(text)}
               placeholder="**********"
               backgroundColor="#EEEEEE"
               descriptionColor="#6c7a93"
               marginBottom={10}
             />
-          )}
+            {/* Fixed-height container for the conditional field */}
+            <View>
+              {password !== '' && password.length > 0 && (
+                <EntryField
+                  icon={faLock}
+                  title="Confirmer le mot de passe"
+                  onChangeText={(text) => setNewPassword(text)}
+                  placeholder="**********"
+                  backgroundColor="#EEEEEE"
+                  descriptionColor="#6c7a93"
+                  marginBottom={10}
+                />
+              )}
+            </View>
+          </View>
+          <View className="flex p-2">
+            <Text className="text-center text-4xl text-[#0E3D60] font-extrabold"> Vos préférences </Text>
+            <Text className="text-center text-[#0E3D60] pb-3 "> Sélectionnez au moins 3 centres d’intérêt </Text>
+            <TagsSelector tags={tags} setTags={setTags} />
+          </View>
+          <View className="flex-col justify-center items-center ">
+            <CustomButton
+              title="Enregistrer"
+              onPress={() => handleSave()}
+              backgroundColor="#0E3D60"
+              textColor="#FFFFFF"
+              width="100%"
+              marginBottom={0}
+            />
+          </View>
+          <View className="flex-col justify-center items-center">
+            <DisconnectButton></DisconnectButton>
+          </View>
         </View>
-      </View>
-      <View className="flex p-2">
-        <Text className="text-center text-4xl text-[#0E3D60] font-extrabold"> Vos préférences </Text>
-        <Text className="text-center text-[#0E3D60] pb-3 "> Sélectionnez au moins 3 centres d’intérêt </Text>
-        <TagsSelector tags={tags} setTags={setTags} />
-      </View>
-      <View className="flex-col justify-center items-center ">
-        <CustomButton
-          title="Enregistrer"
-          onPress={() => handleSave()}
-          backgroundColor="#0E3D60"
-          textColor="#FFFFFF"
-          width="100%"
-          marginBottom={0}
-        />
-      </View>
-      <View className="flex-col justify-center items-center">
-        <DisconnectButton></DisconnectButton>
-      </View>
-    </View>
-    </ScrollView>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
