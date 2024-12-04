@@ -3,16 +3,41 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
-export default function AddressField() {
+interface AddressFieldProps {
+  // eslint-disable-next-line no-unused-vars
+  onChangeAddress: (address: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  onChangeCity: (city: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  onChangeZipCode: (zipCode: string) => void;
+}
+
+export default function AddressField(AddressFieldProps: AddressFieldProps) {
   return (
     <View style={styles.addressContainer}>
       <View style={styles.addressLabel}>
         <FontAwesomeIcon icon={faMapMarkerAlt} size={18} color="#0E3D60" />
         <Text style={styles.labelText}>Adresse</Text>
       </View>
-      <TextInput style={styles.input} placeholder="Numéro de voie et rue" placeholderTextColor="#6c7a93" />
-      <TextInput style={styles.input} placeholder="Code postal" placeholderTextColor="#6c7a93" keyboardType="numeric" />
-      <TextInput style={styles.input} placeholder="Ville" placeholderTextColor="#6c7a93" />
+      <TextInput
+        onChangeText={AddressFieldProps.onChangeAddress}
+        style={styles.input}
+        placeholder="Numéro de voie et rue"
+        placeholderTextColor="#6c7a93"
+      />
+      <TextInput
+        onChangeText={AddressFieldProps.onChangeCity}
+        style={styles.input}
+        placeholder="Code postal"
+        placeholderTextColor="#6c7a93"
+        keyboardType="numeric"
+      />
+      <TextInput
+        onChangeText={AddressFieldProps.onChangeZipCode}
+        style={styles.input}
+        placeholder="Ville"
+        placeholderTextColor="#6c7a93"
+      />
     </View>
   );
 }
