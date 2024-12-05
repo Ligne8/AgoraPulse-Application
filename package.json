@@ -51,7 +51,8 @@
     "react-native-svg-transformer": "^1.5.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "~0.19.10",
-    "expo-camera": "~16.0.7"
+    "expo-camera": "~16.0.7",
+    "expo-notifications": "~0.29.10"
   },
   "overrides": {
     "react-native-ble-plx": {
