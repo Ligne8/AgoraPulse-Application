@@ -13,27 +13,21 @@ export default function MerchantTabsLayout() {
         name="HomePage"
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <AntDesign name="home" size={27} color={focused ? 'blue' : 'black'} />
-          ),
+          tabBarIcon: ({ focused }) => <AntDesign name="home" size={27} color={focused ? 'blue' : 'black'} />,
         }}
       />
       <Tabs.Screen
         name="ScanCodePage"
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <AntDesign name="qrcode" size={27} color={focused ? 'blue' : 'black'} />
-          ),
+          tabBarIcon: ({ focused }) => <AntDesign name="qrcode" size={27} color={focused ? 'blue' : 'black'} />,
         }}
       />
       <Tabs.Screen
         name="SelectOfferTypePage"
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <AntDesign name="pluscircle" size={27} color={focused ? 'blue' : 'black'} />
-          ),
+          tabBarIcon: ({ focused }) => <AntDesign name="pluscircle" size={27} color={focused ? 'blue' : 'black'} />,
           tabBarStyle: { display: 'none' },
         }}
       />
