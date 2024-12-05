@@ -4,21 +4,37 @@ import { AntDesign } from '@expo/vector-icons';
 
 export default function MerchantTabsLayout() {
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarShowLabel: false,
+      }}
+    >
       <Tabs.Screen
         name="HomePage"
         options={{
-          title: 'Home',
           headerShown: false,
-          tabBarIcon: ({ color, size }) => <AntDesign name="home" size={size} color={color} />,
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name="home" size={27} color={focused ? 'blue' : 'black'} />
+          ),
         }}
       />
       <Tabs.Screen
         name="ScanCodePage"
         options={{
-          title: 'Scan',
           headerShown: false,
-          tabBarIcon: ({ color, size }) => <AntDesign name="qrcode" size={size} color={color} />,
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name="qrcode" size={27} color={focused ? 'blue' : 'black'} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="SelectOfferTypePage"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name="pluscircle" size={27} color={focused ? 'blue' : 'black'} />
+          ),
+          tabBarStyle: { display: 'none' },
         }}
       />
     </Tabs>

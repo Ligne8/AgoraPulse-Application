@@ -4,6 +4,7 @@ import { MaterialIcons, FontAwesome, Entypo } from '@expo/vector-icons';
 import ReturnButton from '@/components/ReturnButton';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { router } from 'expo-router';
 
 interface AnnouncementTypeProps {
   icon: React.ReactNode;
@@ -100,56 +101,56 @@ const SelectOfferTypePage = () => {
           label="Offre promotionnelle"
           bgColor="#ffeeed"
           borderColor="#ff5848"
-          onPress={() => {}}
+          onPress={() => router.push('/Merchant/pages/CreateOfferPage')}
         />
         <AnnouncementType
           icon={<FontAwesome name="percent" size={50} color="#e5354b" />}
           label="Code de réduction"
           bgColor="#fcebed"
           borderColor="#e5354b"
-          onPress={() => {}}
+          onPress={() => router.push('/Merchant/pages/CreateOfferPage')}
         />
         <AnnouncementType
           icon={<Entypo name="new" size={50} color="#f9a232" />}
           label="Informations sur les nouveautés"
           bgColor="#fef6ea"
           borderColor="#f9a232"
-          onPress={() => {}}
+          onPress={() => router.push('/Merchant/pages/CreateOfferPage')}
         />
         <AnnouncementType
           icon={<FontAwesome name="bolt" size={50} color="#f04760" />}
           label="Ventes flash"
           bgColor="#fdedef"
           borderColor="#f04760"
-          onPress={() => {}}
+          onPress={() => router.push('/Merchant/pages/CreateOfferPage')}
         />
         <AnnouncementType
           icon={<MaterialIcons name="work" size={60} color="#5490f9" />}
           label="Offre d'embauche"
           bgColor="#eef4fe"
           borderColor="#5490f9"
-          onPress={() => {}}
+          onPress={() => router.push('/Merchant/pages/CreateOfferPage')}
         />
         <AnnouncementType
           icon={<FontAwesome name="shopping-bag" size={50} color="#d476e2" />}
           label="Ouverture de magasin"
           bgColor="#fbf1fc"
           borderColor="#d476e2"
-          onPress={() => {}}
+          onPress={() => router.push('/Merchant/pages/CreateOfferPage')}
         />
         <AnnouncementType
           icon={<FontAwesome name="calendar" size={50} color="#0ed290" />}
           label="Évènement spécial"
           bgColor="#e7faf4"
           borderColor="#0ed290"
-          onPress={() => {}}
+          onPress={() => router.push('/Merchant/pages/CreateOfferPage')}
         />
         <AnnouncementType
           icon={<FontAwesome name="ellipsis-h" size={50} color="#888888" />}
           label="Autre"
           bgColor="#f3f3f3"
           borderColor="#888888"
-          onPress={() => {}}
+          onPress={() => router.push('/Merchant/pages/CreateOfferPage')}
         />
       </View>
     </View>
