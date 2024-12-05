@@ -17,6 +17,10 @@ export const getUserData = async () => {
   }
 };
 
+const getUserId = async () => {
+  return (await supabase.auth.getUser()).data.user?.id;
+};
+
 export interface Tag {
   id: string;
   name: string;
@@ -55,6 +59,25 @@ export async function saveUserTags(tags: Tag[]) {
   if (error) {
     console.log(error);
     throw new Error('Error saving tags');
+  } else {
+    return data;
+  }
+}
+
+export async function getClientOffers() {
+  const userID = await getUserId();
+  const { data, error } = await supabase
+    .from('UsersAds')
+    .select(
+      `id,
+      code,
+      Ads (id, title, image_url, description)
+    `
+    )
+    .eq('client_id', userID);
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching client offers');
   } else {
     return data;
   }

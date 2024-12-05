@@ -1,6 +1,8 @@
 import { Text, TouchableOpacity, View, Image, ScrollView, Modal, Pressable } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
+import { getClientOffers } from '@/backend/client';
+import { router } from 'expo-router';
 
 interface Offer {
   title: string;
@@ -9,7 +11,13 @@ interface Offer {
   code: string;
 }
 
-function Offer({ title, picture_url, onPress }: Offer & { onPress: () => void }) {
+function Offer({ title, picture_url, onPress, code }: Offer & { onPress: () => void }) {
+  const onClick = () => {
+    router.push({
+      pathname: '/client/pages/OfferCodePage',
+      params: { code },
+    });
+  };
   return (
     <View className="mb-[10px]">
       <TouchableOpacity
@@ -21,7 +29,7 @@ function Offer({ title, picture_url, onPress }: Offer & { onPress: () => void })
       </TouchableOpacity>
 
       <View className="rounded-b-[10px] bg-[#0E3D60] ">
-        <TouchableOpacity className="flex-row justify-center items-center h-[30px] ">
+        <TouchableOpacity onPress={onClick} className="flex-row justify-center items-center h-[30px] ">
           <FontAwesome name="qrcode" size={20} color="white" />
           <Text className="ml-3 rounded-b-[1px] bg-[#0E3D60] text-white font-bold text-[14px]">Voir le code</Text>
         </TouchableOpacity>
@@ -30,7 +38,17 @@ function Offer({ title, picture_url, onPress }: Offer & { onPress: () => void })
   );
 }
 
-function OfferModal({ visible, onClose, offer }: { visible: boolean; onClose: () => void; offer: Offer | null }) {
+function OfferModal({
+  visible,
+  onClose,
+  offer,
+  code,
+}: {
+  visible: boolean;
+  onClose: () => void;
+  offer: Offer | null;
+  code: string | null;
+}) {
   if (!offer) return null;
   return (
     <Modal transparent animationType="fade" visible={visible} onRequestClose={onClose}>
@@ -80,6 +98,10 @@ function OfferModal({ visible, onClose, offer }: { visible: boolean; onClose: ()
             </Text>
           </View>
           <TouchableOpacity
+            onPress={() => {
+              onClose();
+              router.push({ pathname: '/client/pages/OfferCodePage', params: { code } });
+            }}
             style={{
               padding: 15,
               backgroundColor: '#0E3D60',
@@ -100,29 +122,7 @@ function OfferModal({ visible, onClose, offer }: { visible: boolean; onClose: ()
 }
 
 export default function OfferPage() {
-  const [offers] = useState<Offer[]>([
-    {
-      title: 'Profitez de -10% sur votre prochain pack de 24 canettes.',
-      picture_url:
-        'https://images.affiches-et-posters.com//albums/3/55722/medium/affiche-vintage-perrier-villemot-7411.jpg',
-      description:
-        'Découvrez les promotions des commerces que vous avez rencontrés aujourd hui. Profitez-en avant qu elles ne disparaissent !',
-      code: 'CODE1',
-    },
-    {
-      title: 'Profitez de -25% sur votre prochain achat.',
-      picture_url: 'https://www.toutelasignaletique.com/23574-large_default/plaque-publicite-vache-qui-rit.jpg',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      code: 'CODE2',
-    },
-    {
-      title: 'Profitez de -25% sur votre prochain achat.',
-      picture_url: 'https://www.toutelasignaletique.com/23574-large_default/plaque-publicite-vache-qui-rit.jpg',
-      description:
-        'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      code: 'CODE3',
-    },
+  const [offers, setOffers] = useState<Offer[]>([
     {
       title: 'Profitez de -25% sur votre prochain achat.',
       picture_url: 'https://www.toutelasignaletique.com/23574-large_default/plaque-publicite-vache-qui-rit.jpg',
@@ -145,9 +145,34 @@ export default function OfferPage() {
     setSelectedOffer(null);
   };
 
+  const fetchOffers = async () => {
+    try {
+      const offers = await getClientOffers();
+      let formatedOffers: Offer[] = [];
+      if (offers) {
+        formatedOffers = offers.map((offer) => ({
+          // @ts-expect-error tqt mon gourmand
+          title: offer.Ads.title,
+          // @ts-expect-error tqt mon gourmand
+          picture_url: offer.Ads.image_url,
+          // @ts-expect-error tqt mon gourmand
+          description: offer.Ads.description,
+          code: offer.code,
+        }));
+        setOffers(formatedOffers);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOffers();
+  }, []);
+
   return (
     <View className="h-full flex-col w-full justify-center items-center">
-      <View className="justify-center items-center px-[30px] mb-[20px] mt-10">
+      <View className="justify-center items-center px-[30px] mb-[20px] ">
         <Text className="text-[36px] font-bold text-[#0E3D60] mb-6">Vos offres exclusives</Text>
         <Text className="text-center text-[#0E3D60] text-[16px]">
           Découvrez les promotions des commerces que vous avez rencontrés aujourd&apos;hui. Profitez-en avant
@@ -168,7 +193,7 @@ export default function OfferPage() {
           ))}
         </ScrollView>
       </View>
-      <OfferModal visible={isModalVisible} onClose={closeModal} offer={selectedOffer} />
+      <OfferModal visible={isModalVisible} onClose={closeModal} offer={selectedOffer} code={selectedOffer?.code} />
     </View>
   );
 }
