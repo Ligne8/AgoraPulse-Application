@@ -5,12 +5,12 @@ import EntryField from '@/components/EntryField';
 import { faMinus, faPlus, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import CustomButton from '@/components/CustomButton';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { AIInformation } from '@/backend/openai';
 
 const MerchantCreateOfferPage = () => {
   const [fidelityPoints, setFidelityPoints] = React.useState('0');
-  const [aiInformation, setAIInformation] = React.useState<AIInformation | null>(null);
+  const [AIInformation, setAIInformation] = React.useState<AIInformation | null>(null);
   // const router = useRouter();
   const numberRegExp = new RegExp('^[0-9]{0,4}$');
   const data = useLocalSearchParams();
@@ -19,7 +19,8 @@ const MerchantCreateOfferPage = () => {
     const aiInformation = data as unknown as AIInformation;
     console.log(aiInformation);
     setAIInformation(aiInformation);
-  },[]);
+    console.log(AIInformation);
+  }, []);
 
   const handleIncrement = () => {
     if (fidelityPoints === '') {
