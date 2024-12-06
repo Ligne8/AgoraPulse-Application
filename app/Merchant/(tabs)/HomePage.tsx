@@ -1,7 +1,7 @@
 import { getAchievements, getAds } from '@/backend/client';
 import { useFonts } from 'expo-font';
-import { SplashScreen } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { SplashScreen, useFocusEffect } from 'expo-router';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { View, Text } from 'react-native';
 
@@ -15,7 +15,7 @@ interface Ad {
 interface Achievement {
   id: string;
   title: string;
-  points: treshold;
+  points: string;
   description: string;
 }
 
@@ -41,10 +41,12 @@ export default function HomePage() {
     setAchievements(achievements);
   };
 
-  useEffect(() => {
-    fetchAds();
-    fetchAchievements();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchAds();
+      fetchAchievements();
+    }, [])
+  );
 
   useEffect(() => {
     if (fontsLoaded) {
