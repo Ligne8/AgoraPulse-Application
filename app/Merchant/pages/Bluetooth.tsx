@@ -22,7 +22,7 @@ export default function Bluetooth() {
   }
 
   const [modalOpen, setModalOpen] = useState(false);
-  const { connectToDevice } = useBLE();
+  const { connectToDevice, SendMessageToDevice } = useBLE();
 
   const device = 'AgoraPulse-0001';
   // Open the modal after 3 seconds
@@ -89,6 +89,7 @@ export default function Bluetooth() {
               onPress={async () => {
                 const isConnected = await connectToDevice();
                 if (isConnected) {
+                  SendMessageToDevice('ON');
                   setModalOpen(false);
                   router.push('/Merchant/(tabs)/HomePage');
                 }

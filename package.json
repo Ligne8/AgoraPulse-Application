@@ -24,15 +24,17 @@
     "@shopify/react-native-skia": "1.5.0",
     "@supabase/supabase-js": "^2.46.1",
     "@testing-library/react-native": "^12.9.0",
-    "react-test-renderer": "18.3.1",
     "base64-arraybuffer": "^1.0.2",
+    "buffer": "^6.0.3",
     "expo": "^52.0.7",
+    "expo-camera": "~16.0.7",
     "expo-constants": "~17.0.3",
     "expo-dev-client": "~5.0.4",
     "expo-device": "~7.0.1",
     "expo-font": "~13.0.1",
     "expo-image-picker": "~16.0.2",
     "expo-linking": "~7.0.2",
+    "expo-notifications": "~0.29.10",
     "expo-router": "~4.0.6",
     "expo-splash-screen": "~0.29.11",
     "expo-status-bar": "~2.0.0",
@@ -53,8 +55,7 @@
     "react-native-svg-transformer": "^1.5.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "~0.19.10",
-    "expo-camera": "~16.0.7",
-    "expo-notifications": "~0.29.10"
+    "react-test-renderer": "18.3.1"
   },
   "overrides": {
     "react-native-ble-plx": {
