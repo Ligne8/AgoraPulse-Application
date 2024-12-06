@@ -17,7 +17,7 @@ export const getUserData = async () => {
   }
 };
 
-const getUserId = async () => {
+export const getUserId = async () => {
   return (await supabase.auth.getUser()).data.user?.id;
 };
 
