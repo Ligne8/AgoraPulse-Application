@@ -89,7 +89,7 @@ export default function RegisterPage() {
       }
     }
     await setUserCompleted();
-    router.push('/Merchant/pages/HomePage');
+    router.push('/Merchant/(tabs)/HomePage');
   };
 
   return (

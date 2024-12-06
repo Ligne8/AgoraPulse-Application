@@ -139,7 +139,6 @@ export async function setUserCompleted() {
     throw new Error('Error updating user');
   }
 }
-
 export async function getAds() {
   const { data, error } = await supabase
     .from('Ads')
