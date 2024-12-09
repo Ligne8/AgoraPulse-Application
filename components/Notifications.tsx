@@ -24,7 +24,7 @@ const NotificationHandler = () => {
       content: {
         title: title,
         body: body,
-        sound: 'goofy.wav'
+        sound: 'goofy.wav',
       },
       trigger: null,
     });
