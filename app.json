@@ -18,14 +18,22 @@
       "bundleIdentifier": "com.ronan.pdr.AgoraPulse",
       "entitlements": {
         "aps-environment": "development"
-      }
+      },
+      "appleTeamId": "E5L7NC8M9T"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.ronan.pdr.AgoraPulse"
+      "package": "com.ronan.pdr.AgoraPulse",
+      "permissions": [
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.BLUETOOTH_CONNECT",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -39,7 +47,10 @@
         "react-native-ble-plx",
         {
           "isBackgroundEnabled": true,
-          "modes": ["peripheral", "central"],
+          "modes": [
+            "peripheral",
+            "central"
+          ],
           "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to bluetooth devices"
         }
       ],
@@ -49,6 +60,18 @@
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
           "recordAudioAndroid": true
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/logo.png",
+          "sounds": [
+            "./assets/sounds/TOIIIII.wav",
+            "./assets/sounds/wouahw.wav",
+            "./assets/sounds/goofy.wav"
+          ],
+          "enableBackgroundRemoteNotifications": true
         }
       ]
     ],
