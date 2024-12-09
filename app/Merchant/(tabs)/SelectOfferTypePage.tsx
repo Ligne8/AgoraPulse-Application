@@ -60,7 +60,7 @@ const SelectOfferTypePage = () => {
   }, [fontsLoaded]);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
       <ReturnButton />
       <View
         style={{
@@ -68,7 +68,7 @@ const SelectOfferTypePage = () => {
           alignItems: 'center',
           paddingHorizontal: 30,
           marginBottom: 20,
-          marginTop: 40,
+          marginTop: 80,
         }}
       >
         <Text
