@@ -5,7 +5,8 @@ import CameraScanner from '../../../components/CameraScanner';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useFonts } from 'expo-font';
 import { router, SplashScreen } from 'expo-router';
-import supabase, { getUserId } from '@/backend/client';
+import { getUserId } from '@/backend/client';
+import supabase from '@/backend/supabase';
 
 const REGEX_CODE = /^[A-Z0-9]{8}$/;
 

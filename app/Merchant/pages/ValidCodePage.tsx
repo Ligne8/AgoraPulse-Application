@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import ReturnButton from '@/components/ReturnButton';
 import { router, useLocalSearchParams } from 'expo-router';
-import supabase from '@/backend/client';
+import supabase from '@/backend/supabase';
 
 export interface DisplayCodePageProps {
   validCode: string;
