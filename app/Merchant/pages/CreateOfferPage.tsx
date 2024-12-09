@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import CustomButton from '@/components/CustomButton';
 // import { useRouter } from 'expo-router';
 
-const MerchantCreateOfferPage = () => {
+const CreateOfferPage = () => {
   const [fidelityPoints, setFidelityPoints] = React.useState('0');
   // const router = useRouter();
   const numberRegExp = new RegExp('^[0-9]{0,4}$');
@@ -121,4 +121,4 @@ const MerchantCreateOfferPage = () => {
   );
 };
 
-export default MerchantCreateOfferPage;
+export default CreateOfferPage;
