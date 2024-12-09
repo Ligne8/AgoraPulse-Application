@@ -69,6 +69,19 @@ export async function saveUserTags(tags: Tag[]) {
   }
 }
 
+export async function getUserTags() {
+  const { data, error } = await supabase
+    .from('UsersTags')
+    .select('tags_id')
+    .eq('user_id', await getUserId());
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching user tags');
+  } else {
+    return data;
+  }
+}
+
 export async function getClientOffers() {
   const userID = await getUserId();
   const { data, error } = await supabase
