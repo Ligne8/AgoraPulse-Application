@@ -139,3 +139,28 @@ export async function setUserCompleted() {
     throw new Error('Error updating user');
   }
 }
+export async function getAds() {
+  const { data, error } = await supabase
+    .from('Ads')
+    .select('*')
+    .eq('store_id', await getStoreId());
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching ads');
+  } else {
+    return data;
+  }
+}
+
+export async function getAchievements() {
+  const { data, error } = await supabase
+    .from('Achievement')
+    .select('*')
+    .eq('store_id', await getStoreId());
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching ads');
+  } else {
+    return data;
+  }
+}
