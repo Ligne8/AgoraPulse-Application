@@ -1,8 +1,23 @@
+import { getAchievements, getAds } from '@/backend/client';
 import { useFonts } from 'expo-font';
-import { SplashScreen } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { SplashScreen, useFocusEffect } from 'expo-router';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { View, Text } from 'react-native';
+
+interface Ad {
+  id: string;
+  title: string;
+  points: number;
+  image_url: string;
+}
+
+interface Achievement {
+  id: string;
+  title: string;
+  points: string;
+  description: string;
+}
 
 export default function HomePage() {
   const [fontsLoaded] = useFonts({
@@ -13,40 +28,31 @@ export default function HomePage() {
 
   const [showAllAnnonces, setShowAllAnnonces] = useState(false);
   const [showAllOffres, setShowAllOffres] = useState(false);
+  const [annonces, setAds] = useState<Ad[]>([]);
+  const [offresFidelite, setAchievements] = useState<Achievement[]>([]);
+
+  const fetchAds = async () => {
+    const ads: any = await getAds();
+    setAds(ads);
+  };
+
+  const fetchAchievements = async () => {
+    const achievements: any = await getAchievements();
+    setAchievements(achievements);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchAds();
+      fetchAchievements();
+    }, [])
+  );
 
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
-
-  const annonces = [
-    {
-      title: 'Profitez de -10% sur votre prochain pack de 24 canettes.',
-      points: 50,
-      image_url:
-        'https://images.affiches-et-posters.com//albums/3/55722/medium/affiche-vintage-perrier-villemot-7411.jpg',
-    },
-    {
-      title: 'Obtenez une boisson gratuite avec chaque menu.',
-      points: 30,
-      image_url: 'https://strasbourg.crousandgo.fr/learning-center/wp-content/uploads/sites/5/2021/09/Test-coca.jpg',
-    },
-    {
-      title: 'Recevez 20% de réduction sur votre prochaine commande.',
-      points: 70,
-      image_url: 'https://www.purina.fr/sites/default/files/2021-02/BREED%20Hero_0034_chihuahua_smooth.jpg',
-    },
-  ];
-
-  const offresFidelite = [
-    { title: '1000 pts', description: 'Gagnez une maxi coupe gratuite pour un flow de zizin.' },
-    { title: '1500 pts', description: 'Recevez un café gratuit sur votre prochaine visite.' },
-    {
-      title: '2000 pts',
-      description: 'Obtenez un dessert gratuit de votre choix. Uniquement pour les plus gourmand! ',
-    },
-  ];
 
   return (
     <View style={styles.container}>
@@ -63,8 +69,8 @@ export default function HomePage() {
           <Text style={styles.sectionTitle}>Vos annonces actives</Text>
           <Text style={styles.sectionSubtitle}>Attirez les clients de passage avec vos promotions en cours.</Text>
 
-          {(showAllAnnonces ? annonces : annonces.slice(0, 1)).map((annonce, index) => (
-            <View key={index} style={styles.offerBox}>
+          {(showAllAnnonces ? annonces : annonces.slice(0, 1)).map((annonce) => (
+            <View key={annonce.id} style={styles.offerBox}>
               <Image style={styles.offerImage} source={{ uri: annonce.image_url }} />
               <Text style={styles.offerText}>{annonce.title}</Text>
               <Text style={styles.offerPoints}>{annonce.points} pts</Text>

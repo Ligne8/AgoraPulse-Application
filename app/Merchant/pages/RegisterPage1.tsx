@@ -1,13 +1,14 @@
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { faShop, faNavicon, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
-import CustomPicker from '@/components/CustomPicker';
+import CustomPicker, { Item } from '@/components/CustomPicker';
 import AddressField from '@/components/AddressFields';
 import { router } from 'expo-router';
+import { createStore, getAllStandalonTags, getStore, Store, Tag } from '@/backend/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -19,11 +20,75 @@ export default function RegisterPage() {
     MontserratBlack: require('@/assets/fonts/Montserrat-Black.ttf'),
   });
 
+  const [commercerName, setCommerceName] = useState('');
+  const [commercerDescription, setCommerceDescription] = useState('');
+  const [commercerType, setCommerceType] = useState('');
+  const [commercerWebsite, setCommerceWebsite] = useState('');
+  const [commercerAddress, setCommerceAddress] = useState('');
+  const [commercerCity, setCommerceCity] = useState('');
+  const [commercerZipCode, setCommerceZipCode] = useState('');
+  const [tags, setTags] = useState<Item[]>([]);
+
+  const fetchTags = async () => {
+    try {
+      const tags = await getAllStandalonTags();
+      const items: Item[] = tags.map((tag: Tag) => ({ label: tag.name, value: tag.id }));
+      setTags(items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const isStoreExist = async () => {
+    try {
+      const store = await getStore();
+      if (store != undefined) {
+        router.push('/Merchant/pages/RegisterPage2');
+      } else {
+        fetchTags();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    isStoreExist();
+  }, []);
+
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
+  const handleNextPress = async () => {
+    if (!commercerName || !commercerDescription || !commercerType) {
+      alert('Veuillez remplir tous les champs obligatoires');
+      return;
+    }
+    if (!commercerAddress || !commercerCity || !commercerZipCode) {
+      // eslint-disable-next-line
+      alert("Veuillez remplir tous les champs de l'adresse");
+      return;
+    }
+    const payload: Store = {
+      name: commercerName,
+      description: commercerDescription,
+      tag_id: commercerType,
+      web_url: commercerWebsite,
+      city: commercerCity,
+      zip_code: commercerZipCode,
+      address: commercerAddress,
+    };
+    try {
+      await createStore(payload);
+      alert('Votre commerce a été enregistré avec succès');
+      router.push('/Merchant/pages/RegisterPage2');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -39,6 +104,7 @@ export default function RegisterPage() {
         backgroundColor="#f2f2f2"
         descriptionColor="#6c7a93"
         marginBottom={10}
+        onChangeText={(text) => setCommerceName(text)}
       />
       <EntryField
         icon={faNavicon}
@@ -48,19 +114,16 @@ export default function RegisterPage() {
         descriptionColor="#6c7a93"
         multiline={true}
         marginBottom={10}
+        onChangeText={(text) => setCommerceDescription(text)}
       />
       <CustomPicker
         title="Sélectionner un type"
-        items={[
-          { label: 'Restaurant', value: 'restaurant' },
-          { label: 'Café', value: 'cafe' },
-          { label: 'Boutique', value: 'boutique' },
-        ]}
+        items={tags}
         backgroundColor="#f2f2f2"
         textColor="#0E3D60"
         iconColor="#0E3D60"
         selectedItemColor="#1A3D5D"
-        onValueChange={(value) => console.log('Selected:', value)}
+        onValueChange={(value) => setCommerceType(value)}
       />
       <Text style={styles.sectionTitle}>Autres informations</Text>
       <EntryField
@@ -70,11 +133,16 @@ export default function RegisterPage() {
         backgroundColor="#f2f2f2"
         descriptionColor="#6c7a93"
         marginBottom={10}
+        onChangeText={(text) => setCommerceWebsite(text)}
       />
-      <AddressField />
+      <AddressField
+        onChangeAddress={setCommerceAddress}
+        onChangeCity={setCommerceCity}
+        onChangeZipCode={setCommerceZipCode}
+      />
       <CustomButton
         title="Suivant"
-        onPress={() => router.push('/Merchant/pages/RegisterPage2')}
+        onPress={handleNextPress}
         backgroundColor="#0E3D60"
         textColor="#FFFFFF"
         width="100%"

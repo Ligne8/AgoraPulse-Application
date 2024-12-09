@@ -60,7 +60,7 @@ export default function LoginPage() {
         }
       } else if (user.role == 'merchant') {
         if (is_profil_complete) {
-          router.push('/Merchant/pages/HomePage');
+          router.push('/Merchant/(tabs)/HomePage');
         } else {
           router.push('/Merchant/pages/RegisterPage1');
         }

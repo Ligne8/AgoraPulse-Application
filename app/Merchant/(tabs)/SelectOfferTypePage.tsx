@@ -96,7 +96,10 @@ const SelectOfferTypePage = () => {
   const validateType = (type: string) => {
     return type === 'reduction' || type === 'special';
   };
-
+  // const fetchStoreInformation = async () => {
+  //   // TODO
+  // };
+  //
   const handleFormSubmit = async (formData: FormData): Promise<void> => {
     if (!validateType(type)) {
       console.error('Invalid offer type');
