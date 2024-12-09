@@ -28,6 +28,7 @@ function useBLE() {
 
       if (device) {
         if (device.name?.toLocaleLowerCase().includes('agora')) {
+          //TODO: appeler la fonction de Tom qui fait le back.
           console.log('Périphérique Agora-Box détecté !');
           bleManager.stopDeviceScan();
           setIsScanning(false);

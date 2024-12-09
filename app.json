@@ -61,6 +61,18 @@
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
           "recordAudioAndroid": true
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/logo.png",
+          "sounds": [
+            "./assets/sounds/TOIIIII.wav",
+            "./assets/sounds/wouahw.wav",
+            "./assets/sounds/goofy.wav"
+          ],
+          "enableBackgroundRemoteNotifications": true
+        }
       ]
     ],
     "experiments": {

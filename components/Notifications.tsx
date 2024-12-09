@@ -14,25 +14,24 @@ const NotificationHandler = () => {
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowAlert: true,
-      shouldPlaySound: false,
+      shouldPlaySound: true,
       shouldSetBadge: false,
     }),
   });
 
-  const triggerNotification = async () => {
+  const triggerNotification = async ({ title, body }: { title: string; body: string }) => {
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: 'Hello!',
-        body: 'Ceci est une notification locale',
-        sound: true,
-        data: { extraData: 'Some data' },
+        title: title,
+        body: body,
+        sound: 'goofy.wav'
       },
-      trigger: { type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL, seconds: 5 },
+      trigger: null,
     });
   };
 
   useEffect(() => {
-    triggerNotification();
+    triggerNotification({ title: 'Bienvenue', body: 'Bienvenue sur notre application' });
   }, []);
 };
 
