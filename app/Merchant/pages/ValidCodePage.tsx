@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import ReturnButton from '@/components/ReturnButton';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import supabase from '@/backend/client';
 
 export interface DisplayCodePageProps {
@@ -50,7 +50,7 @@ function DisplayCodePage() {
         </Text>
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => router.back()}>
         <View className="items-center justify-center mt-7 w-[339px] h-[65px]  bg-[#0E3D60] rounded-[20px]">
           <Text className="font-bold text-[20px] text-white ">Continuer</Text>
         </View>
