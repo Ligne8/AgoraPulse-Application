@@ -31,7 +31,7 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
     if (type === 'special') {
       handleInputChange('eventDate', eventDate.toLocaleDateString());
     }
-  },[]);
+  }, []);
 
   const handleFormSubmit = () => {
     if (Object.keys(formData).length === 0) {
@@ -66,12 +66,12 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
               marginBottom={10}
               onChangeText={(text) => handleInputChange('description', text)}
             />
-           <ModalButton
-             title={'Date limite de l\'événement : ' + eventDate.toLocaleDateString()}
-             onPress={() => setIsDatePickerOpen(true)}
-             backgroundColor="#EEEEEE"
-             textColor="#0E3D60"
-             borderColor="#CCCCCC"
+            <ModalButton
+              title={'Date limite de l\'événement : ' + eventDate.toLocaleDateString()}
+              onPress={() => setIsDatePickerOpen(true)}
+              backgroundColor="#EEEEEE"
+              textColor="#0E3D60"
+              borderColor="#CCCCCC"
             />
             <DatePicker
               modal

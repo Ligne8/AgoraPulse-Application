@@ -62,9 +62,7 @@ function printAIInfo(aiInfo: AIInformation) {
   console.log('----------------');
 }
 
-
-export async function constructRequest(type: string, formData: FormData ): Promise<AIRequest> {
-
+export async function constructRequest(type: string, formData: FormData): Promise<AIRequest> {
   const request: AIRequest = {
     ad_type: type as 'reduction' | 'special',
     input: {
@@ -87,7 +85,6 @@ export async function constructRequest(type: string, formData: FormData ): Promi
   }
   return request;
 }
-
 
 export default async function fetchAiInformation(body: AIRequest): Promise<AIInformation | null> {
   console.log('Calling AI function...');

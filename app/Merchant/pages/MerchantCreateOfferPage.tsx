@@ -38,7 +38,6 @@ const MerchantCreateOfferPage = () => {
     setNotification(aiInformation.notification);
   }, []);
 
-
   const handleIncrement = () => {
     if (fidelityPoints === '') {
       setFidelityPoints('1');

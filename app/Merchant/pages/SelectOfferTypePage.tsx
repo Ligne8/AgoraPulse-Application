@@ -107,7 +107,7 @@ const SelectOfferTypePage = () => {
     setLoading(true);
     const payload = await constructRequest(type, formData);
     console.log('Payload:', payload);
-     const res = await fetchAiInformation(payload);
+    const res = await fetchAiInformation(payload);
     if (res == null) {
       console.error('Error fetching AI information');
       setLoading(false);
@@ -233,14 +233,12 @@ const SelectOfferTypePage = () => {
       )}
       <Modal isOpen={modalOpen}>
         <View className="bg-white w-full p-5 rounded-xl items-center shadow-md shadow-black/20">
-          <Text className="text-[#0E3D60] text-[23px] text-center font-bold mb-2 w-full">
-            {displayOfferType(type)}
-          </Text>
+          <Text className="text-[#0E3D60] text-[23px] text-center font-bold mb-2 w-full">{displayOfferType(type)}</Text>
           <View className="flex justify-center w-full mt-2">
             <View>
               <OfferForm type={type} onSubmit={handleFormSubmit} />
             </View>
-            <View >
+            <View>
               <ModalButton
                 title="Annuler"
                 onPress={() => setModalOpen(false)}
