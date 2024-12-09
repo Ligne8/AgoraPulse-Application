@@ -14,6 +14,7 @@ interface EntryFieldProps {
   multiline?: boolean;
   inputHeight?: number;
   marginBottom?: number;
+  value?: string;
   // eslint-disable-next-line no-unused-vars
   onChangeText?: (text: string) => void;
 }
@@ -29,6 +30,7 @@ export default function EntryField({
   secureText = false,
   multiline = false,
   marginBottom = 15,
+  value,
   onChangeText,
 }: EntryFieldProps) {
   return (
@@ -46,6 +48,7 @@ export default function EntryField({
           multiline={multiline}
           textAlignVertical={multiline || inputHeight > 20 ? 'top' : 'center'} // Align text at the top if height > 20        />
           onChangeText={onChangeText}
+          value={value}
         />
       </View>
     </View>
@@ -58,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 10,
     borderRadius: 10,
-    borderColor: '#e3e3e3',
+    borderColor: '#CCCCCC',
     borderWidth: 1,
     width: '100%',
   },

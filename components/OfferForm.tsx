@@ -1,7 +1,9 @@
 import { View } from 'react-native';
-import { ModalInput } from '@/components/ModalInput';
 import { ModalButton } from '@/components/ModalButton';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import EntryField from '@/components/EntryField';
+import { faInfoCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import DatePicker from 'react-native-date-picker';
 
 interface OfferFormProps {
   type: string;
@@ -15,6 +17,8 @@ export interface FormData {
 
 const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
   const [formData, setFormData] = React.useState<FormData>({});
+  const [eventDate, setEventDate] = useState(new Date());
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   const handleInputChange = (key: string, value: string | number) => {
     setFormData((prevData) => ({
@@ -23,7 +27,16 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
     }));
   };
 
+  useEffect(() => {
+    if (type === 'special') {
+      handleInputChange('eventDate', eventDate.toLocaleDateString());
+    }
+  },[]);
+
   const handleFormSubmit = () => {
+    if (Object.keys(formData).length === 0) {
+      return;
+    }
     onSubmit(formData);
   };
 
@@ -31,22 +44,48 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
     switch (type) {
       case 'reduction':
         return (
-          <ModalInput
-            placeholder="Pourcentage de réduction"
+          <EntryField
+            icon={faShoppingCart}
+            title="Montant de la réduction"
+            placeholder=""
+            backgroundColor="#EEEEEE"
+            descriptionColor="#6c7a93"
+            marginBottom={10}
             onChangeText={(text) => handleInputChange('reduction', text)}
           />
         );
       case 'special':
         return (
           <>
-          <ModalInput
-            placeholder="Description de l'évènement"
-            onChangeText={(text) => handleInputChange('description', text)}
-          />
-          <ModalInput
-            placeholder="Date de l'évènement"
-            onChangeText={(text) => handleInputChange('date', text)}
-          />
+            <EntryField
+              icon={faInfoCircle}
+              title="Nom de l'événement"
+              placeholder=""
+              backgroundColor="#EEEEEE"
+              descriptionColor="#6c7a93"
+              marginBottom={10}
+              onChangeText={(text) => handleInputChange('description', text)}
+            />
+           <ModalButton
+             title={'Date limite de l\'événement : ' + eventDate.toLocaleDateString()}
+             onPress={() => setIsDatePickerOpen(true)}
+             backgroundColor="#EEEEEE"
+             textColor="#0E3D60"
+             borderColor="#CCCCCC"
+            />
+            <DatePicker
+              modal
+              open={isDatePickerOpen}
+              date={eventDate}
+              minimumDate={new Date()}
+              mode="date"
+              onConfirm={(date) => {
+                setIsDatePickerOpen(false);
+                setEventDate(date);
+                handleInputChange('eventDate', date.toLocaleDateString());
+              }}
+              onCancel={() => setIsDatePickerOpen(false)} // Close picker without changes
+            />
           </>
         );
       // Add more cases here as needed
@@ -58,12 +97,9 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
   return (
     <View>
       {renderFormFields()}
-      <ModalButton
-        title="Valider"
-        onPress={handleFormSubmit}
-        backgroundColor="#0E3D60"
-        textColor="#FFFFFF"
-      />
+      <View className="mt-6">
+        <ModalButton title="Valider" onPress={handleFormSubmit} backgroundColor="#0E3D60" textColor="#FFFFFF" />
+      </View>
     </View>
   );
 };

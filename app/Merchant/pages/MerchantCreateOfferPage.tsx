@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReturnButton from '@/components/ReturnButton';
 import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import EntryField from '@/components/EntryField';
@@ -10,17 +10,34 @@ import { AIInformation } from '@/backend/openai';
 
 const MerchantCreateOfferPage = () => {
   const [fidelityPoints, setFidelityPoints] = React.useState('0');
-  const [AIInformation, setAIInformation] = React.useState<AIInformation | null>(null);
   // const router = useRouter();
   const numberRegExp = new RegExp('^[0-9]{0,4}$');
   const data = useLocalSearchParams();
 
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [notification, setNotification] = useState('');
+
+  const handleChangeTitle = (newTitle: string) => {
+    setTitle(newTitle);
+  };
+
+  const handleChangeDescription = (newDescription: string) => {
+    setDescription(newDescription);
+  };
+
+  const handleChangeNotification = (newNotification: string) => {
+    setNotification(newNotification);
+  };
+
   useEffect(() => {
     const aiInformation = data as unknown as AIInformation;
     console.log(aiInformation);
-    setAIInformation(aiInformation);
-    console.log(AIInformation);
+    setTitle(aiInformation.title);
+    setDescription(aiInformation.description);
+    setNotification(aiInformation.notification);
   }, []);
+
 
   const handleIncrement = () => {
     if (fidelityPoints === '') {
@@ -76,6 +93,8 @@ const MerchantCreateOfferPage = () => {
             backgroundColor="#EEEEEE"
             descriptionColor="#6c7a93"
             marginBottom={10}
+            value={title}
+            onChangeText={handleChangeTitle}
           />
           <EntryField
             icon={faShoppingCart}
@@ -85,6 +104,8 @@ const MerchantCreateOfferPage = () => {
             descriptionColor="#6c7a93"
             inputHeight={100}
             marginBottom={10}
+            value={description}
+            onChangeText={handleChangeDescription}
             multiline={true}
           />
           <EntryField
@@ -94,6 +115,8 @@ const MerchantCreateOfferPage = () => {
             backgroundColor="#EEEEEE"
             descriptionColor="#6c7a93"
             marginBottom={5}
+            value={notification}
+            onChangeText={handleChangeNotification}
           />
         </View>
         <View className="flex justify-center items-center p-4">

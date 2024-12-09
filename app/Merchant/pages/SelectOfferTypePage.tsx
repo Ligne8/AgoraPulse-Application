@@ -4,12 +4,12 @@ import { MaterialIcons, FontAwesome, Entypo } from '@expo/vector-icons';
 import ReturnButton from '@/components/ReturnButton';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useRouter } from 'expo-router';
+import { UnknownInputParams, useRouter } from 'expo-router';
 import { ModalButton } from '@/components/ModalButton';
 import { Modal } from '@/components/Modal';
 import OfferForm from '@/components/OfferForm';
 import { FormData } from '@/components/OfferForm';
-
+import fetchAiInformation, { constructRequest } from '@/backend/openai';
 
 interface AnnouncementTypeProps {
   icon: React.ReactNode;
@@ -18,14 +18,17 @@ interface AnnouncementTypeProps {
   borderColor: string;
   onPress: () => void;
 }
-
-const AIMockData = {
-  success: 'true',
-  ad_type: 'special',
-  data: 'Titre :\n"Promotion Flash, Petits Trésors chez Boutique des Curiosités!"\n\nNotification :\n"Poussée par une envie d’un shopping unique? Rejoignez-nous avant le 31/03/2022 pour notre Promotion Flash chez Boutique des Curiosités!"\n\nDescription :\n"La Boutique des Curiosités est fière de vous inviter à notre événement \'Promotion Flash, Petits Trésors\'! Préparez-vous à voyager dans des univers uniques allant de l\'artisanat d\'art, bijoux fantaisie aux produits de décoration d\'intérieur sur-mesure. \n\nL\'événement se déroulera le 31/03/2022 toute la journée, de 9h à 19h, au sein de notre boutique physique située au coeur de Paris. En participant, vous aurez la chance de découvrir une sélection de produits soigneusement choisis pour leur originalité et leur caractère unique. \n\nLors de cette journée spéciale, nous vous proposons des offres promotionnelles avec des réductions allant jusqu\'à -40% sur une grande sélection d\'articles. Une belle occasion pour dénicher vos futurs coups de coeur parmi une diversité de produits de petits artisans locaux. \n\nAlors, ne manquez pas cette opportunité d\'enchérir sur des trésors uniques à des prix imbattables, et de soutenir en même temps les petits commerces. \n\nVous êtes tous invités à cette journée spéciale. Nous avons hâte de vous accueillir pour une expérience de shopping unique. Le café et les rafraîchissements seront offerts toute la journée. Rendez-vous le 31/03/2022 chez Boutique des Curiosités !"',
-  prompt:
-    'Tu es un expert en création de notifications publicitaires pour une application mobile dédiée aux petits commerces. Ta tâche consiste à générer une réponse claire et formatée qui incluent toujours les trois éléments suivants, dans cet ordre :\nTitre : Une phrase concise et accrocheuse, par exemple \'Mashallah\' chez La pizza de la MaMa, limitée à 50 caractères.\nNotification : Un texte engageant et motivant (150 caractères maximum) qui incite les passants à participer à l’événement. Mentionne la date et l’heure, et utilise un appel à l’action direct comme \'Rejoignez-nous pour \'Mashallah\' avant le 11/02/2025 !\'.\nDescription détaillée : Une description détaillée (1500 caractères maximum) qui explique ce qu’est l’événement, ses activités, et donne toutes les informations pratiques (date, lieu, offres spéciales liées à l\'événement), tout en encourageant les passants à participer.*La structure de la réponse doit toujours suivre ce format :*\n\nTitre :\n[texte du titre]\n\nNotification :\n[texte de la notification push]\n\nDescription :\n[texte de la description]',
-};
+//
+// const AIMockData: AIInformation =
+//   {
+//     'success': 'true',
+//     'ad_type': 'special',
+//     'response': 'Titre :\n"Mashallah" chez La pizza de la MaMa, ne manquez pas!\n\nNotification :\nEnvie de magie culinaire? Rejoignez-nous pour \'Mashallah\' chez La pizza de la MaMa avant le 11/02/2025 ! Un événement à ne pas manquer.\n\nDescription :\n"Mashallah" chez La pizza de la MaMa est une célébration de l\'art culinaire de la pizza comme aucune autre. Venez découvrir les secrets de la confection de nos pizzas qui vous laisseront dire ‘Mashallah’! Du choix des meilleurs ingrédients, à la préparation de la pâte fait maison, jusqu’à l’art du garnissage et de la cuisson, nous vous invitions à un voyage gustatif que vous n’oublierez pas de sitôt. \n\nL’événement commence maintenant et se poursuit jusqu\'au 11/02/2025. Durant cette période, nous aurons des démonstrations de cuisine en direct, des dégustations, ainsi que des promotions spéciales pour ceux qui participent à l\'événement. \n\nNos portes sont ouvertes à tous ceux qui souhaitent savourer la véritable essence de la pizza, et nous sommes impatients de vous accueillir chez La pizza de la MaMa. Venez nombreux pour profiter de cette expérience unique et palpitante. Ne ratez pas l\'opportunité de dire \'Mashallah\', Joignez-vous à nous!\n',
+//     'title': 'Mashallah',
+//     'description': 'Mashallah',
+//     'notification': 'Envie de magie culinaire? Rejoignez-nous pour \'Mashallah\' chez La pizza de la MaMa avant le 11/02/2025 ! Un événement à ne pas manquer.',
+//     'prompt': 'Tu es un expert en création de notifications publicitaires pour une application mobile dédiée aux petits commerces. Ta tâche consiste à générer une réponse claire et formatée qui incluent toujours les trois éléments suivants, dans cet ordre :\nTitre : Une phrase concise et accrocheuse sur \'Mashallah\' chez La pizza de la MaMa, limitée à 50 caractères.\nNotification : Un texte engageant et motivant (150 caractères maximum) qui incite les passants à participer à l’événement. Mentionne la date maximale de l\'evenement qui est lev11/02/2025 et utilise un appel à l’action direct comme \'Rejoignez-nous pour \'Mashallah\' avant le 11/02/2025 !\'.\nDescription détaillée : Une description détaillée (1500 caractères maximum) qui explique ce qu’est l’événement, ses activités, et donne toutes les informations pratiques (date, lieu, offres spéciales liées à l\'événement), tout en encourageant les passants à participer.*La structure de la réponse doit toujours suivre ce format :*\n\nTitre :\n[texte du titre]\n\nNotification :\n[texte de la notification push]\n\nDescription :\n[texte de la description]'
+//   };
 
 const AnnouncementType: React.FC<AnnouncementTypeProps> = ({ icon, label, bgColor, borderColor, onPress }) => (
   <TouchableOpacity
@@ -65,7 +68,6 @@ const SelectOfferTypePage = () => {
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [type, setType] = useState('');
-
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
@@ -77,30 +79,47 @@ const SelectOfferTypePage = () => {
     }
   }, [fontsLoaded]);
 
+  const displayOfferType = (type: string) => {
+    if (type === 'reduction') {
+      return 'Créer une offre de réduction';
+    } else if (type === 'special') {
+      return 'Créer une offre spéciale';
+    }
+  };
+
   const handleOfferType = async (type: string) => {
     setType(type);
     setModalOpen(true);
     console.log(type);
   };
 
-  const handleFormSubmit = (formData: FormData ): void => {
+  const validateType = (type: string) => {
+    return type === 'reduction' || type === 'special';
+  };
+
+  const handleFormSubmit = async (formData: FormData): Promise<void> => {
+    if (!validateType(type)) {
+      console.error('Invalid offer type');
+      return;
+    }
     console.log('Form Data:', formData);
     setModalOpen(false);
-    if (type === 'reduction') {
-      setLoading(true);
-      // FIXME: Call the create Object for the request
-
-      // FIXME : Call the real API here
-      console.log('Calling API...');
-      // const res = await fetchAiInformation();
-      // console.log(res);
-      console.log('API call completed');
+    setLoading(true);
+    const payload = await constructRequest(type, formData);
+    console.log('Payload:', payload);
+     const res = await fetchAiInformation(payload);
+    if (res == null) {
+      console.error('Error fetching AI information');
       setLoading(false);
-      router.push({
-        pathname: '/Merchant/pages/MerchantCreateOfferPage',
-        params: AIMockData,
-      });
+      return;
     }
+    console.log(res);
+    console.log('API call completed');
+    setLoading(false);
+    router.push({
+      pathname: '/Merchant/pages/MerchantCreateOfferPage',
+      params: res as unknown as UnknownInputParams,
+    });
   };
 
   return (
@@ -142,7 +161,7 @@ const SelectOfferTypePage = () => {
             style={{
               flexDirection: 'row',
               flexWrap: 'wrap',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
               paddingHorizontal: 25,
               width: '100%',
             }}
@@ -215,20 +234,23 @@ const SelectOfferTypePage = () => {
       <Modal isOpen={modalOpen}>
         <View className="bg-white w-full p-5 rounded-xl items-center shadow-md shadow-black/20">
           <Text className="text-[#0E3D60] text-[23px] text-center font-bold mb-2 w-full">
-            Créer une offre de {type}
+            {displayOfferType(type)}
           </Text>
           <View className="flex justify-center w-full mt-2">
-            <OfferForm type={type} onSubmit={handleFormSubmit} />
-            <ModalButton
-              title="Annuler"
-              onPress={() => setModalOpen(false)}
-              backgroundColor="#D9D9D9"
-              textColor="#0E3D60"
-            />
+            <View>
+              <OfferForm type={type} onSubmit={handleFormSubmit} />
+            </View>
+            <View >
+              <ModalButton
+                title="Annuler"
+                onPress={() => setModalOpen(false)}
+                backgroundColor="#D9D9D9"
+                textColor="#0E3D60"
+              />
+            </View>
           </View>
         </View>
       </Modal>
-
     </View>
   );
 };

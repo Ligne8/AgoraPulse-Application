@@ -9,16 +9,16 @@ type PROP = ModalProps & {
 export const Modal = ({ isOpen, withInput, children, ...rest }: PROP) => {
   const content = withInput ? (
     <KeyboardAvoidingView style={styles.centeredView} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-    {children}
+      {children}
     </KeyboardAvoidingView>
-) : (
+  ) : (
     <View style={styles.centeredView}>{children}</View>
   );
   return (
     <RNModal visible={isOpen} transparent animationType="fade" statusBarTranslucent {...rest}>
-  {content}
-  </RNModal>
-);
+      {content}
+    </RNModal>
+  );
 };
 
 const styles = StyleSheet.create({

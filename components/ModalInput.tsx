@@ -2,9 +2,9 @@ import { StyleSheet, TextInput } from 'react-native';
 import React from 'react';
 
 export const ModalInput = ({
-                             placeholder,
-                             onChangeText,
-                           }: {
+  placeholder,
+  onChangeText,
+}: {
   placeholder: string;
   // eslint-disable-next-line no-unused-vars
   onChangeText: (text: string) => void;
