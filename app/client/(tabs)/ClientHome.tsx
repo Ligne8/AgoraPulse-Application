@@ -1,10 +1,11 @@
 import { useFonts } from 'expo-font';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import CustomButton from '@/components/CustomButton';
 import PulsatingIcon from '@/components/PulsatingIcon';
 import { Ionicons } from '@expo/vector-icons';
+import * as Notifications from 'expo-notifications';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -15,13 +16,27 @@ export default function ClientHome() {
     MontserratExtraBold: require('@/assets/fonts/Montserrat-ExtraBold.ttf'),
   });
 
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+
   if (!fontsLoaded) {
     return null;
   }
 
-  const handleDisableNotifications = () => {
-    // TODO: Disable notifications
-    console.log('Notifications désactivées');
+  const updateNotificationHandler = (enabled: boolean) => {
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: enabled,
+        shouldPlaySound: enabled,
+        shouldSetBadge: false,
+      }),
+    });
+  };
+
+  const toggleNotifications = () => {
+    const newState = !notificationsEnabled;
+    setNotificationsEnabled(newState);
+    updateNotificationHandler(newState);
+    console.log(`Notifications ${newState ? 'activées' : 'désactivées'}`);
   };
 
   return (
@@ -42,15 +57,20 @@ export default function ClientHome() {
       <Text style={styles.note}>Restez à l&apos;affût, les bonnes affaires sont juste à côté !</Text>
 
       <CustomButton
-        title="Désactiver les notifications"
-        onPress={handleDisableNotifications}
-        backgroundColor="#0E3D60"
+        title={notificationsEnabled ? 'Désactiver les notifications' : 'Activer les notifications'}
+        onPress={toggleNotifications}
+        backgroundColor={notificationsEnabled ? '#0E3D60' : '#2A9BE2'}
         textColor="#FFFFFF"
         IconComponent={Ionicons}
-        iconName="notifications-off"
+        iconName={notificationsEnabled ? 'notifications-off' : 'notifications'}
         iconSize={20}
         iconColor="#FFFFFF"
-        style={{ paddingVertical: 15, paddingHorizontal: 30, bottom: 20, position: 'absolute' }}
+        style={{
+          paddingVertical: 15,
+          paddingHorizontal: 30,
+          bottom: 20,
+          position: 'absolute',
+        }}
         textStyle={{ fontSize: 16 }}
       />
     </View>
