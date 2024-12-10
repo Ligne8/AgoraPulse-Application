@@ -87,6 +87,16 @@ export async function createStore(data: Store) {
     throw new Error('Error creating store');
   }
 }
+export async function updateStore(data: Store) {
+  const { error } = await supabase
+    .from('Store')
+    .update(data)
+    .eq('id', await getStoreId());
+  if (error) {
+    console.error(error);
+    throw new Error('Error updating store');
+  }
+}
 
 export async function getStore() {
   const { data, error } = await supabase.from('Store').select('*');

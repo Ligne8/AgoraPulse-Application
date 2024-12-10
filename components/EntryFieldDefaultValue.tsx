@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
     color: '#6c7a93',
   },
   inputMultiline: {
-    height: 40,
+    height: 100,
   },
 });
