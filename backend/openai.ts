@@ -1,4 +1,4 @@
-import supabase from '@/backend/client';
+import supabase, { Store } from '@/backend/client';
 import { FormData } from '@/components/OfferForm';
 
 // const payload = {
@@ -62,15 +62,15 @@ function printAIInfo(aiInfo: AIInformation) {
   console.log('----------------');
 }
 
-export async function constructRequest(type: string, formData: FormData): Promise<AIRequest> {
+export async function constructRequest(type: string, formData: FormData, store: Store): Promise<AIRequest> {
   const request: AIRequest = {
     ad_type: type as 'reduction' | 'special',
     input: {
       fields: {},
       store_information: {
-        store_name: 'La pizza de la MaMa',
-        store_id: 'store12345',
-        location: 'Paris, France',
+        store_name: store.name,
+        store_id: store.tag_id,
+        location: store.city,
       },
     },
   };

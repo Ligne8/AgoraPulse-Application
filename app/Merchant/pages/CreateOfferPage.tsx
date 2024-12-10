@@ -91,9 +91,11 @@ const CreateOfferPage = () => {
             placeholder="Entrez un titre accrocheur pour votre annonce"
             backgroundColor="#EEEEEE"
             descriptionColor="#6c7a93"
+            inputHeight={50}
             marginBottom={10}
             value={title}
             onChangeText={handleChangeTitle}
+            multiline={true}
           />
           <EntryField
             icon={faShoppingCart}
@@ -114,6 +116,8 @@ const CreateOfferPage = () => {
             backgroundColor="#EEEEEE"
             descriptionColor="#6c7a93"
             marginBottom={5}
+            inputHeight={50}
+            multiline={true}
             value={notification}
             onChangeText={handleChangeNotification}
           />

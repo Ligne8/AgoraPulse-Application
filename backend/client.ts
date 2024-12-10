@@ -89,7 +89,10 @@ export async function createStore(data: Store) {
 }
 
 export async function getStore() {
-  const { data, error } = await supabase.from('Store').select('*');
+  const { data, error } = await supabase
+    .from('Store')
+    .select('*')
+    .eq('user_id', await getUserId());
   if (error) {
     console.error(error);
     throw new Error('Error fetching store');
@@ -97,6 +100,10 @@ export async function getStore() {
     return data[0];
   }
 }
+
+export const getUserId = async () => {
+  return (await supabase.auth.getUser()).data.user?.id;
+};
 
 export async function getStoreId() {
   const store = await getStore();

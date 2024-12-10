@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { MaterialIcons, FontAwesome, Entypo } from '@expo/vector-icons';
 import ReturnButton from '@/components/ReturnButton';
 import { useFonts } from 'expo-font';
@@ -10,6 +10,8 @@ import { Modal } from '@/components/Modal';
 import OfferForm from '@/components/OfferForm';
 import { FormData } from '@/components/OfferForm';
 import fetchAiInformation, { constructRequest } from '@/backend/openai';
+import { getStore, Store } from '@/backend/client';
+import Loader from '@/components/AILoader';
 
 interface AnnouncementTypeProps {
   icon: React.ReactNode;
@@ -18,7 +20,7 @@ interface AnnouncementTypeProps {
   borderColor: string;
   onPress: () => void;
 }
-//
+
 // const AIMockData: AIInformation =
 //   {
 //     'success': 'true',
@@ -96,10 +98,17 @@ const SelectOfferTypePage = () => {
   const validateType = (type: string) => {
     return type === 'reduction' || type === 'special';
   };
-  // const fetchStoreInformation = async () => {
-  //   // TODO
-  // };
-  //
+  const fetchStoreInformation = async (): Promise<Store | undefined> => {
+    const res = await getStore();
+    if (res == null) {
+      console.error('Error fetching store information');
+      return;
+    }
+    console.log('Store Information:');
+    console.log(res);
+    return res;
+  };
+
   const handleFormSubmit = async (formData: FormData): Promise<void> => {
     if (!validateType(type)) {
       console.error('Invalid offer type');
@@ -108,8 +117,16 @@ const SelectOfferTypePage = () => {
     console.log('Form Data:', formData);
     setModalOpen(false);
     setLoading(true);
-    const payload = await constructRequest(type, formData);
+
+    const store = await fetchStoreInformation();
+    if (store === undefined) {
+      console.error('Error fetching store information');
+      setLoading(false);
+      return;
+    }
+    const payload = await constructRequest(type, formData, store);
     console.log('Payload:', payload);
+    console.log('Store:', store);
     const res = await fetchAiInformation(payload);
     if (res == null) {
       console.error('Error fetching AI information');
@@ -120,18 +137,14 @@ const SelectOfferTypePage = () => {
     console.log('API call completed');
     setLoading(false);
     router.push({
-      pathname: '/Merchant/pages/MerchantCreateOfferPage',
+      pathname: '/Merchant/pages/CreateOfferPage',
       params: res as unknown as UnknownInputParams,
     });
   };
-
   return (
     <View style={{ flex: 1 }}>
       {loading ? (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator size="large" color="#0E3D60" />
-          <Text style={{ fontSize: 16, color: '#0E3D60', marginTop: 10 }}>Waiting for AI generation...</Text>
-        </View>
+        <Loader text="En attente de la génération par IA..." />
       ) : (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <ReturnButton />
