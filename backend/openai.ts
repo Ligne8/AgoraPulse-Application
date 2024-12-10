@@ -43,6 +43,7 @@ export interface AIInformation {
   description: string;
   notification: string;
   prompt: string;
+  image_url: string | null;
 }
 
 function printAIInfo(aiInfo: AIInformation) {
@@ -60,6 +61,10 @@ function printAIInfo(aiInfo: AIInformation) {
   console.log('----------------');
   console.log('Prompt:', aiInfo.prompt);
   console.log('----------------');
+  if (aiInfo.image_url === null) {
+    return;
+  }
+  console.log('Image URL:', aiInfo.image_url);
 }
 
 export async function constructRequest(type: string, formData: FormData, store: Store): Promise<AIRequest> {
@@ -89,15 +94,26 @@ export async function constructRequest(type: string, formData: FormData, store: 
 export default async function fetchAiInformation(body: AIRequest): Promise<AIInformation | null> {
   console.log('Calling AI function...');
   try {
-    const { data, error } = await supabase.functions.invoke('openai', {
+    const { data: firstCall, error: firstError } = await supabase.functions.invoke('openai', {
       body: body,
     });
 
-    if (error) {
-      console.error('Error invoking function:', error);
+    if (firstError) {
+      console.error('Error invoking function:', firstError);
       return null;
     }
-    const aiInfo = data as AIInformation;
+    const aiInfo = firstCall as AIInformation;
+
+    const { data: secondCall, error: secondError } = await supabase.functions.invoke('openai-image', {
+      body: body,
+    });
+    if (secondError) {
+      console.error('Error invoking function:', secondError);
+      return null;
+    }
+    console.log('AI function called successfully');
+    console.log(secondCall);
+    aiInfo.image_url = secondCall.url;
     printAIInfo(aiInfo);
     return aiInfo;
   } catch (err) {

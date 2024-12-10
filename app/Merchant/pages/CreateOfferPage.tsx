@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import ReturnButton from '@/components/ReturnButton';
-import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import EntryField from '@/components/EntryField';
 import { faMinus, faPlus, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import CustomButton from '@/components/CustomButton';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { AIInformation } from '@/backend/openai';
+import { Ads } from '@/backend/Interface/Ads';
+import { createAd, getStore } from '@/backend/client';
 
 const CreateOfferPage = () => {
   const [fidelityPoints, setFidelityPoints] = React.useState('0');
   // const router = useRouter();
   const numberRegExp = new RegExp('^[0-9]{0,4}$');
-  const data = useLocalSearchParams();
 
+  const data = useLocalSearchParams();
+  const [ad_type, setAdType] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [notification, setNotification] = useState('');
+  const [image, setImage] = useState('');
 
   const handleChangeTitle = (newTitle: string) => {
     setTitle(newTitle);
@@ -32,10 +36,12 @@ const CreateOfferPage = () => {
 
   useEffect(() => {
     const aiInformation = data as unknown as AIInformation;
-    console.log(aiInformation);
     setTitle(aiInformation.title);
     setDescription(aiInformation.description);
     setNotification(aiInformation.notification);
+    console.log(aiInformation.image_url);
+    setImage(aiInformation.image_url ?? '');
+    setAdType(aiInformation.ad_type);
   }, []);
 
   const handleIncrement = () => {
@@ -55,9 +61,20 @@ const CreateOfferPage = () => {
     setFidelityPoints((fidelityPointsInt - 1).toString());
   };
 
-  const handlePublication = () => {
-    // FIXME : redirect to the welcome page when implemented
-    // router.push('/Merchant/pages/MerchantOfferPublishedPage');
+  const handlePublication = async () => {
+    const store = await getStore();
+    const newAd: Ads = {
+      ad_type: ad_type,
+      title: title,
+      description: description,
+      notification: notification,
+      points: parseInt(fidelityPoints),
+      image_url: image,
+      store_id: store.id,
+    };
+    console.log(newAd);
+    await createAd(newAd);
+    router.push('/Merchant/(tabs)/HomePage');
   };
 
   const handleInputChange = (text: string) => {
@@ -76,11 +93,15 @@ const CreateOfferPage = () => {
       <View className="flex flex-col h-full bg-[#FFFFFF]">
         <ReturnButton />
         <ScrollView
-          contentContainerStyle={{ flexGrow: 1, padding: 16, backgroundColor: 'white' }}
-          keyboardShouldPersistTaps="handled" // Allow taps to dismiss the keyboard
+          contentContainerStyle={{
+            padding: 16,
+            backgroundColor: 'white',
+          }}
+          keyboardShouldPersistTaps="handled" // Dismiss keyboard on tap
+          showsVerticalScrollIndicator={false} // Optional: Hides scroll bar
         >
           <View className="flex justify-center items-center mt-20 p-3">
-            <Text className="text-center text-5xl text-[#0E3D60] font-extrabold pb-2"> Finaliser votre annonce </Text>
+            <Text className="text-center text-5xl text-[#0E3D60] font-extrabold pb-2">Finaliser votre annonce</Text>
             <Text className="text-center text-[#0E3D60] w-3/4">
               Remplissez les détails de votre annonce avant de la publier
             </Text>
@@ -122,9 +143,10 @@ const CreateOfferPage = () => {
               value={notification}
               onChangeText={handleChangeNotification}
             />
+            <Image className="w-full h-64 mt-5 rounded-lg" src={image} />
           </View>
           <View className="flex justify-center items-center p-4">
-            <Text className="text-center text-2xl text-[#0E3D60] font-extrabold pb-2"> Points de fidélité </Text>
+            <Text className="text-center text-2xl text-[#0E3D60] font-extrabold pb-2">Points de fidélité</Text>
             <Text className="text-center text-[#0E3D60]">
               Attribuez des points de fidélité pour inciter vos clients à profiter de cette annonce et renforcer leur
               fidélité !
@@ -137,12 +159,12 @@ const CreateOfferPage = () => {
                 onChangeText={handleInputChange}
                 value={fidelityPoints}
                 className="text-center text-3xl text-[#0E3D60] font-extrabold pb-2"
-              ></TextInput>
+              />
               <TouchableOpacity onPress={handleIncrement} className="rounded border p-2 border-[#CCCCCC] bg-[#EEEEEE]">
                 <FontAwesomeIcon icon={faPlus} size={20} color="#888888" />
               </TouchableOpacity>
             </View>
-            <View className="flex-col justify-center items-center ">
+            <View className="flex-col justify-center items-center">
               <CustomButton
                 title="Publier l'annonce"
                 onPress={handlePublication}

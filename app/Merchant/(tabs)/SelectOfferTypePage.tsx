@@ -29,7 +29,8 @@ interface AnnouncementTypeProps {
 //     'title': 'Mashallah',
 //     'description': 'Mashallah',
 //     'notification': 'Envie de magie culinaire? Rejoignez-nous pour \'Mashallah\' chez La pizza de la MaMa avant le 11/02/2025 ! Un événement à ne pas manquer.',
-//     'prompt': 'Tu es un expert en création de notifications publicitaires pour une application mobile dédiée aux petits commerces. Ta tâche consiste à générer une réponse claire et formatée qui incluent toujours les trois éléments suivants, dans cet ordre :\nTitre : Une phrase concise et accrocheuse sur \'Mashallah\' chez La pizza de la MaMa, limitée à 50 caractères.\nNotification : Un texte engageant et motivant (150 caractères maximum) qui incite les passants à participer à l’événement. Mentionne la date maximale de l\'evenement qui est lev11/02/2025 et utilise un appel à l’action direct comme \'Rejoignez-nous pour \'Mashallah\' avant le 11/02/2025 !\'.\nDescription détaillée : Une description détaillée (1500 caractères maximum) qui explique ce qu’est l’événement, ses activités, et donne toutes les informations pratiques (date, lieu, offres spéciales liées à l\'événement), tout en encourageant les passants à participer.*La structure de la réponse doit toujours suivre ce format :*\n\nTitre :\n[texte du titre]\n\nNotification :\n[texte de la notification push]\n\nDescription :\n[texte de la description]'
+//     'prompt': 'Tu es un expert en création de notifications publicitaires pour une application mobile dédiée aux petits commerces. Ta tâche consiste à générer une réponse claire et formatée qui incluent toujours les trois éléments suivants, dans cet ordre :\nTitre : Une phrase concise et accrocheuse sur \'Mashallah\' chez La pizza de la MaMa, limitée à 50 caractères.\nNotification : Un texte engageant et motivant (150 caractères maximum) qui incite les passants à participer à l’événement. Mentionne la date maximale de l\'evenement qui est lev11/02/2025 et utilise un appel à l’action direct comme \'Rejoignez-nous pour \'Mashallah\' avant le 11/02/2025 !\'.\nDescription détaillée : Une description détaillée (1500 caractères maximum) qui explique ce qu’est l’événement, ses activités, et donne toutes les informations pratiques (date, lieu, offres spéciales liées à l\'événement), tout en encourageant les passants à participer.*La structure de la réponse doit toujours suivre ce format :*\n\nTitre :\n[texte du titre]\n\nNotification :\n[texte de la notification push]\n\nDescription :\n[texte de la description]',
+//     'image_url': encodeURI('https://oaidalleapiprodscus.blob.core.windows.net/private/org-FPkYJbXsTMY3CAER8PLdLeG9/ligne8-service-account/img-qxvVhi8MZ43apUOEueAIf4La.png?st=2024-12-10T11%3A41%3A02Z&se=2024-12-10T13%3A41%3A02Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-12-10T08%3A49%3A41Z&ske=2024-12-11T08%3A49%3A41Z&sks=b&skv=2024-08-04&sig=6BGISi4IHwDqvHgHkl679K6gpvQT2bHgHgUHv5rP9%2Bo%3D')
 //   };
 
 const AnnouncementType: React.FC<AnnouncementTypeProps> = ({ icon, label, bgColor, borderColor, onPress }) => (
@@ -114,7 +115,6 @@ const SelectOfferTypePage = () => {
       console.error('Invalid offer type');
       return;
     }
-    console.log('Form Data:', formData);
     setModalOpen(false);
     setLoading(true);
 
@@ -125,15 +125,12 @@ const SelectOfferTypePage = () => {
       return;
     }
     const payload = await constructRequest(type, formData, store);
-    console.log('Payload:', payload);
-    console.log('Store:', store);
     const res = await fetchAiInformation(payload);
     if (res == null) {
       console.error('Error fetching AI information');
       setLoading(false);
       return;
     }
-    console.log(res);
     console.log('API call completed');
     setLoading(false);
     router.push({

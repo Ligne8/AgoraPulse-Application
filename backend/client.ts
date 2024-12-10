@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { Ads } from '@/backend/Interface/Ads';
 const supabaseUrl = 'https://app.ligne8.live';
 const supabaseKey =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlLWRlbW8iLCJpYXQiOjE2NDE3NjkyMDAsImV4cCI6MTc5OTUzNTYwMH0.nw1CI_l_2GirWV0TVAjKyn8OC4TS8Bw2o3f9imIg_6M';
@@ -169,5 +170,13 @@ export async function getAchievements() {
     throw new Error('Error fetching ads');
   } else {
     return data;
+  }
+}
+
+export async function createAd(ad: Ads) {
+  const { error } = await supabase.from('Ads').insert(ad);
+  if (error) {
+    console.error(error);
+    throw new Error('Error creating ad');
   }
 }
