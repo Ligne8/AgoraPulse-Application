@@ -59,7 +59,7 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
           <>
             <EntryField
               icon={faInfoCircle}
-              title="Nom de l'événement"
+              title="Nom de l événement"
               placeholder=""
               backgroundColor="#EEEEEE"
               descriptionColor="#6c7a93"
@@ -67,7 +67,7 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
               onChangeText={(text) => handleInputChange('description', text)}
             />
             <ModalButton
-              title={"Date limite de l'événement : " + eventDate.toLocaleDateString()}
+              title={'Date limite de l\'événement : ' + eventDate.toLocaleDateString()}
               onPress={() => setIsDatePickerOpen(true)}
               backgroundColor="#EEEEEE"
               textColor="#0E3D60"
