@@ -172,7 +172,6 @@ const SelectOfferTypePage = () => {
               Choisissez le type d&apos;annonce que vous souhaitez créer
             </Text>
           </View>
-
           <View
             style={{
               flexDirection: 'row',

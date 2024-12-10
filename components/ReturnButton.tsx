@@ -11,15 +11,15 @@ const ReturnButton = () => {
   };
 
   return (
-    <View className="absolute top-8 mt-4 left-0 p-4 ml-3 z-10">
+    <View className="absolute top-0 left-0 right-0 bg-white z-10">
       <TouchableOpacity
-        className="flex-row justify-left items-center"
+        className="flex-row items-center p-4 pt-14"
         onPress={() => {
           handleReturn();
         }}
       >
         <FontAwesome name="chevron-left" size={20} color="#CCCCCC" />
-        <Text className="pl-2 text-[16px] text-[#CCCCCC]">Retour</Text>
+        <Text className="pl-2 text-lg text-gray-400">Retour</Text>
       </TouchableOpacity>
     </View>
   );
