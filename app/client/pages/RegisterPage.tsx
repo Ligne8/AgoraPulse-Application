@@ -6,7 +6,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { TagsSelector } from '@/components/tagsSelector';
 import { useRouter } from 'expo-router';
-import { getAllTags, saveUserTags } from '../../../backend/client';
+import { getAllTags, getUserData, saveUserTags, setUserCompleted } from '../../../backend/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,8 +31,16 @@ export default function RegisterPage() {
     }
   };
 
+  const fetchUser = async () => {
+    const user = await getUserData();
+    if (user.profil_completed) {
+      router.push('/client/(tabs)/ClientHome');
+    }
+  };
+
   useEffect(() => {
     fetchTags();
+    fetchUser();
   }, []);
 
   useEffect(() => {
@@ -58,14 +66,15 @@ export default function RegisterPage() {
     const selectedTags = tags.filter((tag: any) => tag.selected);
     if (selectedTags.length < 3) {
       alert('Veuillez sélectionner au moins 3 centres d’intérêt');
+      return;
     }
     try {
       await saveUserTags(selectedTags);
-      console.log('Saved user tags');
     } catch (e) {
       console.error('Error saving user tags: ', e);
     }
-    router.push('/client/(tabs)');
+    setUserCompleted();
+    router.push('/client/(tabs)/ClientHome');
   };
 
   return (

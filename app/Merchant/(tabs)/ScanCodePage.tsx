@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useCameraPermissions } from 'expo-camera';
-import CameraScanner from '../../../components/CameraScanner';
+import CameraScanner from '@/components/CameraScanner';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useFonts } from 'expo-font';
-import { SplashScreen } from 'expo-router';
+import { router, SplashScreen } from 'expo-router';
+import { getUserId } from '@/backend/client';
+import supabase from '@/backend/supabase';
 
 const REGEX_CODE = /^[A-Z0-9]{8}$/;
 
@@ -12,6 +14,12 @@ export default function ScanCodePage() {
   // eslint-disable-next-line
   const [permission, requestPermission] = useCameraPermissions();
   const isPermissionGranted = Boolean(permission?.granted);
+  // ask for camera permission
+  useEffect(() => {
+    if (!isPermissionGranted) {
+      requestPermission();
+    }
+  }, [isPermissionGranted, requestPermission]);
   const [code, setCode] = React.useState<string>('');
 
   const [fontsLoaded] = useFonts({
@@ -26,18 +34,49 @@ export default function ScanCodePage() {
     }
   }, [fontsLoaded]);
 
-  const onPress = () => {
+  const onPress = async () => {
     if (code == '') {
       return;
     }
     if (!REGEX_CODE.test(code)) {
-      alert('Code invalide');
+      router.push({
+        pathname: '/Merchant/pages/ValidCodePage',
+        params: { validCode: 'false', code: code, ads_id: '' },
+      });
       return;
     }
-
-    // TODO: call API to check code
-
-    //const props: ValidCodePageProps = { validCode: true, code: code };
+    const res = await supabase.from('UsersAds').select('ads_id, scanned_at').eq('code', code);
+    if (res.data == null || res.data.length == 0 || res.data[0].scanned_at != null) {
+      router.push({
+        pathname: '/Merchant/pages/ValidCodePage',
+        params: { validCode: 'false', code: code },
+      });
+      return;
+    }
+    const ads_id = res.data[0].ads_id;
+    const userId = await getUserId();
+    // eslint-disable-next-line
+    const { data, error } = await supabase.from('Ads').select('*, Store (*)').eq('id', ads_id);
+    if (data == null || data.length == 0) {
+      router.push({
+        pathname: '/Merchant/pages/ValidCodePage',
+        params: { validCode: 'false', code: code },
+      });
+      return;
+    }
+    console.log(data[0].Store.user_id, userId);
+    if (data[0].Store.user_id != userId) {
+      router.push({
+        pathname: '/Merchant/pages/ValidCodePage',
+        params: { validCode: 'false', code: code },
+      });
+      return;
+    }
+    router.push({
+      pathname: '/Merchant/pages/ValidCodePage',
+      params: { validCode: 'true', code: code },
+    });
+    return;
   };
 
   return (
