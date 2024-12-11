@@ -29,7 +29,7 @@ function DisplayCodePage() {
   }, [data.validCode]);
 
   return (
-    <View className="flex-col justify-around items-center h-full mt-5 p-4">
+    <View className="flex-col justify-around items-center h-full mt-20 p-4 bg-white">
       <View className="rounded w-3/4 p-1" style={{ backgroundColor: isValidCode ? '#2ECC71' : '#E74C3C' }}>
         <Text className="text-center text-white font-extrabold text-xl">{code}</Text>
       </View>
@@ -51,7 +51,7 @@ function DisplayCodePage() {
       </View>
 
       <TouchableOpacity onPress={() => router.back()}>
-        <View className="items-center justify-center mt-7 w-[339px] h-[65px]  bg-[#0E3D60] rounded-[20px]">
+        <View className="items-center justify-center mb-20 w-[339px] h-[65px]  bg-[#0E3D60] rounded-[20px]">
           <Text className="font-bold text-[20px] text-white ">Continuer</Text>
         </View>
       </TouchableOpacity>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useCameraPermissions } from 'expo-camera';
-import CameraScanner from '../../../components/CameraScanner';
+import CameraScanner from '@/components/CameraScanner';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useFonts } from 'expo-font';
 import { router, SplashScreen } from 'expo-router';
@@ -14,6 +14,12 @@ export default function ScanCodePage() {
   // eslint-disable-next-line
   const [permission, requestPermission] = useCameraPermissions();
   const isPermissionGranted = Boolean(permission?.granted);
+  // ask for camera permission
+  useEffect(() => {
+    if (!isPermissionGranted) {
+      requestPermission();
+    }
+  }, [isPermissionGranted, requestPermission]);
   const [code, setCode] = React.useState<string>('');
 
   const [fontsLoaded] = useFonts({
@@ -58,11 +64,13 @@ export default function ScanCodePage() {
       });
       return;
     }
+    console.log(data[0].Store.user_id, userId);
     if (data[0].Store.user_id != userId) {
       router.push({
         pathname: '/Merchant/pages/ValidCodePage',
         params: { validCode: 'false', code: code },
       });
+      return;
     }
     router.push({
       pathname: '/Merchant/pages/ValidCodePage',
