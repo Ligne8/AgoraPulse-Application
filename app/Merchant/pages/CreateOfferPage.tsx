@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import ReturnButton from '@/components/ReturnButton';
 import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import EntryField from '@/components/EntryField';
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import CustomButton from '@/components/CustomButton';
 import { useLocalSearchParams } from 'expo-router';
 import { AIInformation } from '@/backend/openai';
+import { useNavigation } from '@react-navigation/native';
 
 const CreateOfferPage = () => {
   const [fidelityPoints, setFidelityPoints] = React.useState('0');
@@ -59,6 +60,13 @@ const CreateOfferPage = () => {
     // FIXME : redirect to the welcome page when implemented
     // router.push('/Merchant/pages/MerchantOfferPublishedPage');
   };
+
+  const navigation = useNavigation();
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      tabBarStyle: { display: 'none' },
+    });
+  }, [navigation]);
 
   const handleInputChange = (text: string) => {
     console.log(text);
