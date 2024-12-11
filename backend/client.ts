@@ -133,10 +133,6 @@ export async function getStore() {
   }
 }
 
-export const getUserId = async () => {
-  return (await supabase.auth.getUser()).data.user?.id;
-};
-
 export async function getStoreId() {
   const store = await getStore();
   return store.id;
