@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import ReturnButton from '@/components/ReturnButton';
 import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import EntryField from '@/components/EntryField';
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import CustomButton from '@/components/CustomButton';
 import { router, useLocalSearchParams } from 'expo-router';
 import { AIInformation } from '@/backend/openai';
+import { useNavigation } from '@react-navigation/native';
 import { Ads } from '@/backend/Interface/Ads';
 import { createAd, getStore } from '@/backend/client';
 
@@ -76,6 +77,13 @@ const CreateOfferPage = () => {
     await createAd(newAd);
     router.push('/Merchant/(tabs)/HomePage');
   };
+
+  const navigation = useNavigation();
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      tabBarStyle: { display: 'none' },
+    });
+  }, [navigation]);
 
   const handleInputChange = (text: string) => {
     console.log(text);

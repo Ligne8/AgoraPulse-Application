@@ -1,4 +1,5 @@
-import supabase, { Store } from '@/backend/client';
+import { Store } from '@/backend/client';
+import supabase from '@/backend/supabase';
 import { FormData } from '@/components/OfferForm';
 
 // const payload = {

@@ -1,5 +1,6 @@
 import { FontAwesome } from '@expo/vector-icons';
-import React, { useEffect } from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 
@@ -9,8 +10,7 @@ interface ClientOfferProps {
 
 function ReturnButton() {
   const onPress = () => {
-    // return to previous screen
-    console.log('Return to previous screen');
+    router.back();
   };
   return (
     <TouchableOpacity className="flex-row justify-left items-center" onPress={onPress}>
@@ -20,18 +20,17 @@ function ReturnButton() {
   );
 }
 
-export default function ClientOffer({ code }: ClientOfferProps) {
-  const [qrcode, setQrcode] = React.useState('default');
-
-  // A recupérer par la suite depuis ClientOfferModal
+export default function ClientOffer() {
+  const data = useLocalSearchParams();
+  const c = data as unknown as ClientOfferProps;
+  const [qrcode, setQrcode] = useState<string>('default');
   const DEFAULT_QRCODE = 'N/A';
-
   useEffect(() => {
-    setQrcode(code || DEFAULT_QRCODE);
-  }, []);
+    setQrcode(c.code || DEFAULT_QRCODE);
+  }, [c.code]);
 
   return (
-    <View className="h-full w-full justify-center items-center">
+    <View className="h-full w-full justify-start items-center mt-20">
       <View className="w-full pl-[22px] mb-[80px]">
         <ReturnButton />
       </View>

@@ -26,14 +26,14 @@ export default function AddressField(AddressFieldProps: AddressFieldProps) {
         placeholderTextColor="#6c7a93"
       />
       <TextInput
-        onChangeText={AddressFieldProps.onChangeCity}
+        onChangeText={AddressFieldProps.onChangeZipCode}
         style={styles.input}
         placeholder="Code postal"
         placeholderTextColor="#6c7a93"
         keyboardType="numeric"
       />
       <TextInput
-        onChangeText={AddressFieldProps.onChangeZipCode}
+        onChangeText={AddressFieldProps.onChangeCity}
         style={styles.input}
         placeholder="Ville"
         placeholderTextColor="#6c7a93"

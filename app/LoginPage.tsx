@@ -6,7 +6,8 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
 import { useRouter } from 'expo-router';
-import supabase, { getUserData } from '@/backend/client';
+import { getUserData } from '@/backend/client';
+import supabase from '@/backend/supabase';
 
 SplashScreen.preventAutoHideAsync();
 
