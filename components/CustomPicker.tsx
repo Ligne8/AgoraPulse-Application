@@ -42,12 +42,7 @@ const CustomPicker: React.FC<CustomPickerProps> = ({
   useEffect(() => {
     if (value) {
       const val = value.trim();
-      console.log('The value is :');
-      console.log(val);
       const item = items.find((item) => item.value === val);
-      console.log('The item is :');
-
-      console.log(item);
       setSelectedValue(item || null);
     }
   }, [value]);
