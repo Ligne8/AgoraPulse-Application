@@ -49,6 +49,7 @@ export default function EntryField({
           textAlignVertical={multiline || inputHeight > 20 ? 'top' : 'center'} // Align text at the top if height > 20        />
           onChangeText={onChangeText}
           value={value}
+          className="font-montserrat"
         />
       </View>
     </View>

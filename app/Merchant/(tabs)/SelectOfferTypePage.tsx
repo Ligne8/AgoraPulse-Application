@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { MaterialIcons, FontAwesome, Entypo } from '@expo/vector-icons';
@@ -82,7 +83,6 @@ const SelectOfferTypePage = () => {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
-
   const displayOfferType = (type: string) => {
     if (type === 'reduction') {
       return 'Créer une offre de réduction';
