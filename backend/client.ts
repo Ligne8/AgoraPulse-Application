@@ -107,10 +107,24 @@ export async function getStore() {
     return data[0];
   }
 }
+export async function getAdFromId(id: string) {
+  const { data, error } = await supabase.from('Ads').select('*').eq('id', id);
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching ad');
+  } else {
+    return data;
+  }
+}
 
 export async function getStoreId() {
   const store = await getStore();
   return store.id;
+}
+
+export async function getStoreName() {
+  const store = await getStore();
+  return store.name;
 }
 
 export interface Picture {

@@ -5,10 +5,11 @@ import * as SplashScreen from 'expo-splash-screen';
 import CustomButton from '@/components/CustomButton';
 import EntryField from '@/components/EntryField';
 import { faGlobe, faLock, faMapMarkerAlt, faShop, faUser } from '@fortawesome/free-solid-svg-icons';
-import { getStore, getUserData, updateStore } from '@/backend/client';
+import { getAdFromId, getAllStandalonTags, getStore, getUserData, Tag, updateStore } from '@/backend/client';
 import EntryFieldDefaultValue from '@/components/EntryFieldDefaultValue';
 import DisconnectButton from '@/components/DisconnectButton';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import CustomPicker, { Item } from '@/components/CustomPicker';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,6 +26,21 @@ export default function ProfilePage() {
   const [commercerAddress, setCommerceAddress] = useState('');
   const [commercerCity, setCommerceCity] = useState('');
   const [commercerZipCode, setCommerceZipCode] = useState('');
+  // eslint-disable-next-line
+  const [commercerType, setCommerceType] = useState('');
+  // eslint-disable-next-line
+  const [tags, setTags] = useState<Item[]>([]);
+
+  // eslint-disable-next-line
+  const fetchTags = async () => {
+    try {
+      const tags = await getAllStandalonTags();
+      const items: Item[] = tags.map((tag: Tag) => ({ label: tag.name, value: tag.id }));
+      setTags(items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchUserData = async () => {
     try {
@@ -39,6 +55,9 @@ export default function ProfilePage() {
   const fetchStore = async () => {
     try {
       const store = await getStore();
+      const ad = await getAdFromId(store.ad_id);
+      console.log('AD is : ');
+      console.log(ad);
       setCommerceWebsite(store.web_url);
       setCommerceAddress(store.address);
       setCommerceCity(store.city);
@@ -55,9 +74,7 @@ export default function ProfilePage() {
     fetchStore();
   }, []);
 
-  useEffect(() => {
-    console.log(password);
-  }, [password]);
+  useEffect(() => {}, [password]);
 
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
@@ -161,6 +178,15 @@ export default function ProfilePage() {
               multiline={true}
               value={storeDescription}
               onChangeText={(text) => setStoreDescription(text)}
+            />
+            <CustomPicker
+              title="Sélectionner un type"
+              items={tags}
+              backgroundColor="#f2f2f2"
+              textColor="#0E3D60"
+              iconColor="#0E3D60"
+              selectedItemColor="#1A3D5D"
+              onValueChange={(value) => setCommerceType(value)}
             />
           </View>
 
