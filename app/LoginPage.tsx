@@ -1,7 +1,7 @@
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
@@ -73,46 +73,48 @@ export default function LoginPage() {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="height">
-      <Image source={require('@/assets/images/logo.png')} style={styles.logo} testID="logo" />
-      <Text style={[styles.title, { textAlign: 'center' }]}>Connexion</Text>
-      <Text style={styles.description}>Veuillez entrer vos identifiants pour accéder à votre compte.</Text>
-      <EntryField
-        onChangeText={setEmail}
-        icon={faEnvelope}
-        title="Email"
-        placeholder="Entrez votre adresse email"
-        backgroundColor="#f2f2f2"
-        descriptionColor="#6c7a93"
-      />
-      <EntryField
-        icon={faLock}
-        onChangeText={setPassword}
-        title="Mot de passe"
-        placeholder="Entrez votre mot de passe"
-        backgroundColor="#f2f2f2"
-        descriptionColor="#6c7a93"
-        secureText={true}
-      />
-      <CustomButton
-        title="Se connecter"
-        onPress={handleLogin}
-        backgroundColor="#0E3D60"
-        textColor="#FFFFFF"
-        width="100%"
-      />
+    <ScrollView className="bg-white">
+      <KeyboardAvoidingView style={styles.container} behavior="height">
+        <Image source={require('@/assets/images/logo.png')} style={styles.logo} testID="logo" />
+        <Text style={[styles.title, { textAlign: 'center' }]}>Connexion</Text>
+        <Text style={styles.description}>Veuillez entrer vos identifiants pour accéder à votre compte.</Text>
+        <EntryField
+          onChangeText={setEmail}
+          icon={faEnvelope}
+          title="Email"
+          placeholder="Entrez votre adresse email"
+          backgroundColor="#f2f2f2"
+          descriptionColor="#6c7a93"
+        />
+        <EntryField
+          icon={faLock}
+          onChangeText={setPassword}
+          title="Mot de passe"
+          placeholder="Entrez votre mot de passe"
+          backgroundColor="#f2f2f2"
+          descriptionColor="#6c7a93"
+          secureText={true}
+        />
+        <CustomButton
+          title="Se connecter"
+          onPress={handleLogin}
+          backgroundColor="#0E3D60"
+          textColor="#FFFFFF"
+          width="100%"
+        />
 
-      <View style={styles.inlineTextContainer}>
-        <Text style={styles.hint}>Pas encore de compte ? </Text>
-        <TouchableOpacity
-          onPress={() => {
-            router.push('/RolePage');
-          }}
-        >
-          <Text style={[styles.hint, { fontWeight: 'bold' }]}>Inscrivez-vous ici</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+        <View style={styles.inlineTextContainer}>
+          <Text style={styles.hint}>Pas encore de compte ? </Text>
+          <TouchableOpacity
+            onPress={() => {
+              router.push('/RolePage');
+            }}
+          >
+            <Text style={[styles.hint, { fontWeight: 'bold' }]}>Inscrivez-vous ici</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -135,6 +137,7 @@ const styles = StyleSheet.create({
     width: 175,
     height: 175,
     marginBottom: 40,
+    marginTop: 80,
   },
   description: {
     color: '#0E3D60',

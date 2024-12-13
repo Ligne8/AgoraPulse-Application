@@ -54,8 +54,11 @@ const CreateOfferPage = () => {
           keyboardShouldPersistTaps="handled" // Allow taps to dismiss the keyboard
         >
           <View className="flex justify-center items-center mt-20 p-3">
-            <Text className="text-center text-5xl text-[#0E3D60] font-extrabold pb-2"> Finaliser votre annonce </Text>
-            <Text className="text-center text-[#0E3D60] w-3/4">
+            <Text className="text-center text-5xl text-[#0E3D60] font-montserrat-extra-bold pb-2">
+              {' '}
+              Finaliser votre annonce{' '}
+            </Text>
+            <Text className="text-center text-[#0E3D60] w-3/4 font-montserrat">
               Remplissez les détails de votre annonce avant de la publier
             </Text>
           </View>
@@ -88,12 +91,15 @@ const CreateOfferPage = () => {
             />
           </View>
           <View className="flex justify-center items-center p-4">
-            <Text className="text-center text-2xl text-[#0E3D60] font-extrabold pb-2"> Points de fidélité </Text>
-            <Text className="text-center text-[#0E3D60]">
+            <Text className="text-center text-2xl text-[#0E3D60] font-montserrat-extra-bold pb-2">
+              {' '}
+              Points de fidélité{' '}
+            </Text>
+            <Text className="text-center text-[#0E3D60] font-montserrat">
               Attribuez des points de fidélité pour inciter vos clients à profiter de cette annonce et renforcer leur
               fidélité !
             </Text>
-            <View className="flex-row justify-around items-center w-full m-10">
+            <View className="flex-row justify-around items-center w-full m-6">
               <TouchableOpacity onPress={handleDecrement} className="rounded border p-2 border-[#CCCCCC] bg-[#EEEEEE]">
                 <FontAwesomeIcon icon={faMinus} size={20} color="#888888" />
               </TouchableOpacity>
