@@ -82,8 +82,8 @@ export default function ProfilePage() {
       <ScrollView>
         <View className="h-full w-full mt-10">
           <View className="flex-col justify-center align-middle mt-10 mb-5 ml-5 mr-5">
-            <Text className="text-center text-4xl text-[#0E3D60] font-extrabold pb-2">Votre profil</Text>
-            <Text className="text-center text-[#0E3D60]">
+            <Text className="text-center text-4xl text-[#0E3D60] font-montserrat-extra-bold pb-2">Votre profil</Text>
+            <Text className="text-center text-[#0E3D60] font-montserrat">
               Mettez à jour vos informations pour une expérience encore plus personnalisée.
             </Text>
           </View>
@@ -131,11 +131,14 @@ export default function ProfilePage() {
             </View>
           </View>
           <View className="flex p-2">
-            <Text className="text-center text-4xl text-[#0E3D60] font-extrabold"> Vos préférences </Text>
-            <Text className="text-center text-[#0E3D60] pb-3 "> Sélectionnez au moins 3 centres d’intérêt </Text>
+            <Text className="text-center text-4xl text-[#0E3D60] font-montserrat-extra-bold"> Vos préférences </Text>
+            <Text className="text-center text-[#0E3D60] pb-6 font-montserrat">
+              {' '}
+              Sélectionnez au moins 3 centres d’intérêt{' '}
+            </Text>
             <TagsSelector tags={tags} setTags={setTags} />
           </View>
-          <View className="flex-col justify-center items-center ">
+          <View className="flex-col justify-center items-center pt-6">
             <CustomButton
               title="Enregistrer"
               onPress={() => handleSave()}

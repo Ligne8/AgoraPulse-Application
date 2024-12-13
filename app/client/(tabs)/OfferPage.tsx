@@ -40,10 +40,10 @@ function Offer({
       >
         <Image className="w-[100px] h-[100px] rounded-[5px]" source={{ uri: picture_url }} />
         <View className="flex justify-start  flex-col h-full  pb-4  ">
-          <Text className="text-[12px] text-[#0E3D60] mb-2 ">
+          <Text className="text-[12px] text-[#0E3D60] mb-2 font-montserrat">
             {store_name} - {zip_code} {store_city}
           </Text>
-          <Text className="text-[18px] text-[#0E3D60] font-semibold w-[202px]">
+          <Text className="text-[18px] text-[#0E3D60] font-montserrat-semi-bold w-[202px]">
             {title.length < 58 ? `${title}` : `${title.substring(0, 58)}...`}
           </Text>
         </View>
@@ -52,7 +52,9 @@ function Offer({
       <View className="rounded-b-[10px] bg-[#0E3D60] ">
         <TouchableOpacity onPress={onClick} className="flex-row justify-center items-center h-[30px] ">
           <FontAwesome name="qrcode" size={20} color="white" />
-          <Text className="ml-3 rounded-b-[1px] bg-[#0E3D60] text-white font-bold text-[14px]">Voir le code</Text>
+          <Text className="ml-3 rounded-b-[1px] bg-[#0E3D60] text-white font-montserrat-bold text-[14px]">
+            Voir le code
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -101,12 +103,16 @@ function OfferModal({
               className="w-[100px] h-[100px] absolute rounded -top-[76px] z-100"
               source={{ uri: offer.picture_url }}
             />
-            <Text className="text-[18px] text-[#0E3D60] font-semibold mt-10">{offer.title}</Text>
-            <Text className="text-[14px] text-[#0E3D60]  mt-6">{offer.description}</Text>
+            <Text className="text-[18px] text-[#0E3D60] font-montserrat-semi-bold mt-10">{offer.title}</Text>
+            <Text className="text-[14px] text-[#0E3D60]  mt-6 font-montserrat">{offer.description}</Text>
             <View className="justify-center items-center">
-              <Text className="text-[14px] text-[#0E3D60] font-semibold text-center mt-6">{offer.store_name}</Text>
-              <Text className="text-[12px] text-[#0E3D60] text-center mt-[1px]">{offer.store_address}</Text>
-              <Text className="text-[12px] text-[#0E3D60] text-center mb-6">
+              <Text className="text-[14px] text-[#0E3D60] font-montserrat-semi-bold text-center mt-6">
+                {offer.store_name}
+              </Text>
+              <Text className="text-[12px] text-[#0E3D60] text-center mt-[1px] font-montserrat">
+                {offer.store_address}
+              </Text>
+              <Text className="text-[12px] text-[#0E3D60] text-center mb-6 font-montserrat">
                 {offer.zip_code} {offer.store_city}
               </Text>
             </View>
@@ -198,9 +204,9 @@ export default function OfferPage() {
     <View className="h-full flex-col w-full justify-center items-center">
       <View className="justify-center items-center px-[30px] mb-[20px] ">
         <TouchableOpacity onPress={simulateScanning}>
-          <Text className="text-[36px] font-bold text-[#0E3D60] mb-6">Vos offres exclusives</Text>
+          <Text className="text-[36px] font-montserrat-extra-bold text-[#0E3D60] mb-6">Vos offres exclusives</Text>
         </TouchableOpacity>
-        <Text className="text-center text-[#0E3D60] text-[16px]">
+        <Text className="text-center text-[#0E3D60] text-[16px] font-montserrat">
           Découvrez les promotions des commerces que vous avez rencontrés aujourd&apos;hui. Profitez-en avant
           qu&apos;elles ne disparaissent !
         </Text>

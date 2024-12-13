@@ -1,13 +1,12 @@
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { router } from 'expo-router';
 import { getStoreId, Picture, savePicture, savePictureBucket, setUserCompleted } from '@/backend/client';
 import { decode } from 'base64-arraybuffer';
+import ReturnButton from '@/components/ReturnButton';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -94,30 +93,29 @@ export default function RegisterPage() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <FontAwesomeIcon icon={faChevronLeft} size={18} color="#CCCCCC" />
-        <Text style={styles.backText}>Retour</Text>
-      </TouchableOpacity>
-      <Text style={styles.title}>Ajoutez des photos</Text>
-      <Text style={styles.subtitle}>
-        Mettez en avant votre commerce en ajoutant des images qui attirent vos clients.
-      </Text>
+      <ReturnButton />
+      <ScrollView>
+        <Text style={styles.title}>Ajoutez des photos</Text>
+        <Text style={styles.subtitle}>
+          Mettez en avant votre commerce en ajoutant des images qui attirent vos clients.
+        </Text>
 
-      <View style={styles.imageGrid}>
-        {images.map((image, index) => (
-          <TouchableOpacity key={index} style={styles.imageSlot} onPress={() => pickImage(index)}>
-            {image ? (
-              <Image source={{ uri: image.uri }} style={styles.image} />
-            ) : (
-              <Text style={styles.plusIcon}>+</Text>
-            )}
-          </TouchableOpacity>
-        ))}
-      </View>
+        <View style={styles.imageGrid}>
+          {images.map((image, index) => (
+            <TouchableOpacity key={index} style={styles.imageSlot} onPress={() => pickImage(index)}>
+              {image ? (
+                <Image source={{ uri: image.uri }} style={styles.image} />
+              ) : (
+                <Text style={styles.plusIcon}>+</Text>
+              )}
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>Suivant</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+          <Text style={styles.buttonText}>Suivant</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }
@@ -129,22 +127,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 60,
   },
-  backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  backText: {
-    fontSize: 16,
-    color: '#B0B0B0',
-    fontFamily: 'MontserratExtraBold',
-    marginLeft: 5,
-  },
   title: {
     fontSize: 40,
     fontFamily: 'MontserratExtraBold',
     color: '#0E3D60',
     textAlign: 'center',
     marginBottom: 10,
+    marginTop: 70,
   },
   subtitle: {
     fontSize: 16,
@@ -185,6 +174,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 20,
     alignItems: 'center',
+    marginBottom: 40,
   },
   buttonText: {
     fontSize: 16,

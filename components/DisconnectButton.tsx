@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity } from 'react-native';
 import React from 'react';
-import supabase from '@/backend/client';
+import supabase from '@/backend/supabase';
 import { useRouter } from 'expo-router';
 
 const DisconnectButton = () => {
