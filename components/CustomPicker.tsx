@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -17,6 +17,7 @@ interface CustomPickerProps {
   selectedItemColor?: string;
   // eslint-disable-next-line no-unused-vars
   onValueChange?: (value: string) => void;
+  value?: string;
 }
 
 const CustomPicker: React.FC<CustomPickerProps> = ({
@@ -27,6 +28,7 @@ const CustomPicker: React.FC<CustomPickerProps> = ({
   iconColor = '#666',
   selectedItemColor = '#1A3D5D',
   onValueChange,
+  value,
 }) => {
   const [selectedValue, setSelectedValue] = useState<Item | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -37,6 +39,13 @@ const CustomPicker: React.FC<CustomPickerProps> = ({
     setModalVisible(false);
   };
 
+  useEffect(() => {
+    if (value) {
+      const val = value.trim();
+      const item = items.find((item) => item.value === val);
+      setSelectedValue(item || null);
+    }
+  }, [value]);
   return (
     <View style={[styles.container, { backgroundColor }]}>
       <TouchableOpacity style={styles.pickerButton} onPress={() => setModalVisible(true)}>

@@ -119,6 +119,16 @@ export async function createStore(data: Store) {
     throw new Error('Error creating store');
   }
 }
+export async function updateStore(data: Store) {
+  const { error } = await supabase
+    .from('Store')
+    .update(data)
+    .eq('id', await getStoreId());
+  if (error) {
+    console.error(error);
+    throw new Error('Error updating store');
+  }
+}
 
 export async function getStore() {
   const { data, error } = await supabase
@@ -126,16 +136,31 @@ export async function getStore() {
     .select('*')
     .eq('user_id', await getUserId());
   if (error) {
-    console.error(error);
+    console.log('Error fetching store');
     throw new Error('Error fetching store');
   } else {
     return data[0];
+  }
+}
+export async function getTagsFromId(id: string) {
+  const { data, error } = await supabase.from('Tags').select('*').eq('id', id);
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching ad');
+  } else {
+    console.log(data);
+    return data;
   }
 }
 
 export async function getStoreId() {
   const store = await getStore();
   return store.id;
+}
+
+export async function getStoreName() {
+  const store = await getStore();
+  return store.name;
 }
 
 export interface Picture {

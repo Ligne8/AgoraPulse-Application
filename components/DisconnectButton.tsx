@@ -16,10 +16,10 @@ const DisconnectButton = () => {
 
   return (
     <TouchableOpacity
-      className="flex-row align-middle pt-2 pb-2 pr-24 pl-24 rounded-xl border border-[#E74C3C] "
+      className="flex-row rounded-xl border border-[#E74C3C] items-center py-2 px-[84] mb-5"
       onPress={handleDisconnection}
     >
-      <Text className=" text-[#E74C3C]">Déconnexion</Text>
+      <Text className=" text-[#E74C3C] font-montserrat">Déconnexion</Text>
     </TouchableOpacity>
   );
 };

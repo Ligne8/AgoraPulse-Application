@@ -31,6 +31,14 @@ export default function MerchantTabsLayout() {
           tabBarStyle: { display: 'none' },
         }}
       />
+      <Tabs.Screen
+        name="ProfilePage"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => <AntDesign name="user" size={27} color={focused ? 'blue' : 'black'} />,
+          tabBarStyle: { display: 'flex' },
+        }}
+      />
     </Tabs>
   );
 }
