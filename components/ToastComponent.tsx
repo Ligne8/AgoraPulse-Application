@@ -45,8 +45,14 @@ const toastConfig: ToastConfig = {
   ),
 };
 
-const ToastComponent: React.FC = () => {
+export const ToastComponent: React.FC = () => {
   return <Toast config={toastConfig} />;
 };
 
-export default ToastComponent;
+export function showToast(type: 'success' | 'error', text1: string, text2: string) {
+  Toast.show({
+    type,
+    text1,
+    text2,
+  });
+}

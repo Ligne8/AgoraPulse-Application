@@ -10,8 +10,7 @@ import EntryFieldDefaultValue from '@/components/EntryFieldDefaultValue';
 import DisconnectButton from '@/components/DisconnectButton';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import CustomPicker, { Item } from '@/components/CustomPicker';
-import ToastComponent from '@/components/ToastComponent';
-import Toast from 'react-native-toast-message';
+import { showToast, ToastComponent } from '@/components/ToastComponent';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -99,18 +98,10 @@ export default function ProfilePage() {
     try {
       console.log(store);
       await updateStore(store);
-      showToast();
+      showToast('success', 'Vos informations ont été mises à jour', 'Succès !');
     } catch {
       console.error('Error saving store information');
     }
-  };
-
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Les informations ont été mises à jour',
-      text2: 'Succès ! 🎉',
-    });
   };
 
   return (
