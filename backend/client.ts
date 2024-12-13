@@ -1,9 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-const supabaseUrl = 'https://app.ligne8.live';
-const supabaseKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlLWRlbW8iLCJpYXQiOjE2NDE3NjkyMDAsImV4cCI6MTc5OTUzNTYwMH0.nw1CI_l_2GirWV0TVAjKyn8OC4TS8Bw2o3f9imIg_6M';
-const supabase = createClient(supabaseUrl, supabaseKey);
-export default supabase;
+import supabase from './supabase';
 
 export const getUserData = async () => {
   const user: any = await supabase.from('UserApp').select('*');
@@ -15,6 +10,10 @@ export const getUserData = async () => {
   } else {
     return user.data[0];
   }
+};
+
+export const getUserId = async () => {
+  return (await supabase.auth.getUser()).data.user?.id;
 };
 
 export interface Tag {
@@ -70,6 +69,39 @@ export async function saveUserTags(tags: Tag[]) {
   }
 }
 
+export async function getUserTags() {
+  const { data, error } = await supabase
+    .from('UsersTags')
+    .select('tags_id')
+    .eq('user_id', await getUserId());
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching user tags');
+  } else {
+    return data;
+  }
+}
+
+export async function getClientOffers() {
+  const userID = await getUserId();
+  const { data, error } = await supabase
+    .from('UsersAds')
+    .select(
+      `id,
+      code,
+      Ads (id, title, image_url, description, store_id)
+    `
+    )
+    .eq('client_id', userID)
+    .is('scanned_at', null);
+  if (error) {
+    console.error(error);
+    throw new Error('Error fetching client offers');
+  } else {
+    return data;
+  }
+}
+
 export interface Store {
   description: string;
   name: string;
@@ -99,7 +131,10 @@ export async function updateStore(data: Store) {
 }
 
 export async function getStore() {
-  const { data, error } = await supabase.from('Store').select('*');
+  const { data, error } = await supabase
+    .from('Store')
+    .select('*')
+    .eq('user_id', await getUserId());
   if (error) {
     console.error(error);
     throw new Error('Error fetching store');

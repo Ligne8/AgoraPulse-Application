@@ -7,7 +7,7 @@ import EntryField from '@/components/EntryField';
 import CustomButton from '@/components/CustomButton';
 import { useRouter } from 'expo-router';
 import { useUser } from '@/context/UserContext';
-import supabase from '@/backend/client';
+import supabase from '@/backend/supabase';
 
 SplashScreen.preventAutoHideAsync();
 
