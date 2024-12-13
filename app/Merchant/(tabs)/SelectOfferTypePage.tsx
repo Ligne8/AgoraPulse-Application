@@ -71,6 +71,7 @@ const SelectOfferTypePage = () => {
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [type, setType] = useState('');
+
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
@@ -131,7 +132,6 @@ const SelectOfferTypePage = () => {
       setLoading(false);
       return;
     }
-    console.log('API call completed');
     setLoading(false);
     router.push({
       pathname: '/Merchant/pages/CreateOfferPage',

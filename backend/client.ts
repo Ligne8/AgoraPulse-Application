@@ -1,4 +1,5 @@
 import supabase from './supabase';
+import { Ads } from '@/backend/Interface/Ads';
 
 export const getUserData = async () => {
   const user: any = await supabase.from('UserApp').select('*');

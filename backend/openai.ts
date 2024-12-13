@@ -47,6 +47,7 @@ export interface AIInformation {
   image_url: string | null;
 }
 
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 function printAIInfo(aiInfo: AIInformation) {
   console.log('AI Information:');
   console.log('----------------');
@@ -112,10 +113,7 @@ export default async function fetchAiInformation(body: AIRequest): Promise<AIInf
       console.error('Error invoking function:', secondError);
       return null;
     }
-    console.log('AI function called successfully');
-    console.log(secondCall);
-    aiInfo.image_url = secondCall.url;
-    printAIInfo(aiInfo);
+    aiInfo.image_url = encodeURI(secondCall.url);
     return aiInfo;
   } catch (err) {
     console.error('Error fetching AI information:', err);

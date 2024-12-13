@@ -19,6 +19,7 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
   const [formData, setFormData] = React.useState<FormData>({});
   const [eventDate, setEventDate] = useState(new Date());
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const numberRegExp = new RegExp('^[0-9]{0,2}$');
 
   const handleInputChange = (key: string, value: string | number) => {
     setFormData((prevData) => ({
@@ -37,6 +38,15 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
     if (Object.keys(formData).length === 0) {
       return;
     }
+    if (type === 'reduction') {
+      if (!formData.reduction || formData.reduction === '') {
+        return;
+      }
+    } else if (type === 'special') {
+      if (!formData.description || formData.description === '') {
+        return;
+      }
+    }
     onSubmit(formData);
   };
 
@@ -46,12 +56,17 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
         return (
           <EntryField
             icon={faShoppingCart}
-            title="Montant de la réduction"
+            title="Montant de la réduction (%)"
             placeholder=""
             backgroundColor="#EEEEEE"
             descriptionColor="#6c7a93"
             marginBottom={10}
-            onChangeText={(text) => handleInputChange('reduction', text)}
+            onChangeText={(text) => {
+              if (numberRegExp.test(text)) {
+                handleInputChange('reduction', text);
+              }
+            }}
+            value={formData.reduction ? formData.reduction.toString() : ''} // Keep the value controlled
           />
         );
       case 'special':
@@ -84,7 +99,7 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
                 setEventDate(date);
                 handleInputChange('eventDate', date.toLocaleDateString());
               }}
-              onCancel={() => setIsDatePickerOpen(false)} // Close picker without changes
+              onCancel={() => setIsDatePickerOpen(false)}
             />
           </>
         );
