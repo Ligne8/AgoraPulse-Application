@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity } from 'react-native';
 import React from 'react';
-import supabase from '@/backend/client';
+import supabase from '@/backend/supabase';
 import { useRouter } from 'expo-router';
 
 const DisconnectButton = () => {
@@ -16,7 +16,7 @@ const DisconnectButton = () => {
 
   return (
     <TouchableOpacity
-      className="flex-row rounded-xl border border-[#E74C3C] items-center py-2 px-[80] mb-5"
+      className="flex-row rounded-xl border border-[#E74C3C] items-center py-2 px-[84] mb-5"
       onPress={handleDisconnection}
     >
       <Text className=" text-[#E74C3C] font-montserrat">Déconnexion</Text>

@@ -5,11 +5,13 @@ import * as SplashScreen from 'expo-splash-screen';
 import CustomButton from '@/components/CustomButton';
 import EntryField from '@/components/EntryField';
 import { faGlobe, faLock, faMapMarkerAlt, faShop, faUser } from '@fortawesome/free-solid-svg-icons';
-import { getAdFromId, getAllStandalonTags, getStore, getUserData, Tag, updateStore } from '@/backend/client';
+import { getAllStandalonTags, getStore, getTagsFromId, getUserData, Tag, updateStore } from '@/backend/client';
 import EntryFieldDefaultValue from '@/components/EntryFieldDefaultValue';
 import DisconnectButton from '@/components/DisconnectButton';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import CustomPicker, { Item } from '@/components/CustomPicker';
+import ToastComponent from '@/components/ToastComponent';
+import Toast from 'react-native-toast-message';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -35,7 +37,9 @@ export default function ProfilePage() {
   const fetchTags = async () => {
     try {
       const tags = await getAllStandalonTags();
-      const items: Item[] = tags.map((tag: Tag) => ({ label: tag.name, value: tag.id }));
+      const items: Item[] = tags
+        .map((tag: Tag) => ({ label: tag.name, value: tag.id }))
+        .sort((a: { label: string }, b: { label: string }) => a.label.localeCompare(b.label));
       setTags(items);
     } catch (error) {
       console.log(error);
@@ -55,9 +59,8 @@ export default function ProfilePage() {
   const fetchStore = async () => {
     try {
       const store = await getStore();
-      const ad = await getAdFromId(store.ad_id);
-      console.log('AD is : ');
-      console.log(ad);
+      const tags = await getTagsFromId(store.tag_id);
+      setCommerceType(tags[0].id);
       setCommerceWebsite(store.web_url);
       setCommerceAddress(store.address);
       setCommerceCity(store.city);
@@ -70,8 +73,7 @@ export default function ProfilePage() {
   };
 
   useEffect(() => {
-    fetchUserData();
-    fetchStore();
+    fetchUserData().then(() => fetchStore().then(() => fetchTags()));
   }, []);
 
   useEffect(() => {}, [password]);
@@ -95,10 +97,20 @@ export default function ProfilePage() {
       zip_code: commercerZipCode,
     };
     try {
+      console.log(store);
       await updateStore(store);
+      showToast();
     } catch {
       console.error('Error saving store information');
     }
+  };
+
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Les informations ont été mises à jour',
+      text2: 'Succès ! 🎉',
+    });
   };
 
   return (
@@ -120,6 +132,7 @@ export default function ProfilePage() {
               descriptionColor="#6c7a93"
               marginBottom={10}
               value={firstname}
+              onChangeText={(text) => setFirstname(text)}
             />
             <EntryFieldDefaultValue
               icon={faUser}
@@ -129,6 +142,7 @@ export default function ProfilePage() {
               descriptionColor="#6c7a93"
               marginBottom={10}
               value={lastname}
+              onChangeText={(text) => setLastname(text)}
             />
             <EntryField
               icon={faLock}
@@ -187,6 +201,7 @@ export default function ProfilePage() {
               iconColor="#0E3D60"
               selectedItemColor="#1A3D5D"
               onValueChange={(value) => setCommerceType(value)}
+              value={commercerType}
             />
           </View>
 
@@ -249,6 +264,7 @@ export default function ProfilePage() {
           </View>
         </View>
       </ScrollView>
+      <ToastComponent />
     </KeyboardAvoidingView>
   );
 }

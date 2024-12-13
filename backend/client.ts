@@ -136,18 +136,19 @@ export async function getStore() {
     .select('*')
     .eq('user_id', await getUserId());
   if (error) {
-    console.error(error);
+    console.log('Error fetching store');
     throw new Error('Error fetching store');
   } else {
     return data[0];
   }
 }
-export async function getAdFromId(id: string) {
-  const { data, error } = await supabase.from('Ads').select('*').eq('id', id);
+export async function getTagsFromId(id: string) {
+  const { data, error } = await supabase.from('Tags').select('*').eq('id', id);
   if (error) {
     console.error(error);
     throw new Error('Error fetching ad');
   } else {
+    console.log(data);
     return data;
   }
 }

@@ -32,7 +32,10 @@ export default function RegisterPage() {
   const fetchTags = async () => {
     try {
       const tags = await getAllStandalonTags();
-      const items: Item[] = tags.map((tag: Tag) => ({ label: tag.name, value: tag.id }));
+      const items: Item[] = tags
+        .map((tag: Tag) => ({ label: tag.name, value: tag.id }))
+        .sort((a: { label: string }, b: { label: string }) => a.label.localeCompare(b.label));
+
       setTags(items);
     } catch (error) {
       console.log(error);
