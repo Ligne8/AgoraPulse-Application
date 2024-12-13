@@ -1,4 +1,5 @@
 import supabase from './supabase';
+import { Ads } from '@/backend/Interface/Ads';
 
 export const getUserData = async () => {
   const user: any = await supabase.from('UserApp').select('*');
@@ -222,5 +223,13 @@ export async function getAchievements() {
     throw new Error('Error fetching ads');
   } else {
     return data;
+  }
+}
+
+export async function createAd(ad: Ads) {
+  const { error } = await supabase.from('Ads').insert(ad);
+  if (error) {
+    console.error(error);
+    throw new Error('Error creating ad');
   }
 }
