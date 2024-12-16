@@ -1,4 +1,6 @@
 import { getAchievements, getAds } from '@/backend/client';
+import { getNbAdsByStoreId, getNbNotificationSendByStoreId } from '@/backend/info-firmware';
+import useBLE from '@/components/BLEScanner';
 import { useFonts } from 'expo-font';
 import { SplashScreen, useFocusEffect } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -19,7 +21,7 @@ interface Achievement {
   description: string;
 }
 
-export default function HomePage() {
+export default async function HomePage() {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
@@ -48,7 +50,16 @@ export default function HomePage() {
     }, [])
   );
 
+  const nbNotif = await getNbNotificationSendByStoreId('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
+  const nbAds = await getNbAdsByStoreId('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
+  const { SendMessageToDevice } = useBLE();
+  const messageNotif = 'CLIENTS:' + nbNotif;
+  const messageAds = 'ADS:' + nbAds;
+  SendMessageToDevice(messageNotif);
+  SendMessageToDevice(messageAds);
+
   useEffect(() => {
+    
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
