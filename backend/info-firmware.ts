@@ -2,31 +2,28 @@ import { getStoreFromBoxCode } from './scan';
 import supabase from './supabase';
 
 export async function getNbAdsByStoreId(boxCode: string): Promise<number | null> {
-    try {
-      const store = await getStoreFromBoxCode(boxCode);
-      if (!store || !store.id) {
-        console.error(`Store introuvable pour le boxCode: ${boxCode}`);
-        return null;
-      }
-  
-      const storeId = store.id;
-  
-      const { count, error } = await supabase
-        .from('Ads')
-        .select('store_id', { count: 'exact' })
-        .eq('store_id', storeId);
-  
-      if (error) {
-        console.error('Erreur lors de la récupération du nombre d\'annonces:', error);
-        return null;
-      }
-  
-      return count || 0;
-    } catch (error) {
-      console.error('Erreur dans getNbAdsByStoreId:', error);
+  try {
+    const store = await getStoreFromBoxCode(boxCode);
+    if (!store || !store.id) {
+      console.error(`Store introuvable pour le boxCode: ${boxCode}`);
       return null;
     }
+
+    const storeId = store.id;
+
+    const { count, error } = await supabase.from('Ads').select('store_id', { count: 'exact' }).eq('store_id', storeId);
+
+    if (error) {
+      console.error('Erreur lors de la récupération du nombre d\'annonces:', error);
+      return null;
+    }
+
+    return count || 0;
+  } catch (error) {
+    console.error('Erreur dans getNbAdsByStoreId:', error);
+    return null;
   }
+}
 
 export async function getNbNotificationSendByStoreId(boxCode: string) {
   const store = await getStoreFromBoxCode(boxCode);

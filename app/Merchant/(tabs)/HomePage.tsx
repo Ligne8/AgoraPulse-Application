@@ -59,7 +59,6 @@ export default async function HomePage() {
   SendMessageToDevice(messageAds);
 
   useEffect(() => {
-    
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
