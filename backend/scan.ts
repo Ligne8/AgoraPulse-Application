@@ -2,17 +2,17 @@ import { getUserId } from './client';
 import supabase from './supabase';
 import { router } from 'expo-router';
 
-interface Store {
-  description: string;
-  name: string;
-  tag_id: string;
-  web_url: string;
-  address: string;
-  city: string;
-  zip_code: string;
-  box_code: string;
-  id: string;
-}
+// interface Store {
+//   description: string;
+//   name: string;
+//   tag_id: string;
+//   web_url: string;
+//   address: string;
+//   city: string;
+//   zip_code: string;
+//   box_code: string;
+//   id: string;
+// }
 export async function getAdsByStoreId(storeId: string) {
   const { data, error } = await supabase.from('Ads').select('id, notification').eq('store_id', storeId);
   if (error) {
@@ -35,12 +35,12 @@ function generateUniqueCode(length: number = 8): string {
   return result;
 }
 
-interface UserAds {
-  client_id?: string;
-  ads_id: string;
-  code: string;
-  sended_at: Date;
-}
+// interface UserAds {
+//   client_id?: string;
+//   ads_id: string;
+//   code: string;
+//   sended_at: Date;
+// }
 
 export async function scan(boxCode: string): Promise<{ notification: string }> {
   const userId: string | undefined = await getUserId();
@@ -75,11 +75,7 @@ export async function scan(boxCode: string): Promise<{ notification: string }> {
     };
 
     // Vérifie si la publicité a déjà été envoyée à cet utilisateur
-    const res: any = await supabase
-      .from('UsersAds')
-      .select('ads_id')
-      .eq('client_id', userId)
-      .eq('ads_id', ad.id);
+    const res: any = await supabase.from('UsersAds').select('ads_id').eq('client_id', userId).eq('ads_id', ad.id);
 
     if (res.data.length > 0) {
       continue; // Passe à l'annonce suivante si elle a déjà été envoyée
