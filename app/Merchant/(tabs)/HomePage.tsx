@@ -97,6 +97,12 @@ export default function HomePage() {
             <Text style={styles.buttonText}>{showAllOffres ? 'Voir moins' : 'Voir plus'}</Text>
           </TouchableOpacity>
         </View>
+        <View
+          style={{
+            backgroundColor: 'white', // Bloc blanc
+            height: 120, // Taille ajustable
+          }}
+        />
       </ScrollView>
     </View>
   );
