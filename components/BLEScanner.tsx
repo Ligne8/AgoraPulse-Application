@@ -128,7 +128,7 @@ function useBLE() {
     DiscoverServicesAndCharacteristics,
     SendMessageToDevice,
     scanForDevices,
-    stopScan
+    stopScan,
   };
 }
 

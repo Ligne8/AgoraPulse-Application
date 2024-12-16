@@ -26,4 +26,3 @@ export async function NotificationHandler({ title, body }: { title: string; body
   await loadNotification();
   await TriggerNotification({ title, body });
 }
-

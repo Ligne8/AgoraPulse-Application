@@ -56,10 +56,10 @@ export default function ClientHome() {
 
   useFocusEffect(
     useCallback(() => {
-        startScan();
+      startScan();
       return () => {
-          console.log('Arrêt du scan BLE et réinitialisation.');
-          stopScan();
+        console.log('Arrêt du scan BLE et réinitialisation.');
+        stopScan();
       };
     }, [])
   );
