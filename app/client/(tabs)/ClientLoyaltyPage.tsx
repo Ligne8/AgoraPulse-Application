@@ -138,7 +138,7 @@ export default function ClientLoyaltyPage() {
   };
 
   return (
-    <View className="h-full flex-col w-full justify-center items-center">
+    <View className="h-full flex-col w-full justify-center items-center bg-white">
       <View className="justify-center items-center px-[30px] mb-[20px] mt-[90px]">
         <Text
           style={{ fontFamily: 'MontserratExtraBold', fontSize: 36 }}
@@ -167,6 +167,12 @@ export default function ClientLoyaltyPage() {
             }
             return null;
           })}
+        <View
+          style={{
+            backgroundColor: 'white', // Bloc blanc
+            height: 120, // Taille ajustable
+          }}
+        />
       </ScrollView>
     </View>
   );

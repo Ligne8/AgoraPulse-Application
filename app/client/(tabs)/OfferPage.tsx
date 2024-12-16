@@ -201,7 +201,7 @@ export default function OfferPage() {
   };
 
   return (
-    <View className="h-full flex-col w-full justify-center items-center">
+    <View className="h-full flex-col w-full justify-center items-center bg-white">
       <View className="justify-center items-center px-[30px] mb-[20px] ">
         <TouchableOpacity onPress={simulateScanning}>
           <Text className="text-[36px] font-montserrat-extra-bold text-[#0E3D60] mb-6">Vos offres exclusives</Text>

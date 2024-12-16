@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { MaterialIcons, FontAwesome, Entypo } from '@expo/vector-icons';
-import ReturnButton from '@/components/ReturnButton';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { UnknownInputParams, useRouter } from 'expo-router';
@@ -143,15 +142,14 @@ const SelectOfferTypePage = () => {
         <Loader text="En attente de la génération par IA..." />
       ) : (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
-          <ReturnButton />
-          <ScrollView>
+          <ScrollView className="pb-50">
             <View
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
                 paddingHorizontal: 30,
                 marginBottom: 20,
-                marginTop: 100,
+                marginTop: 60,
               }}
             >
               <Text
@@ -241,6 +239,12 @@ const SelectOfferTypePage = () => {
                 onPress={() => {}}
               />
             </View>
+            <View
+              style={{
+                backgroundColor: 'white', // Bloc blanc
+                height: 120, // Taille ajustable
+              }}
+            />
           </ScrollView>
         </View>
       )}

@@ -68,7 +68,7 @@ export default function ClientHome() {
         style={{
           paddingVertical: 15,
           paddingHorizontal: 30,
-          bottom: 20,
+          bottom: 90,
           position: 'absolute',
         }}
         textStyle={{ fontSize: 16 }}

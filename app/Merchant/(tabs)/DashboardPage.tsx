@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function DashboardPage() {
   return (
-    <View>
+    <View className="h-full w-full bg-white">
       <View className="mt-24 justify-center items-center">
         <Text className="text-center text-[36px] text-[#0E3D60] font-montserrat-extra-bold mx-4">
           Votre tableau de bord

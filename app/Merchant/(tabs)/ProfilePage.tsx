@@ -106,8 +106,8 @@ export default function ProfilePage() {
 
   return (
     <KeyboardAvoidingView className="h-full w-full" behavior="height">
-      <ScrollView>
-        <View className="h-full w-full mt-10">
+      <ScrollView className="bg-white">
+        <View className="h-full w-full mt-10 bg-white">
           <View className="flex-col justify-center align-middle mt-10 mb-5 ml-5 mr-5">
             <Text className="text-center text-4xl text-[#0E3D60] font-extrabold pb-2">Votre profil</Text>
             <Text className="text-center text-[#0E3D60]">
@@ -254,6 +254,12 @@ export default function ProfilePage() {
             <DisconnectButton></DisconnectButton>
           </View>
         </View>
+        <View
+          style={{
+            backgroundColor: 'white', // Bloc blanc
+            height: 120, // Taille ajustable
+          }}
+        />
       </ScrollView>
       <ToastComponent />
     </KeyboardAvoidingView>
