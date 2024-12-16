@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 
 export default function MerchantTabsLayout() {
   return (
@@ -29,6 +29,14 @@ export default function MerchantTabsLayout() {
           headerShown: false,
           tabBarIcon: ({ focused }) => <AntDesign name="pluscircle" size={27} color={focused ? 'blue' : 'black'} />,
           tabBarStyle: { display: 'none' },
+        }}
+      />
+      <Tabs.Screen
+        name="DashboardPage"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => <Entypo name="bar-graph" size={27} color={focused ? 'blue' : 'black'} />,
+          tabBarStyle: { display: 'flex' },
         }}
       />
       <Tabs.Screen
