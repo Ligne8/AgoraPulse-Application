@@ -9,6 +9,7 @@ import * as Notifications from 'expo-notifications';
 import useBLE from '@/components/BLEScanner';
 import { useFocusEffect } from 'expo-router';
 import { NotificationHandler } from '@/backend/notifications';
+import { scan } from '@/backend/scan';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,9 +48,11 @@ export default function ClientHome() {
     const device = await scanForDevices();
     if (device) {
       console.log('Scanné :', device.name);
+      const ads = await scan(device.id);
+      console.log('Publicité trouvée :', ads);
       await NotificationHandler({
-        title: 'Bienvenue chez Agora',
-        body: 'Découvrez les offres exclusives de nos commerces partenaires !',
+        title: 'Promotion détectée !',
+        body: ads.notification,
       });
     }
   };

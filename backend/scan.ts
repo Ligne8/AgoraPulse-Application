@@ -14,7 +14,7 @@ interface Store {
   id: string;
 }
 export async function getAdsByStoreId(storeId: string) {
-  const { data, error } = await supabase.from('Ads').select('id').eq('store_id', storeId);
+  const { data, error } = await supabase.from('Ads').select('id, notification').eq('store_id', storeId);
   if (error) {
     console.error(error);
     throw new Error('Error fetching ads');
@@ -42,25 +42,47 @@ interface UserAds {
   sended_at: Date;
 }
 
-export async function scan(boxCode: string) {
+export async function scan(boxCode: string): Promise<{ notification: string }> {
   const userId: string | undefined = await getUserId();
   if (!userId || userId == null) {
     router.push('/WelcomePage');
+    throw new Error('User not logged in');
   }
-  const store: Store = await getStoreFromBoxCode(boxCode);
+
+  // Récupération du magasin à partir du boxCode
+  const store = await getStoreFromBoxCode(boxCode);
+  if (!store) {
+    throw new Error('Store not found');
+  }
+
   const storeId: string = store.id;
+
+  // Récupérer les publicités associées au magasin
   const ads = await getAdsByStoreId(storeId);
+
+  // Vérifie si des publicités existent
+  if (!ads || ads.length === 0) {
+    throw new Error('No ads found for this store');
+  }
+
   for (const ad of ads) {
     const code = generateUniqueCode();
-    const userAds: UserAds = {
+    const userAds = {
       client_id: userId,
       ads_id: ad.id,
       code,
       sended_at: new Date(),
     };
-    const res: any = await supabase.from('UsersAds').select('ads_id').eq('client_id', userId).eq('ads_id', ad.id);
+
+    // Vérifie si la publicité a déjà été envoyée à cet utilisateur
+    const res: any = await supabase
+      .from('UsersAds')
+      .select('ads_id')
+      .eq('client_id', userId)
+      .eq('ads_id', ad.id);
+
     if (res.data.length > 0) {
-      continue;
+      continue; // Passe à l'annonce suivante si elle a déjà été envoyée
     } else {
       const userAdsInsert = await supabase.from('UsersAds').insert(userAds).select('*');
       if (userAdsInsert.error) {
@@ -68,12 +90,15 @@ export async function scan(boxCode: string) {
         throw new Error('Error saving user ads');
       }
     }
-    //console.log(data);
-    //console.log(error);
-    // TODO Enregistrer l'offre pour le client
   }
 
-  // TODO Appeler les notifications
+  // Retourne la notification de la première publicité trouvée
+  const firstAdNotification = ads[0]?.notification;
+  if (!firstAdNotification) {
+    throw new Error('Notification field not found in ads');
+  }
+
+  return { notification: firstAdNotification };
 }
 
 export async function getStoreById(storeId: string) {
