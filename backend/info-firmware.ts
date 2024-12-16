@@ -14,7 +14,7 @@ export async function getNbAdsByStoreId(boxCode: string): Promise<number | null>
     const { count, error } = await supabase.from('Ads').select('store_id', { count: 'exact' }).eq('store_id', storeId);
 
     if (error) {
-      console.error("Erreur lors de la récupération du nombre d'annonces:", error);
+      console.error('Erreur lors de la récupération du nombre d\'annonces:', error);
       return null;
     }
 
