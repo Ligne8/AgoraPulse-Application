@@ -7,6 +7,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { BluetoothModal } from '@/components/BluetoothModal';
 import useBLE from '@/components/BLEScanner';
 import { router } from 'expo-router';
+import { Device } from 'react-native-ble-plx';
+import { setUserCompleted } from '@/backend/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,16 +24,21 @@ export default function Bluetooth() {
   }
 
   const [modalOpen, setModalOpen] = useState(false);
-  const { connectToDevice, SendMessageToDevice } = useBLE();
+  const { connectToDevice, SendMessageToDevice, scanForDevices } = useBLE();
+  const [deviceName, setDeviceName] = useState<string | null>(null);
+  const [detectedDevice, setDetectedDevice] = useState<Device | null>(null);
 
-  const device = 'AgoraPulse-0001';
-  // Open the modal after 3 seconds
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setModalOpen(true);
-    }, 3000);
+    const startScan = async () => {
+      const device = await scanForDevices();
+      if (device) {
+        setDeviceName(device.name || 'Appareil inconnu');
+        setDetectedDevice(device);
+        setModalOpen(true);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    startScan();
   }, []);
 
   const ModalButton = ({
@@ -76,7 +83,7 @@ export default function Bluetooth() {
       <BluetoothModal isOpen={modalOpen}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Appareil détecté</Text>
-          <Text style={styles.modalDescription}>Souhaitez-vous associer {device} ?</Text>
+          <Text style={styles.modalDescription}>Souhaitez-vous associer {deviceName} ?</Text>
           <View style={styles.buttonContainer}>
             <ModalButton
               title="Annuler"
@@ -85,13 +92,19 @@ export default function Bluetooth() {
               textColor="#0E3D60"
             />
             <ModalButton
-              title="Confirmer"
+              title="Connecter"
               onPress={async () => {
-                const isConnected = await connectToDevice();
-                if (isConnected) {
-                  SendMessageToDevice('ON');
-                  setModalOpen(false);
-                  router.push('/Merchant/(tabs)/HomePage');
+                if (detectedDevice) {
+                  const isConnected = await connectToDevice(detectedDevice);
+                  if (isConnected) {
+                    console.log(`${deviceName} est maintenant connecté !`);
+                    SendMessageToDevice('ON');
+                    setModalOpen(false);
+                    await setUserCompleted();
+                    router.push('/Merchant/(tabs)/HomePage');
+                  } else {
+                    console.log(`Impossible de se connecter à ${deviceName}.`);
+                  }
                 }
               }}
               backgroundColor="#0E3D60"

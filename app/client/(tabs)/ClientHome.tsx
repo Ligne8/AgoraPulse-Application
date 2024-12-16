@@ -1,11 +1,14 @@
 import { useFonts } from 'expo-font';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import CustomButton from '@/components/CustomButton';
 import PulsatingIcon from '@/components/PulsatingIcon';
 import { Ionicons } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
+import useBLE from '@/components/BLEScanner';
+import { useFocusEffect } from 'expo-router';
+import { NotificationHandler } from '@/backend/notifications';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -17,6 +20,7 @@ export default function ClientHome() {
   });
 
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const { scanForDevices, stopScan } = useBLE();
 
   if (!fontsLoaded) {
     return null;
@@ -38,6 +42,27 @@ export default function ClientHome() {
     updateNotificationHandler(newState);
     console.log(`Notifications ${newState ? 'activées' : 'désactivées'}`);
   };
+
+  const startScan = async () => {
+    const device = await scanForDevices();
+    if (device) {
+      console.log('Scanné :', device.name);
+      await NotificationHandler({
+        title: 'Bienvenue chez Agora',
+        body: 'Découvrez les offres exclusives de nos commerces partenaires !',
+      });
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+        startScan();
+      return () => {
+          console.log('Arrêt du scan BLE et réinitialisation.');
+          stopScan();
+      };
+    }, [])
+  );
 
   return (
     <View style={styles.container}>

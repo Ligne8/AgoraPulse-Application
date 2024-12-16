@@ -4,8 +4,6 @@ import { Buffer } from 'buffer';
 
 import { BleManager, Device } from 'react-native-ble-plx';
 
-const DEVICE_UUID = 'CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D';
-
 global.Buffer = global.Buffer || Buffer;
 
 const bleManager = new BleManager();
@@ -15,44 +13,47 @@ function useBLE() {
   const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
   const [, setIsScanning] = useState(false);
 
-  const scanForDevices = () => {
-    setIsScanning(true);
-    console.log('Début du scan BLE...');
+  const scanForDevices = (): Promise<Device | null> => {
+    return new Promise((resolve) => {
+      setIsScanning(true);
+      console.log('Début du scan BLE...');
 
-    bleManager.startDeviceScan(null, null, (error, device) => {
-      if (error) {
-        console.error('Erreur lors du scan BLE :', error);
-        setIsScanning(false);
-        return;
-      }
-
-      if (device) {
-        if (device.name?.toLocaleLowerCase().includes('agora')) {
-          //TODO: appeler la fonction de Tom qui fait le back.
-          console.log('Périphérique Agora-Box détecté !');
-          bleManager.stopDeviceScan();
+      bleManager.startDeviceScan(null, null, (error, device) => {
+        if (error) {
+          console.error('Erreur lors du scan BLE :', error);
           setIsScanning(false);
+          resolve(null);
+          return;
         }
 
-        setAllDevices((prevDevices) => {
-          if (!prevDevices.find((d) => d.id === device.id)) {
-            return [...prevDevices, device];
+        if (device) {
+          if (device.name?.toLocaleLowerCase().includes('agora')) {
+            console.log('Périphérique Agora-Box détecté !');
+            bleManager.stopDeviceScan();
+            setIsScanning(false);
+            resolve(device);
+            return;
           }
-          return prevDevices;
-        });
-      }
-    });
 
-    setTimeout(() => {
-      bleManager.stopDeviceScan();
-      setIsScanning(false);
-      console.log('Scan BLE arrêté.');
-    }, 30000);
+          setAllDevices((prevDevices) => {
+            if (!prevDevices.find((d) => d.id === device.id)) {
+              return [...prevDevices, device];
+            }
+            return prevDevices;
+          });
+        }
+      });
+    });
   };
 
-  const connectToDevice = async () => {
+  const stopScan = () => {
+    bleManager.stopDeviceScan();
+    setIsScanning(false);
+  };
+
+  const connectToDevice = async (device: Device) => {
     try {
-      const device = await bleManager.connectToDevice(DEVICE_UUID);
+      await bleManager.connectToDevice(device.id);
       setConnectedDevice(device);
       await device.discoverAllServicesAndCharacteristics();
     } catch (error) {
@@ -127,6 +128,7 @@ function useBLE() {
     DiscoverServicesAndCharacteristics,
     SendMessageToDevice,
     scanForDevices,
+    stopScan
   };
 }
 
