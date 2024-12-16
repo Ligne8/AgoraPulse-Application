@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
-import { getStoreId, Picture, savePicture, savePictureBucket, setUserCompleted } from '@/backend/client';
+import { getStoreId, Picture, savePicture, savePictureBucket } from '@/backend/client';
 import { decode } from 'base64-arraybuffer';
 import ReturnButton from '@/components/ReturnButton';
 
@@ -87,8 +87,7 @@ export default function RegisterPage() {
         return;
       }
     }
-    await setUserCompleted();
-    router.push('/Merchant/(tabs)/HomePage');
+    router.push('/Merchant/pages/TutoPage');
   };
 
   return (
