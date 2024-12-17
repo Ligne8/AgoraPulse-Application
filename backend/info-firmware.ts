@@ -28,7 +28,14 @@ export async function getNbAdsByStoreId(boxCode: string): Promise<number | null>
 export async function getNbNotificationSendByStoreId(boxCode: string) {
   const store = await getStoreFromBoxCode(boxCode);
   const storeId = store.id;
-  return supabase.from('Store').select('id, nb_notifications').eq('store_id', storeId);
+  const { data, error } = await supabase.from('Store').select('nb_notifications').eq('id', storeId).single();
+
+  if (error) {
+    console.error('Erreur lors de la récupération de nb_notifications:', error);
+    return null;
+  }
+
+  return data.nb_notifications ?? 0;
 }
 
 export async function incrementNbNotificationSendByStoreId(boxCode: string) {

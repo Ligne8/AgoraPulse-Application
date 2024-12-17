@@ -1,14 +1,13 @@
 import { useFonts } from 'expo-font';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import PulsatingIcon from '@/components/PulsatingIcon';
 import { MaterialIcons } from '@expo/vector-icons';
 import { BluetoothModal } from '@/components/BluetoothModal';
-import useBLE from '@/components/BLEScanner';
 import { router } from 'expo-router';
-import { Device } from 'react-native-ble-plx';
 import { setUserCompleted } from '@/backend/client';
+import { connectToDevice, scanForDevices, SendMessageToDevice } from '@/service/BLE';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,16 +23,13 @@ export default function Bluetooth() {
   }
 
   const [modalOpen, setModalOpen] = useState(false);
-  const { connectToDevice, SendMessageToDevice, scanForDevices } = useBLE();
   const [deviceName, setDeviceName] = useState<string | null>(null);
-  const [detectedDevice, setDetectedDevice] = useState<Device | null>(null);
 
   useEffect(() => {
     const startScan = async () => {
       const device = await scanForDevices();
       if (device) {
         setDeviceName(device.name || 'Appareil inconnu');
-        setDetectedDevice(device);
         setModalOpen(true);
       }
     };
@@ -94,17 +90,15 @@ export default function Bluetooth() {
             <ModalButton
               title="Connecter"
               onPress={async () => {
-                if (detectedDevice) {
-                  const isConnected = await connectToDevice(detectedDevice);
-                  if (isConnected) {
-                    console.log(`${deviceName} est maintenant connecté !`);
-                    SendMessageToDevice('ON');
-                    setModalOpen(false);
-                    await setUserCompleted();
-                    router.push('/Merchant/(tabs)/HomePage');
-                  } else {
-                    console.log(`Impossible de se connecter à ${deviceName}.`);
-                  }
+                const isConnected = await connectToDevice();
+                if (isConnected) {
+                  console.log(`${deviceName} est maintenant connecté !`);
+                  SendMessageToDevice('ON');
+                  setModalOpen(false);
+                  await setUserCompleted();
+                  router.push('/Merchant/(tabs)/HomePage');
+                } else {
+                  console.log(`Impossible de se connecter à ${deviceName}.`);
                 }
               }}
               backgroundColor="#0E3D60"
