@@ -1,6 +1,6 @@
 import { getAchievements, getAds } from '@/backend/client';
 import { getNbAdsByStoreId, getNbNotificationSendByStoreId } from '@/backend/info-firmware';
-import { connectToDevice, disconnectDevice, scanForDevices, sendMessageToDevice, stopScan } from '@/service/BLE';
+import { connectToDevice, disconnectDevice, scanForDevices, sendMessageToDevice } from '@/service/BLE';
 import { useFonts } from 'expo-font';
 import { SplashScreen, useFocusEffect } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -66,29 +66,28 @@ const HomePage = () => {
 
   useFocusEffect(
     useCallback(() => {
-    const fetchData = async () => {
-      try {
-        const notif = await getNbNotificationSendByStoreId('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
-        const ads = await getNbAdsByStoreId('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
-        const messageNotif = 'A:' + notif;
-        const messageAds = 'B:' + ads;
-        const message = messageNotif + '-' + messageAds;
-        await disconnectDevice();
-        await scanForDevices();
-        await connectToDevice();
-        await sendMessageToDevice(message);
-        setTimeout(() => {
-          disconnectDevice();
-        }, 5000);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des données :', error);
-      }
-    };
-    fetchData();
-  return () => {
-  };
-}, [])
-);
+      const fetchData = async () => {
+        try {
+          const notif = await getNbNotificationSendByStoreId('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
+          const ads = await getNbAdsByStoreId('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
+          const messageNotif = 'A:' + notif;
+          const messageAds = 'B:' + ads;
+          const message = messageNotif + '-' + messageAds;
+          await disconnectDevice();
+          await scanForDevices();
+          await connectToDevice();
+          await sendMessageToDevice(message);
+          setTimeout(() => {
+            disconnectDevice();
+          }, 5000);
+        } catch (error) {
+          console.error('Erreur lors de la récupération des données :', error);
+        }
+      };
+      fetchData();
+      return () => {};
+    }, [])
+  );
 
   return (
     <View style={styles.container}>

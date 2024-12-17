@@ -76,7 +76,7 @@ export async function sendMessageToDevice(message: string) {
 
   try {
     await connectedDevice.writeCharacteristicWithoutResponseForService(serviceUUID, characteristicUUID, base64Message);
-    console.log('Message envoyé :', message); 
+    console.log('Message envoyé :', message);
   } catch (error) {
     console.error('Erreur: ', error);
   }

@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import PulsatingIcon from '@/components/PulsatingIcon';
@@ -7,7 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { BluetoothModal } from '@/components/BluetoothModal';
 import { router } from 'expo-router';
 import { setUserCompleted } from '@/backend/client';
-import { connectToDevice, scanForDevices, SendMessageToDevice } from '@/service/BLE';
+import { connectToDevice, scanForDevices, sendMessageToDevice } from '@/service/BLE';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -93,7 +93,7 @@ export default function Bluetooth() {
                 const isConnected = await connectToDevice();
                 if (isConnected) {
                   console.log(`${deviceName} est maintenant connecté !`);
-                  SendMessageToDevice('ON');
+                  sendMessageToDevice('ON');
                   setModalOpen(false);
                   await setUserCompleted();
                   router.push('/Merchant/(tabs)/HomePage');
