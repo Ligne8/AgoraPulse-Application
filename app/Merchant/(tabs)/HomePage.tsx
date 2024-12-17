@@ -1,4 +1,6 @@
 import { getAchievements, getAds } from '@/backend/client';
+import { getNbAdsByStoreId, getNbNotificationSendByStoreId } from '@/backend/info-firmware';
+import { connectToDevice, disconnectDevice, scanForDevices, sendMessageToDevice } from '@/service/BLE';
 import { useFonts } from 'expo-font';
 import { SplashScreen, useFocusEffect } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -19,7 +21,7 @@ interface Achievement {
   description: string;
 }
 
-export default function HomePage() {
+const HomePage = () => {
   const [fontsLoaded] = useFonts({
     Montserrat: require('@/assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('@/assets/fonts/Montserrat-Bold.ttf'),
@@ -32,13 +34,21 @@ export default function HomePage() {
   const [offresFidelite, setAchievements] = useState<Achievement[]>([]);
 
   const fetchAds = async () => {
-    const ads: any = await getAds();
-    setAds(ads);
+    try {
+      const ads: any = await getAds();
+      setAds(ads);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des annonces :', error);
+    }
   };
 
   const fetchAchievements = async () => {
-    const achievements: any = await getAchievements();
-    setAchievements(achievements);
+    try {
+      const achievements: any = await getAchievements();
+      setAchievements(achievements);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des réalisations :', error);
+    }
   };
 
   useFocusEffect(
@@ -53,6 +63,31 @@ export default function HomePage() {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const fetchData = async () => {
+        try {
+          const notif = await getNbNotificationSendByStoreId('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
+          const ads = await getNbAdsByStoreId('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
+          const messageNotif = 'A:' + notif;
+          const messageAds = 'B:' + ads;
+          const message = messageNotif + '-' + messageAds;
+          await disconnectDevice();
+          await scanForDevices();
+          await connectToDevice();
+          await sendMessageToDevice(message);
+          setTimeout(() => {
+            disconnectDevice();
+          }, 5000);
+        } catch (error) {
+          console.error('Erreur lors de la récupération des données :', error);
+        }
+      };
+      fetchData();
+      return () => {};
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
@@ -106,7 +141,9 @@ export default function HomePage() {
       </ScrollView>
     </View>
   );
-}
+};
+
+export default HomePage;
 
 const styles = StyleSheet.create({
   container: {

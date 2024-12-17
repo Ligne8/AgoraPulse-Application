@@ -6,10 +6,11 @@ import CustomButton from '@/components/CustomButton';
 import PulsatingIcon from '@/components/PulsatingIcon';
 import { Ionicons } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
-import useBLE from '@/components/BLEScanner';
 import { useFocusEffect } from 'expo-router';
 import { NotificationHandler } from '@/backend/notifications';
 import { scan } from '@/backend/scan';
+import { incrementNbNotificationSendByStoreId } from '@/backend/info-firmware';
+import { scanForDevices, stopScan } from '@/service/BLE';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,7 +22,6 @@ export default function ClientHome() {
   });
 
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const { scanForDevices, stopScan } = useBLE();
 
   if (!fontsLoaded) {
     return null;
@@ -47,9 +47,9 @@ export default function ClientHome() {
   const startScan = async () => {
     const device = await scanForDevices();
     if (device) {
-      console.log('Scanné :', device.name);
-      const ads = await scan(device.id);
+      const ads = await scan('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
       console.log('Publicité trouvée :', ads);
+      incrementNbNotificationSendByStoreId('CD051DF7-FEA7-FBD5-BA28-A67FD30A1F9D');
       await NotificationHandler({
         title: 'Promotion détectée !',
         body: ads.notification,
