@@ -2,20 +2,6 @@ import { Store } from '@/backend/client';
 import supabase from '@/backend/supabase';
 import { FormData } from '@/components/OfferForm';
 
-// const payload = {
-//   ad_type: 'reduction',
-//   input: {
-//     fields: {
-//       reduction_value: '20',
-//     },
-//     store_information: {
-//       store_name: 'La pizza de la MaMa',
-//       store_id: 'store12345',
-//       location: 'Paris, France',
-//     },
-//   },
-// };
-
 interface StoreInformation {
   store_name: string;
   store_id: string;
@@ -25,6 +11,7 @@ interface StoreInformation {
 interface InputData {
   fields: {
     reduction?: string;
+    product?: string;
     event_name?: string;
     date?: string;
   };
@@ -85,6 +72,7 @@ export async function constructRequest(type: string, formData: FormData, store: 
   if (type === 'reduction') {
     request.ad_type = 'reduction';
     request.input.fields.reduction = formData.reduction.toString();
+    request.input.fields.product = formData.product.toString();
   } else if (type === 'special') {
     request.ad_type = 'special';
     request.input.fields.event_name = formData.description.toString();

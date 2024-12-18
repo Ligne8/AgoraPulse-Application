@@ -2,8 +2,9 @@ import { View } from 'react-native';
 import { ModalButton } from '@/components/ModalButton';
 import React, { useEffect, useState } from 'react';
 import EntryField from '@/components/EntryField';
-import { faInfoCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faQuestionCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import DatePicker from 'react-native-date-picker';
+import { showToast, ToastComponent } from '@/components/ToastComponent';
 
 interface OfferFormProps {
   type: string;
@@ -39,7 +40,8 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
       return;
     }
     if (type === 'reduction') {
-      if (!formData.reduction || formData.reduction === '') {
+      if (!formData.reduction || formData.reduction === '' || !formData.product || formData.product === '') {
+        showToast('error', 'Erreur', 'Veuillez remplir tous les champs');
         return;
       }
     } else if (type === 'special') {
@@ -54,20 +56,34 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
     switch (type) {
       case 'reduction':
         return (
-          <EntryField
-            icon={faShoppingCart}
-            title="Montant de la réduction (%)"
-            placeholder=""
-            backgroundColor="#EEEEEE"
-            descriptionColor="#6c7a93"
-            marginBottom={10}
-            onChangeText={(text) => {
-              if (numberRegExp.test(text)) {
-                handleInputChange('reduction', text);
-              }
-            }}
-            value={formData.reduction ? formData.reduction.toString() : ''} // Keep the value controlled
-          />
+          <>
+            <EntryField
+              icon={faShoppingCart}
+              title="Montant de la réduction (%)"
+              placeholder=""
+              backgroundColor="#EEEEEE"
+              descriptionColor="#6c7a93"
+              marginBottom={10}
+              onChangeText={(text) => {
+                if (numberRegExp.test(text)) {
+                  handleInputChange('reduction', text);
+                }
+              }}
+              value={formData.reduction ? formData.reduction.toString() : ''} // Keep the value controlled
+            />
+            <EntryField
+              icon={faQuestionCircle}
+              title="Produit concerné"
+              placeholder="ex: Diavola"
+              backgroundColor="#EEEEEE"
+              descriptionColor="#6c7a93"
+              marginBottom={10}
+              onChangeText={(text) => {
+                handleInputChange('product', text);
+              }}
+              value={formData.product ? formData.product.toString() : ''} // Keep the value controlled
+            />
+          </>
         );
       case 'special':
         return (
@@ -110,12 +126,15 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
   };
 
   return (
-    <View>
-      {renderFormFields()}
-      <View className="mt-6">
-        <ModalButton title="Valider" onPress={handleFormSubmit} backgroundColor="#0E3D60" textColor="#FFFFFF" />
+    <>
+      <View>
+        {renderFormFields()}
+        <View className="mt-6">
+          <ModalButton title="Valider" onPress={handleFormSubmit} backgroundColor="#0E3D60" textColor="#FFFFFF" />
+        </View>
       </View>
-    </View>
+      <ToastComponent />
+    </>
   );
 };
 

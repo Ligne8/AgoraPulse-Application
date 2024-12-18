@@ -124,6 +124,8 @@ const SelectOfferTypePage = () => {
       return;
     }
     const payload = await constructRequest(type, formData, store);
+    console.log('Payload:');
+    console.log(payload);
     const res = await fetchAiInformation(payload);
     if (res == null) {
       console.error('Error fetching AI information');

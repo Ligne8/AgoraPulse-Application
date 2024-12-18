@@ -32,6 +32,7 @@ const toastConfig: ToastConfig = {
         top: 0,
         zIndex: 9999,
         marginTop: 20,
+        elevation: 10,
       }}
       text1Style={{
         fontSize: 16,
