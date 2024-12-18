@@ -6,8 +6,9 @@ import PulsatingIcon from '@/components/PulsatingIcon';
 import { MaterialIcons } from '@expo/vector-icons';
 import { BluetoothModal } from '@/components/BluetoothModal';
 import { router } from 'expo-router';
-import { setUserCompleted } from '@/backend/client';
-import { connectToDevice, scanForDevices, sendMessageToDevice } from '@/service/BLE';
+import { getStoreId, setUserCompleted } from '@/backend/client';
+import { connectToDevice, getDeviceId, scanForDevices, sendMessageToDevice } from '@/service/BLE';
+import supabase from '@/backend/supabase';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,6 +31,10 @@ export default function Bluetooth() {
       const device = await scanForDevices();
       if (device) {
         setDeviceName(device.name || 'Appareil inconnu');
+        await supabase
+          .from('Store')
+          .update({ box_code: getDeviceId() })
+          .eq('id', await getStoreId());
         setModalOpen(true);
       }
     };
