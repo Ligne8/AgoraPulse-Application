@@ -60,7 +60,7 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
             <EntryField
               icon={faShoppingCart}
               title="Montant de la réduction (%)"
-              placeholder=""
+              placeholder="ex: 15"
               backgroundColor="#EEEEEE"
               descriptionColor="#6c7a93"
               marginBottom={10}
