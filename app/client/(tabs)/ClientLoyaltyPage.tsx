@@ -102,7 +102,7 @@ export default function ClientLoyaltyPage() {
       image_url: 'https://img.freepik.com/photos-premium/delicieux-tacos-francais-originaux_398492-1879.jpg',
     },
     {
-      title: 'Champoing offert',
+      title: 'Shampoing offert',
       description: 'Valable sur une coupe homme',
       fidelity_points: 10,
       status: 'completed',
