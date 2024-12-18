@@ -86,8 +86,8 @@ const InProgressReward = ({ title, description, fidelity_points, threshold, imag
 export default function ClientLoyaltyPage() {
   const [loyalty, setLoyalty] = useState<Loyalty[]>([
     {
-      title: 'MON BURGER',
-      description: 'My big burger',
+      title: 'Cheeseburger',
+      description: 'Un burger classique avec du fromage',
       fidelity_points: 10,
       status: 'completed',
       threshold: 100,
@@ -95,37 +95,27 @@ export default function ClientLoyaltyPage() {
     },
     {
       title: 'Giga Tacos',
-      description: 'Un caca mou assuré',
+      description: 'Le plus gros tacos de la ville',
       fidelity_points: 58,
       status: 'recovered',
       threshold: 150,
-      image_url:
-        'https://tb-static.uber.com/prod/image-proc/processed_images/d50875d2d2165417352e129d53bdab3f/30be7d11a3ed6f6183354d1933fbb6c7.jpeg',
+      image_url: 'https://img.freepik.com/photos-premium/delicieux-tacos-francais-originaux_398492-1879.jpg',
     },
     {
-      title: 'Dégradé spas 12',
-      description: 'DEGRADE TAH LES MURS',
-      fidelity_points: 150,
-      status: 'in_progress',
-      threshold: 200,
-      image_url: 'https://static1.millenium.org/articles/9/31/86/39/@/789396-pompe-article_m-1.jpg',
-    },
-    {
-      title: 'Bedo gratuit',
-      description: 'De la bonne sa mère',
+      title: 'Champoing offert',
+      description: 'Valable sur une coupe homme',
       fidelity_points: 10,
       status: 'completed',
       threshold: 100,
-      image_url: 'https://www.cbd.fr/2941-large_default/blue-dream-fleurs-de-cbd-easy-weed.jpg',
+      image_url: 'https://img.freepik.com/photos-premium/image-salon-coiffure-generee-par-ai_644690-40253.jpg',
     },
     {
-      title: 'Dildo',
-      description: 'Gourmand',
+      title: 'Pad Thai',
+      description: 'Le meilleur pad thaï de la ville',
       fidelity_points: 289,
       status: 'in_progress',
       threshold: 999,
-      image_url:
-        'https://cdn.laredoute.com/cdn-cgi/image/width=500,height=500,fit=pad,dpr=1/products/a/3/4/a346a2d3c8b40c51d46504a78bb9c4d1.jpg',
+      image_url: 'https://img.freepik.com/vecteurs-premium/vecteur-pad-thai-fond-blanc_889056-49646.jpg',
     },
   ]);
 

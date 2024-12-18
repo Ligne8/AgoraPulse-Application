@@ -131,19 +131,7 @@ function OfferModal({
 }
 
 export default function OfferPage() {
-  const [offers, setOffers] = useState<Offer[]>([
-    {
-      title: 'Profitez de -25% sur votre prochain achat.',
-      picture_url: 'https://www.toutelasignaletique.com/23574-large_default/plaque-publicite-vache-qui-rit.jpg',
-      description:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      code: 'CODE4',
-      store_name: 'La vache qui rit',
-      store_city: 'Paris',
-      zip_code: '75001',
-      store_address: '1 rue du fromage',
-    },
-  ]);
+  const [offers, setOffers] = useState<Offer[]>([]);
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
