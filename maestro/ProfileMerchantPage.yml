@@ -1,0 +1,20 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: "Votre profil"
+- assertVisible: "Mettez à jour vos informations pour une expérience encore plus personnalisée."
+- assertVisible: "Information principales"
+- tapOn:
+    id: "entry-field-Nom du commerce"
+- inputText:
+    text: " mia"
+    id: "passwordInput"
+- tapOn:
+    id: "entry-field-Description"
+- inputText:
+    text: " gourmands"
+    id: "passwordInput"
+- scroll
+- tapOn:
+    id: "save-merchant-button"
+- tapOn:
+    id: "logoutButton"

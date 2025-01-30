@@ -1,0 +1,7 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: "Vos offres exclusives"
+- assertVisible: "Découvrez les promotions des commerces que vous avez rencontrés aujourd'hui. Profitez-en avant
+          qu'elles ne disparaissent !"
+- tapOn:
+    id: "tab-ClientLoyaltyPage"

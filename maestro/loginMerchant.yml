@@ -1,0 +1,15 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: "Connexion" # Vérifier que le titre "Connexion" est visible
+- tapOn:
+    id: "emailInput" # Active le champ email
+- inputText:
+    text: "Leo@gua.fr"
+    id: "emailInput"
+
+- tapOn:
+    id: "passwordInput" # Active le champ mot de passe
+- inputText:
+    text: "testtest"
+    id: "passwordInput"
+- tapOn: "Se connecter"

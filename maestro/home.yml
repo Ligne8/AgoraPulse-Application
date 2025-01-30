@@ -1,0 +1,5 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: 'Bonjour !'
+- tapOn: 'Se connecter'
+
