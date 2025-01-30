@@ -1,0 +1,15 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: "Des difficultés à scanner ?"
+- assertVisible: "Entrez le code manuellement"
+- tapOn:
+    id: "codeInput"
+- inputText:
+    text: "CODE ERROR"
+    id: "codeInput"
+- tapOn:
+    id: "confirmCode"
+- tapOn:
+    id: "ContinueButton"
+- tapOn:
+    id: "tab-DashboardPage"

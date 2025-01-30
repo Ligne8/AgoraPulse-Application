@@ -7,14 +7,20 @@ export const ModalButton = ({
   backgroundColor,
   textColor,
   borderColor = '#FFFFFF00',
+  testID = '',
 }: {
   title: string;
   onPress: () => void;
   backgroundColor: string;
   textColor: string;
   borderColor?: string;
+  testID?: string;
 }) => (
-  <TouchableOpacity style={[styles.modalButton, { backgroundColor }, { borderColor }]} onPress={onPress}>
+  <TouchableOpacity
+    style={[styles.modalButton, { backgroundColor }, { borderColor }]}
+    onPress={onPress}
+    testID={testID}
+  >
     <Text style={[styles.modalButtonText, { color: textColor }]}>{title}</Text>
   </TouchableOpacity>
 );

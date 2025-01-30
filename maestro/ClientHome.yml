@@ -1,0 +1,12 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: "Recherche activée"
+
+- assertVisible: "Promenez-vous dans la rue et recevez en temps réel des offres personnalisées des commerces autour de vous."
+- assertVisible: "Restez à l'affût, les bonnes affaires sont juste à côté !"
+- tapOn:
+    id: disableNotificationsButton
+- tapOn:
+    id: enableNotificationsButton
+- tapOn:
+    id: "tab-OfferPage"

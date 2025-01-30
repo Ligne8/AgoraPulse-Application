@@ -97,8 +97,9 @@ export default function ScanCodePage() {
             value={code}
             onChangeText={(e) => setCode(e)}
             placeholder="Code de l'annonce (ex: AX58C9ST)"
+            testID="codeInput"
           />
-          <TouchableOpacity onPress={onPress}>
+          <TouchableOpacity onPress={onPress} testID="confirmCode">
             <View
               style={{}}
               className="w-[40px] h-[40px] bg-red-300 justify-center items-center rounded-md bg-[#0E3D60]"

@@ -70,6 +70,7 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
                 }
               }}
               value={formData.reduction ? formData.reduction.toString() : ''} // Keep the value controlled
+              testID={'reductionNumber'}
             />
             <EntryField
               icon={faQuestionCircle}
@@ -82,6 +83,7 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
                 handleInputChange('product', text);
               }}
               value={formData.product ? formData.product.toString() : ''} // Keep the value controlled
+              testID={'productChoice'}
             />
           </>
         );
@@ -130,7 +132,13 @@ const OfferForm = ({ type, onSubmit }: OfferFormProps) => {
       <View>
         {renderFormFields()}
         <View className="mt-6">
-          <ModalButton title="Valider" onPress={handleFormSubmit} backgroundColor="#0E3D60" textColor="#FFFFFF" />
+          <ModalButton
+            title="Valider"
+            onPress={handleFormSubmit}
+            backgroundColor="#0E3D60"
+            textColor="#FFFFFF"
+            testID="validateButton"
+          />
         </View>
       </View>
       <ToastComponent />

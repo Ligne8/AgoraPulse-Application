@@ -100,6 +100,7 @@ export default function ClientHome() {
           position: 'absolute',
         }}
         textStyle={{ fontSize: 16 }}
+        testID={notificationsEnabled ? 'disableNotificationsButton' : 'enableNotificationsButton'}
       />
     </View>
   );

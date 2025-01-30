@@ -1,0 +1,18 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: "Votre espace commerçant"
+- assertVisible: "Gérez vos annonces et vos offres de fidélité pour engager votre clientèle de proximité."
+- assertVisible: "Vos annonces actives"
+- assertVisible: "Attirez les clients de passage avec vos promotions en cours."
+- tapOn:
+    id: announceShow
+- scroll
+- tapOn:
+    id: announceShow
+- tapOn:
+    id: offerShow
+- scroll
+- tapOn:
+    id: "offerShow"
+- tapOn:
+    id: "tab-ScanCodePage"

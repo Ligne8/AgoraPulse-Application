@@ -1,0 +1,41 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- tapOn:
+    id: "tab-SelectOfferTypePage"
+- assertVisible: "Créer une annonce"
+- assertVisible: "Choisissez le type d'annonce que vous souhaitez créer"
+- tapOn:
+    id: "announcement-type-Code de réduction"
+- tapOn:
+    id: "reductionNumber"
+- inputText:
+    text: "20"
+    id: "reductionNumber"
+- tapOn:
+    id: "productChoice"
+- inputText:
+    text: "Diavola"
+    id: "productChoice"
+- tapOn:
+    id: "validateButton"
+- waitForAnimationToEnd:
+    timeout: 50000
+- hideKeyboard
+- scroll
+- tapOn:
+    id: "morePoint"
+- tapOn:
+    id: "morePoint"
+- tapOn:
+    id: "morePoint"
+- tapOn:
+    id: "morePoint"
+- tapOn:
+    id: "lessPoint"
+- tapOn:
+    id: "lessPoint"
+- tapOn:
+    id: "publishButton"
+- tapOn:
+    id: announceShow
+- scroll

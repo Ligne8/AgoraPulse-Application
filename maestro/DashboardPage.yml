@@ -1,0 +1,6 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: "Votre tableau de bord"
+- assertVisible: "Suivez vos performances et optimisez vos annonces pour maximiser l'impact de votre commerce !"
+- tapOn:
+    id: "tab-ProfilePage"

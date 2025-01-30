@@ -1,0 +1,9 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: "Vos points de fidélité"
+- assertVisible: # Vérifier que la description principale est visible
+    text: "Cumulez des points à chaque utilisation de vos offres et débloquez des récompenses exclusives ! Plus vous utilisez l'application, plus vous gagnez."
+- tapOn:
+    id: "reward"
+- tapOn:
+    id: "tab-ProfilePage"

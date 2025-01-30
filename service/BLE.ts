@@ -13,7 +13,7 @@ export function scanForDevices(): Promise<Device | null> {
 
     bleManager.startDeviceScan(null, null, (error, device) => {
       if (error) {
-        console.error('Erreur lors du scan BLE :', error);
+        // console.error('Erreur lors du scan BLE :', error);
         resolve(null);
         return;
       }

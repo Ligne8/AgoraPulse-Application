@@ -1,0 +1,7 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- assertVisible: "Votre profil"
+- assertVisible: "Mettez à jour vos informations pour une expérience encore plus personnalisée."
+- scroll
+- tapOn:
+    id: "logoutButton"

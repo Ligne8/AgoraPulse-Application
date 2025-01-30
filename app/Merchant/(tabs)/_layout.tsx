@@ -73,7 +73,12 @@ function CustomTabBar({ state, descriptors, navigation }) {
         // Style spécial pour le bouton central
         if (route.name === 'SelectOfferTypePage') {
           return (
-            <TouchableOpacity key={route.name} onPress={handlePress} style={styles.centerButton}>
+            <TouchableOpacity
+              key={route.name}
+              onPress={handlePress}
+              style={styles.centerButton}
+              testID={`tab-${route.name}`}
+            >
               <View style={styles.centerIconContainer}>
                 <AntDesign name="plus" size={40} color="white" />
               </View>
@@ -82,7 +87,12 @@ function CustomTabBar({ state, descriptors, navigation }) {
         }
 
         return (
-          <TouchableOpacity key={route.name} onPress={handlePress} style={styles.tabButton}>
+          <TouchableOpacity
+            key={route.name}
+            onPress={handlePress}
+            style={styles.tabButton}
+            testID={`tab-${route.name}`}
+          >
             {options.tabBarIcon({
               focused: isFocused,
               color: isFocused ? '#0E3D60' : '#8E8E93',

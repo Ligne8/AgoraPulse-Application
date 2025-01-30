@@ -48,6 +48,7 @@ const AnnouncementType: React.FC<AnnouncementTypeProps> = ({ icon, label, bgColo
       height: 130,
     }}
     onPress={onPress}
+    testID={`announcement-type-${label}`}
   >
     {icon}
     <Text
@@ -261,6 +262,7 @@ const SelectOfferTypePage = () => {
                 onPress={() => setModalOpen(false)}
                 backgroundColor="#D9D9D9"
                 textColor="#0E3D60"
+                testID="cancelButton"
               />
             </View>
           </View>

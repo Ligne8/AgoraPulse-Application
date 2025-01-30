@@ -1,0 +1,16 @@
+appId: com.ronan.pdr.AgoraPulse
+---
+- launchApp
+- runFlow: home.yml
+- runFlow: loginClient.yml
+- runFlow: ClientHome.yml
+- runFlow: OfferPage.yml
+- runFlow: ClientLoyaltyPage.yml
+- runFlow: ProfilePage.yml
+- runFlow: loginMerchant.yml
+- runFlow: MerchantHome.yml
+- runFlow: ScanCodePage.yml
+- runFlow: DashboardPage.yml
+- runFlow: ProfileMerchantPage.yml
+- runFlow: loginMerchant.yml
+- runFlow: SelectOfferTypePage.yml

@@ -15,8 +15,8 @@ interface EntryFieldProps {
   inputHeight?: number;
   marginBottom?: number;
   value?: string;
-  // eslint-disable-next-line no-unused-vars
   onChangeText?: (text: string) => void;
+  testID?: string;
 }
 
 export default function EntryField({
@@ -32,6 +32,7 @@ export default function EntryField({
   marginBottom = 15,
   value,
   onChangeText,
+  testID,
 }: EntryFieldProps) {
   return (
     <View style={[styles.container, { backgroundColor, marginBottom }]}>
@@ -50,6 +51,7 @@ export default function EntryField({
           onChangeText={onChangeText}
           value={value}
           className="font-montserrat"
+          testID={testID}
         />
       </View>
     </View>

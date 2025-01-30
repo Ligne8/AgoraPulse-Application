@@ -49,7 +49,7 @@ const RecoveredReward = ({ title, description, image_url, onRecover }: Loyalty &
     </View>
     <TouchableOpacity onPress={onRecover} className="bg-[#2A9BE2] flex-row items-center justify-center py-3 rounded-md">
       <FontAwesome name="archive" size={18} color="white" style={{ marginRight: 10 }} />
-      <Text style={{ fontFamily: 'MontserratBold', fontSize: 16 }} className="text-white">
+      <Text style={{ fontFamily: 'MontserratBold', fontSize: 16 }} className="text-white" testID="reward">
         Récupérer la récompense
       </Text>
     </TouchableOpacity>

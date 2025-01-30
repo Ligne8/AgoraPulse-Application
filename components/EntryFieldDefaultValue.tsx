@@ -47,6 +47,7 @@ export default function EntryFieldDefaultValue({
           onChangeText={onChangeText}
           value={value}
           textAlignVertical={multiline ? 'top' : 'center'} // align text to top if multiline
+          testID={`entry-field-${title}`}
         />
       </View>
     </View>

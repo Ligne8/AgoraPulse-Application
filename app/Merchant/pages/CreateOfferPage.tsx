@@ -107,6 +107,7 @@ const CreateOfferPage = () => {
           }}
           keyboardShouldPersistTaps="handled" // Dismiss keyboard on tap
           showsVerticalScrollIndicator={false} // Optional: Hides scroll bar
+          testID="scrollviewOfferPage"
         >
           <View className="flex justify-center items-center mt-20 p-3">
             <Text className="text-center text-5xl text-[#0E3D60] font-extrabold pb-2">Finaliser votre annonce</Text>
@@ -137,7 +138,7 @@ const CreateOfferPage = () => {
               marginBottom={10}
               value={description}
               onChangeText={handleChangeDescription}
-              multiline={true}
+              multiline={false}
             />
             <EntryField
               icon={faUser}
@@ -160,7 +161,11 @@ const CreateOfferPage = () => {
               fidélité !
             </Text>
             <View className="flex-row justify-around items-center w-full m-6">
-              <TouchableOpacity onPress={handleDecrement} className="rounded border p-2 border-[#CCCCCC] bg-[#EEEEEE]">
+              <TouchableOpacity
+                testID="lessPoint"
+                onPress={handleDecrement}
+                className="rounded border p-2 border-[#CCCCCC] bg-[#EEEEEE]"
+              >
                 <FontAwesomeIcon icon={faMinus} size={20} color="#888888" />
               </TouchableOpacity>
               <TextInput
@@ -168,7 +173,11 @@ const CreateOfferPage = () => {
                 value={fidelityPoints}
                 className="text-center text-3xl text-[#0E3D60] font-extrabold pb-2"
               />
-              <TouchableOpacity onPress={handleIncrement} className="rounded border p-2 border-[#CCCCCC] bg-[#EEEEEE]">
+              <TouchableOpacity
+                testID="morePoint"
+                onPress={handleIncrement}
+                className="rounded border p-2 border-[#CCCCCC] bg-[#EEEEEE]"
+              >
                 <FontAwesomeIcon icon={faPlus} size={20} color="#888888" />
               </TouchableOpacity>
             </View>
@@ -180,6 +189,7 @@ const CreateOfferPage = () => {
                 textColor="#FFFFFF"
                 width="100%"
                 marginBottom={0}
+                testID={'publishButton'}
               />
             </View>
           </View>

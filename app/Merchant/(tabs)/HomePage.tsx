@@ -112,7 +112,11 @@ const HomePage = () => {
             </View>
           ))}
 
-          <TouchableOpacity style={styles.button} onPress={() => setShowAllAnnonces(!showAllAnnonces)}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setShowAllAnnonces(!showAllAnnonces)}
+            testID="announceShow"
+          >
             <Text style={styles.buttonText}>{showAllAnnonces ? 'Voir moins' : 'Voir plus'}</Text>
           </TouchableOpacity>
         </View>
@@ -128,7 +132,7 @@ const HomePage = () => {
             </View>
           ))}
 
-          <TouchableOpacity style={styles.button} onPress={() => setShowAllOffres(!showAllOffres)}>
+          <TouchableOpacity style={styles.button} onPress={() => setShowAllOffres(!showAllOffres)} testID="offerShow">
             <Text style={styles.buttonText}>{showAllOffres ? 'Voir moins' : 'Voir plus'}</Text>
           </TouchableOpacity>
         </View>

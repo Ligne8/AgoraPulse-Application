@@ -50,7 +50,7 @@ function DisplayCodePage() {
         </Text>
       </View>
 
-      <TouchableOpacity onPress={() => router.back()}>
+      <TouchableOpacity onPress={() => router.back()} testID="ContinueButton">
         <View className="items-center justify-center mb-20 w-[339px] h-[65px]  bg-[#0E3D60] rounded-[20px]">
           <Text className="font-bold text-[20px] text-white ">Continuer</Text>
         </View>

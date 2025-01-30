@@ -18,6 +18,7 @@ const DisconnectButton = () => {
     <TouchableOpacity
       className="flex-row rounded-xl border border-[#E74C3C] items-center py-2 px-[84] mb-5"
       onPress={handleDisconnection}
+      testID="logoutButton"
     >
       <Text className=" text-[#E74C3C] font-montserrat">Déconnexion</Text>
     </TouchableOpacity>

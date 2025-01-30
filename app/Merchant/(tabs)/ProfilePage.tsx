@@ -248,6 +248,7 @@ export default function ProfilePage() {
               textColor="#FFFFFF"
               width="100%"
               marginBottom={0}
+              testID={'save-merchant-button'}
             />
           </View>
           <View className="flex-col justify-center items-center">

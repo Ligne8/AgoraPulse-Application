@@ -69,7 +69,12 @@ function CustomTabBar({ state, descriptors, navigation }) {
         };
 
         return (
-          <TouchableOpacity key={route.name} onPress={handlePress} style={styles.tabButton}>
+          <TouchableOpacity
+            key={route.name}
+            onPress={handlePress}
+            style={styles.tabButton}
+            testID={`tab-${route.name}`}
+          >
             {options.tabBarIcon({
               focused: isFocused,
               color: isFocused ? '#0E3D60' : '#8E8E93',

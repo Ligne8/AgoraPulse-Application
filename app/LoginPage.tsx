@@ -85,6 +85,7 @@ export default function LoginPage() {
           placeholder="Entrez votre adresse email"
           backgroundColor="#f2f2f2"
           descriptionColor="#6c7a93"
+          testID="emailInput"
         />
         <EntryField
           icon={faLock}
@@ -94,6 +95,7 @@ export default function LoginPage() {
           backgroundColor="#f2f2f2"
           descriptionColor="#6c7a93"
           secureText={true}
+          testID="passwordInput"
         />
         <CustomButton
           title="Se connecter"

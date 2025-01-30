@@ -16,6 +16,7 @@ interface ButtonProps {
   marginBottom?: number;
   style?: ViewStyle;
   textStyle?: TextStyle;
+  testID?: string;
 }
 
 export default function CustomButton({
@@ -29,9 +30,10 @@ export default function CustomButton({
   iconSize,
   style,
   textStyle,
+  testID,
 }: ButtonProps) {
   return (
-    <TouchableOpacity style={[styles.button, { backgroundColor }, style]} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, { backgroundColor }, style]} onPress={onPress} testID={testID}>
       {iconName && IconComponent && (
         <IconComponent name={iconName} size={iconSize} color={iconColor} style={styles.icon} />
       )}
