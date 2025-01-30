@@ -13,5 +13,4 @@ appId: com.ronan.pdr.AgoraPulse
 - runFlow: DashboardPage.yml
 - runFlow: ProfileMerchantPage.yml
 - runFlow: loginMerchant.yml
-- runFlow: ProfileMerchantPage.yml
 - runFlow: SelectOfferTypePage.yml
